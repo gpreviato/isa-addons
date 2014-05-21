@@ -1,0 +1,220 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data noupdate="1">
+		<record id="workflow_hrwkfovertime0" model="workflow">
+			<field eval="1" name="on_create"/>
+			<field name="name">hr.wkf.overtime</field>
+			<field name="osv">hr.overtime</field>
+		</record>
+		<record id="workflow_activity_confirm0" model="workflow.activity">
+			<field name="kind">function</field>
+			<field name="name">confirm</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="hr_overtime.wkf_overtime"/>
+			<field eval="0" name="flow_stop"/>
+			<field name="split_mode">OR</field>
+			<field name="action">overtime_confirm()</field>
+			<field eval="0" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_0" model="workflow.transition">
+			<field name="signal">validate</field>
+			<field name="act_from" ref="hr_overtime.act_confirm"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_1" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_confirm"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_activity_draft0" model="workflow.activity">
+			<field name="kind">dummy</field>
+			<field name="name">draft</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="hr_overtime.wkf_overtime"/>
+			<field eval="0" name="flow_stop"/>
+			<field name="split_mode">XOR</field>
+			<field eval="1" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_2" model="workflow.transition">
+			<field name="signal">confirm</field>
+			<field name="act_from" ref="hr_overtime.act_draft"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_activity_refuse0" model="workflow.activity">
+			<field name="kind">stopall</field>
+			<field name="name">refuse</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="hr_overtime.wkf_overtime"/>
+			<field eval="1" name="flow_stop"/>
+			<field name="split_mode">XOR</field>
+			<field name="action">overtime_refuse()</field>
+			<field eval="0" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_3" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_confirm"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_4" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_validate"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_5" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_validate1"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_activity_secondvalidate0" model="workflow.activity">
+			<field name="kind">function</field>
+			<field name="name">second_validate</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="hr_overtime.wkf_overtime"/>
+			<field eval="0" name="flow_stop"/>
+			<field name="split_mode">XOR</field>
+			<field name="action">overtime_validate2()</field>
+			<field eval="0" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_6" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_validate1"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_7" model="workflow.transition">
+			<field name="signal">second_validate</field>
+			<field name="act_from" ref="hr_overtime.act_validate"/>
+			<field name="act_to" ref="hr_overtime.act_validate1"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_8" model="workflow.transition">
+			<field name="act_from" ref="hr_overtime.act_validate"/>
+			<field name="act_to" ref="hr_overtime.act_validate1"/>
+			<field name="condition">not overtime_type_id.double_validation</field>
+		</record>
+		<record id="workflow_activity_validate0" model="workflow.activity">
+			<field name="kind">function</field>
+			<field name="name">validate</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="hr_overtime.wkf_overtime"/>
+			<field eval="0" name="flow_stop"/>
+			<field name="split_mode">XOR</field>
+			<field name="action">overtime_validate()</field>
+			<field eval="0" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_9" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_validate"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_10" model="workflow.transition">
+			<field name="signal">second_validate</field>
+			<field name="act_from" ref="hr_overtime.act_validate"/>
+			<field name="act_to" ref="hr_overtime.act_validate1"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_11" model="workflow.transition">
+			<field name="act_from" ref="hr_overtime.act_validate"/>
+			<field name="act_to" ref="hr_overtime.act_validate1"/>
+			<field name="condition">not overtime_type_id.double_validation</field>
+		</record>
+		<record id="workflow_transition_12" model="workflow.transition">
+			<field name="signal">confirm</field>
+			<field name="act_from" ref="hr_overtime.act_draft"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_13" model="workflow.transition">
+			<field name="signal">validate</field>
+			<field name="act_from" ref="hr_overtime.act_confirm"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+	</data>
+	<data noupdate="1">
+		<record id="workflow_activity_confirm1" model="workflow.activity">
+			<field name="kind">function</field>
+			<field name="name">confirm</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="workflow_hrwkfovertime0"/>
+			<field eval="0" name="flow_stop"/>
+			<field name="split_mode">OR</field>
+			<field name="action">overtime_confirm()</field>
+			<field eval="0" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_14" model="workflow.transition">
+			<field name="signal">validate</field>
+			<field name="act_from" ref="hr_overtime.act_confirm"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+		<record id="workflow_transition_15" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="hr_overtime.act_confirm"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+	</data>
+	<data>
+		<record id="workflow_activity_draft1" model="workflow.activity">
+			<field name="kind">dummy</field>
+			<field name="name">draft</field>
+			<field name="join_mode">XOR</field>
+			<field name="wkf_id" ref="workflow_hrwkfovertime0"/>
+			<field eval="0" name="flow_stop"/>
+			<field name="split_mode">XOR</field>
+			<field eval="1" name="flow_start"/>
+		</record>
+		<record id="workflow_transition_16" model="workflow.transition">
+			<field name="signal">confirm</field>
+			<field name="act_from" ref="hr_overtime.act_draft"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="condition">True</field>
+		</record>
+	</data>
+	<data>
+		<record id="workflow_transition_17" model="workflow.transition">
+			<field name="signal">confirm</field>
+			<field name="act_from" ref="workflow_activity_draft1"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="condition">True</field>
+		</record>
+	</data>
+	<data noupdate="1">
+		<record id="workflow_transition_18" model="workflow.transition">
+			<field name="signal">validate</field>
+			<field name="act_from" ref="workflow_activity_confirm1"/>
+			<field name="act_to" ref="hr_overtime.act_validate"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+	</data>
+	<data noupdate="1">
+		<record id="workflow_transition_19" model="workflow.transition">
+			<field name="signal">refuse</field>
+			<field name="act_from" ref="workflow_activity_confirm1"/>
+			<field name="act_to" ref="hr_overtime.act_refuse"/>
+			<field name="group_id" ref="base.group_hr_manager"/>
+			<field name="condition">True</field>
+		</record>
+	</data>
+</openerp>

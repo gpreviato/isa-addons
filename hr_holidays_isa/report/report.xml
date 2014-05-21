@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+<data noupdate="0">
+    
+    <record id="aeroo_report_holidays_odt_id" model="ir.actions.report.xml">
+        <field name="name">Employees Holidays odt</field>
+        <field name="type">ir.actions.report.xml</field>
+        <field name="model">hr.employee</field>
+        <field name="report_name">holidays_odt</field>
+        <field name="report_type">aeroo</field>
+        <field name="in_format">oo-odt</field>
+        <field name='out_format' eval="ref('report_aeroo_ooo.report_mimetypes_pdf_odt')"/>
+        <field name="parser_loc">hr_holidays_isa/report/parser_holidays.py</field>
+        <field name="report_rml">hr_holidays_isa/report/template_holidays.odt</field>
+        <field name="parser_state">loc</field>
+        <field name="tml_source">file</field>
+    </record>
+
+</data>
+</openerp>
+

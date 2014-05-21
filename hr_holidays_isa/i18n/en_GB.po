@@ -1,0 +1,252 @@
+# English (United Kingdom) translation for isa-openerp-addons
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the isa-openerp-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: isa-openerp-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2011-09-16 08:57+0000\n"
+"PO-Revision-Date: 2011-09-23 12:48+0000\n"
+"Last-Translator: Loris Turchetti <Unknown>\n"
+"Language-Team: English (United Kingdom) <en_GB@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-19 05:11+0000\n"
+"X-Generator: Launchpad (build 14692)\n"
+
+#. module: hr_holidays_isa
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:52
+#, python-format
+msgid ""
+"The number of hours entered manually (%s) are different from those expected "
+"(%s)"
+msgstr ""
+
+#. module: hr_holidays_isa
+#: view:hr.holidays.status:0
+#: field:hr.holidays.status,allow_closed_days:0
+msgid "Includes closed days"
+msgstr "Includes closed days"
+
+#. module: hr_holidays_isa
+#: model:ir.module.module,description:hr_holidays_isa.module_meta_information
+msgid ""
+"\n"
+"    This module aims to manage employee's holidays.\n"
+"    "
+msgstr ""
+"\n"
+"    This module aims to manage employee's holidays.\n"
+"    "
+
+#. module: hr_holidays_isa
+#: model:ir.actions.report.xml,name:hr_holidays_isa.aeroo_report_holidays_odt_id
+msgid "Employees Holidays odt"
+msgstr "Employees Holidays odt"
+
+#. module: hr_holidays_isa
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:52
+#, python-format
+msgid "Attention !"
+msgstr ""
+
+#. module: hr_holidays_isa
+#: view:hr.holidays.report_odt.month:0
+msgid "Print"
+msgstr "Print"
+
+#. module: hr_holidays_isa
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:37
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:69
+#, python-format
+msgid "The employee does not have a contract"
+msgstr ""
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "March"
+msgstr "March"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "August"
+msgstr "August"
+
+#. module: hr_holidays_isa
+#: view:hr.holidays:0
+msgid "Remaining Hours"
+msgstr "Remaining Hours"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "May"
+msgstr "May"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "June"
+msgstr "June"
+
+#. module: hr_holidays_isa
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:63
+#, python-format
+msgid "The \"Type of holiday\" is required"
+msgstr ""
+
+#. module: hr_holidays_isa
+#: help:hr.holidays.status,allow_closed_days:0
+msgid "If checked, the closed days are included in the leave type"
+msgstr "If checked, the closed days are included in the leave type"
+
+#. module: hr_holidays_isa
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:37
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:42
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:63
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:69
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:74
+#, python-format
+msgid "Invalid action !"
+msgstr ""
+
+#. module: hr_holidays_isa
+#: sql_constraint:hr.holidays:0
+msgid "The start date must be before the end date !"
+msgstr "The start date must be before the end date !"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "November"
+msgstr "November"
+
+#. module: hr_holidays_isa
+#: model:ir.module.module,shortdesc:hr_holidays_isa.module_meta_information
+msgid "Personalizzazioni HR ISA"
+msgstr "Personalizzazioni HR ISA"
+
+#. module: hr_holidays_isa
+#: sql_constraint:hr.holidays:0
+msgid "You have to select an employee or a category"
+msgstr "You have to select an employee or a category"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "February"
+msgstr "February"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "October"
+msgstr "October"
+
+#. module: hr_holidays_isa
+#: sql_constraint:hr.holidays:0
+msgid "The number of days must be greater than 0 !"
+msgstr "The number of days must be greater than 0 !"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "January"
+msgstr "January"
+
+#. module: hr_holidays_isa
+#: model:ir.model,name:hr_holidays_isa.model_hr_holidays
+msgid "Leave"
+msgstr "Leave"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "April"
+msgstr "April"
+
+#. module: hr_holidays_isa
+#: view:hr.holidays.status:0
+#: field:hr.holidays.status,allow_festivities:0
+msgid "Includes days of festivities"
+msgstr "Includes days of festivities"
+
+#. module: hr_holidays_isa
+#: model:ir.model,name:hr_holidays_isa.model_hr_employee_report_summary_self_odt_month
+#: model:ir.model,name:hr_holidays_isa.model_hr_holidays_report_odt_month
+msgid "Print Monthly Holidays Report"
+msgstr "Print Monthly Holidays Report"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "July"
+msgstr "July"
+
+#. module: hr_holidays_isa
+#: model:ir.actions.act_window,name:hr_holidays_isa.action_hr_holidays_report_odt_month
+msgid "Employee Holidays Monthly odt"
+msgstr "Employee Holidays Monthly odt"
+
+#. module: hr_holidays_isa
+#: view:hr.holidays.report_odt.month:0
+msgid "Print Holidays Report Monthly"
+msgstr "Print Holidays Report Monthly"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "September"
+msgstr "September"
+
+#. module: hr_holidays_isa
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+#: selection:hr.holidays.report_odt.month,month:0
+msgid "December"
+msgstr "December"
+
+#. module: hr_holidays_isa
+#: model:ir.model,name:hr_holidays_isa.model_hr_holidays_status
+msgid "Leave Type"
+msgstr "Leave Type"
+
+#. module: hr_holidays_isa
+#: field:hr.employee.report.summary_self_odt.month,month:0
+#: field:hr.holidays.report_odt.month,month:0
+msgid "Month"
+msgstr "Month"
+
+#. module: hr_holidays_isa
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:42
+#: code:addons/hr_holidays_isa/hr_holidays_isa.py:74
+#, python-format
+msgid "The employee does not have a working hours"
+msgstr ""
+
+#. module: hr_holidays_isa
+#: field:hr.employee.report.summary_self_odt.month,year:0
+#: field:hr.holidays.report_odt.month,year:0
+msgid "Year"
+msgstr "Year"
+
+#. module: hr_holidays_isa
+#: view:hr.holidays.report_odt.month:0
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: hr_holidays_isa
+#: help:hr.holidays.status,allow_festivities:0
+msgid "If checked, the days of festivities are included in the leave type"
+msgstr "If checked, the days of festivities are included in the leave type"
+
+#. modules: hr_holidays, hr_holidays_isa
+#: view:hr.holidays:0
+#: field:hr.holidays,number_of_days:0
+#: field:hr.holidays,number_of_days_temp:0
+msgid "N. Working Hours"
+msgstr ""

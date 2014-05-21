@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_new_holiday_isa" model="ir.ui.view">
+            <field name="name">hr.holidays.new.isa</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+               <field name="number_of_days_temp" position="replace">
+               		<field name="number_of_days_temp" string="N. Working Hours" sum='Remaining Hours' readonly="1"/>
+               </field>
+               <field name="date_to" position="replace">
+                   <field name="date_to" on_change="onchange_date_from(date_to, date_from,holiday_status_id,employee_id)" required="1"/>
+               </field>
+               <field name="date_from" position="replace">
+                   <field name="date_from" on_change="onchange_date_from(date_to, date_from,holiday_status_id,employee_id)" required="1"/>
+               </field>
+               <field name="holiday_status_id" position="replace">
+                   <field name="holiday_status_id" on_change="onchange_hol_status(holiday_status_id,date_to, date_from,employee_id)" context="{'employee_id':employee_id}" />
+               </field>
+               <field name="employee_id" position="replace">
+                   <field name="employee_id" on_change="onchange_empl(date_to, date_from,holiday_status_id,employee_id)" />
+               </field>
+            </field>
+        </record>
+        
+        <record id="view_holiday_isa" model="ir.ui.view">
+            <field name="name">hr.holidays.tree.isa</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday"/>
+            <field name="arch" type="xml">
+               <field name="number_of_days" position="replace">
+               		<field name="number_of_days" string="N. Working Hours" sum='Remaining Hours'/>
+               </field>
+            </field>
+        </record>
+        
+        <record id="view_holiday_allocation_tree_isa" model="ir.ui.view">
+            <field name="name">hr.holidays.allocation.tree.isa</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_allocation_tree"/>
+            <field name="arch" type="xml">
+               <field name="number_of_days" position="replace">
+               		<field name="number_of_days" string="N. Working Hours" sum='Remaining Hours'/>
+               </field>
+            </field>
+        </record>
+        
+        <record id="view_holiday_simple_isa" model="ir.ui.view">
+            <field name="name">hr.holidays.report_tree.isa</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_simple"/>
+            <field name="arch" type="xml">
+               <field name="number_of_days" position="replace">
+               		<field name="number_of_days" string="Number of Hours" sum='Remaining Hours'/>
+               </field>
+            </field>
+        </record>
+         
+        <!-- holidays status -->
+         <record model="ir.ui.view" id="edit_holiday_status_form_isa">
+            <field name="name">hr_holidays_isa_status.form</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <field name="limit" position="after">
+                    <field name="allow_festivities" string="Includes days of festivities" />
+                    <field name="allow_closed_days" string="Includes closed days" />
+               </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_holiday_status_tree_isa">
+            <field name="name">hr_holidays_isa_status.tree</field>
+            <field name="model">hr.holidays.status</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday_status_tree"/>
+            <field name="arch" type="xml">
+                <field name="remaining_leaves" position="after">
+                    <field name="allow_festivities" string="Includes days of festivities" />
+                    <field name="allow_closed_days" string="Includes closed days" />
+               </field>
+            </field>
+        </record>
+        
+        <!-- Working Time -->
+        
+        <record id="view_resource_calendar_holidays_search" model="ir.ui.view">
+            <field name="name">resource.calendar.search</field>
+            <field name="model">resource.calendar</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Search Working Time">
+                   <group col='15' colspan='4'>
+                       <field name="name" string="Name"/>
+                       <field name="manager"/>
+                       <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="resource_calendar_holidays_form" model="ir.ui.view">
+            <field name="name">resource.calendar.form</field>
+            <field name="model">resource.calendar</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Working Time">
+                    <field name="name"/>
+                    <field name="manager"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <separator string="" colspan="4"/>
+                    <field name="attendance_ids" colspan="4" nolabel="1"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_resource_calendar_holidays_tree" model="ir.ui.view">
+            <field name="name">resource.calendar.tree</field>
+            <field name="model">resource.calendar</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Working Time">
+                    <field name="name"/>
+                    <field name="manager" select="1"/>
+                    <field name="company_id" select="1" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_resource_calendar_holidays_form" model="ir.actions.act_window">
+            <field name="name">Working Time</field>
+            <field name="res_model">resource.calendar</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_resource_calendar_holidays_search"/>
+        </record>
+        
+        <menuitem action="action_resource_calendar_holidays_form" id="menu_view_resource_calendar_holidays_form" parent="hr_contract.next_id_56" sequence="1"/>
+                            
+    </data>
+</openerp>
