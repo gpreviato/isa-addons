@@ -1,0 +1,273 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#    
+#    Copyright (C) 2011-2013 Associazione OpenERP Italia
+#    (<http://www.openerp-italia.org>). 
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published
+#    by the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+import os
+from openerp.report import report_sxw
+from openerp.tools.translate import _
+import logging
+from datetime import datetime
+from openerp.addons.account_financial_report_webkit.report.common_partner_reports import CommonPartnersReportHeaderWebkit
+from openerp.addons.account_financial_report_webkit.report.webkit_parser_header_fix import HeaderFooterTextWebKitParser
+
+_logger = logging.getLogger(__name__)
+
+class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
+
+    def _tax_amounts_by_code(self, move):
+        res={}
+        for move_line in move.line_id:
+            if move_line.tax_code_id and move_line.tax_amount:
+                if not res.get(move_line.tax_code_id.id):
+                    res[move_line.tax_code_id.id] = 0.0
+                    self.localcontext['used_tax_codes'][move_line.tax_code_id.id] = True
+                res[move_line.tax_code_id.id] += (move_line.tax_amount
+                    * self.localcontext['data']['tax_sign'])
+        return res
+
+    def _get_tax_lines(self, move):
+        res=[]
+        tax_code_obj=self.pool.get('account.tax.code')
+        # index è usato per non ripetere la stampa dei dati fattura quando ci sono più codici IVA
+        index=0
+        invoice = None
+        for move_line in move.line_id:
+            if move_line.invoice:
+                if invoice and invoice.id != move_line.invoice.id:
+                    raise Exception(_("Move %s contains different invoices") % move.name)
+                invoice = move_line.invoice
+                invoice_type = ''
+                if invoice:
+                    if invoice.type in ['in_invoice', 'out_invoice']:
+                        invoice_type = 'Fattura'
+                    elif invoice.type in ['in_refund', 'out_refund']:
+                        invoice_type = 'N. Credito'
+
+        amounts_by_code = self._tax_amounts_by_code(move)
+        for tax_code_id in amounts_by_code:
+            tax_code = tax_code_obj.browse(self.cr, self.uid, tax_code_id)
+            tax_item = {
+                'tax_code_name': tax_code.name,
+                'tax_code': tax_code.code,
+                'amount': amounts_by_code[tax_code_id],
+                'index': index,
+                'invoice_date': (invoice and invoice.date_invoice or move.date or ''),
+                'invoice_type': (invoice_type),
+                'supplier_invoice_number': (invoice and invoice.supplier_invoice_number or '')
+                }
+            res.append(tax_item)
+            index += 1
+        return res
+
+    def _get_invoice_total(self, move):
+        total = 0.0
+        receivable_payable_found = False
+        for move_line in move.line_id:
+            if move_line.account_id.type == 'receivable':
+                total += move_line.debit or ( - move_line.credit)
+                receivable_payable_found = True
+            elif move_line.account_id.type == 'payable':
+                total += ( - move_line.debit) or move_line.credit
+                receivable_payable_found = True
+        if receivable_payable_found:
+            return abs(total)
+        else:
+            return abs(move.amount)
+    
+    def build_parent_tax_codes(self, tax_code):
+        res={}
+        if tax_code.parent_id and tax_code.parent_id.parent_id:
+            res[tax_code.parent_id.id]=True
+            res.update(self.build_parent_tax_codes(tax_code.parent_id))
+        return res
+    
+    def _compute_totals(self, tax_code_ids):
+        res=[]
+        res_dict={}
+        tax_code_obj = self.pool.get('account.tax.code')
+        for period_id in self.localcontext['data']['period_ids']:
+            for tax_code in tax_code_obj.browse(self.cr, self.uid,
+                tax_code_ids, context={
+                'period_id': period_id,
+                }):
+                if not res_dict.get(tax_code.id):
+                    res_dict[tax_code.id] = 0.0
+                res_dict[tax_code.id] += (tax_code.sum_period
+                    * self.localcontext['data']['tax_sign'])
+        for tax_code_id in res_dict:
+            tax_code = tax_code_obj.browse(self.cr, self.uid, tax_code_id)
+            if res_dict[tax_code_id]:
+                res.append((tax_code.name,res_dict[tax_code_id],tax_code.code))
+        return res
+    
+    def _get_tax_codes(self):
+        return self._compute_totals(self.localcontext['used_tax_codes'].keys())
+        
+    def _get_tax_codes_totals(self):
+        parent_codes = {}
+        tax_code_obj = self.pool.get('account.tax.code')
+        for tax_code in tax_code_obj.browse(self.cr, self.uid,
+            self.localcontext['used_tax_codes'].keys()):
+            parent_codes.update(self.build_parent_tax_codes(tax_code))
+        return self._compute_totals(parent_codes.keys())
+    
+    def _all_compute_totals(self, tax_code_ids):
+        res=[]
+        res_dict={}
+
+        tax_code_obj = self.pool.get('account.tax.code')
+        fiscalyear_obj = self.pool.get('account.fiscalyear')
+        fiscalyear_ids = fiscalyear_obj.search(self.cr, self.uid,
+                                   [('name', 'like', self.localcontext['fiscal_year'])],
+                                   limit=1)
+        for fiscalyear_data in fiscalyear_obj.browse(self.cr, self.uid,
+                                            fiscalyear_ids):
+
+            for period_id in fiscalyear_data.period_ids:
+                for tax_code in tax_code_obj.browse(self.cr, self.uid,
+                    tax_code_ids, context={
+                    'period_id': period_id.id,
+                    }):
+                    if not res_dict.get(tax_code.id):
+                        res_dict[tax_code.id] = 0.0
+                    res_dict[tax_code.id] += (tax_code.sum_period
+                        * self.localcontext['data']['tax_sign'])
+            for tax_code_id in res_dict:
+                tax_code = tax_code_obj.browse(self.cr, self.uid, tax_code_id)
+                if res_dict[tax_code_id]:
+                    res.append((tax_code.name,res_dict[tax_code_id],tax_code.code))
+        return res
+
+    def _get_all_tax_codes(self):
+        t_tax_code_keys = self.localcontext['used_tax_codes'].keys()
+        return self._all_compute_totals(t_tax_code_keys)
+
+    def _get_all_tax_codes_totals(self):
+        parent_codes = {}
+        tax_code_obj = self.pool.get('account.tax.code')
+        for tax_code in tax_code_obj.browse(self.cr, self.uid,
+            self.localcontext['used_tax_codes'].keys()):
+            parent_codes.update(self.build_parent_tax_codes(tax_code))
+        return self._all_compute_totals(parent_codes.keys())
+
+    def _get_all_start_date(self):
+        start_date = None
+
+        fiscalyear_obj = self.pool.get('account.fiscalyear')
+        fiscalyear_ids = fiscalyear_obj.search(self.cr, self.uid,
+                                   [('name', 'like', self.localcontext['fiscal_year'])],
+                                   limit=1)
+        for fiscalyear_data in fiscalyear_obj.browse(self.cr, self.uid,
+                                            fiscalyear_ids):
+
+            for period in fiscalyear_data.period_ids:
+                period_start = datetime.strptime(period.date_start, '%Y-%m-%d')
+                if not start_date or start_date > period_start:
+                    start_date = period_start
+        return start_date.strftime('%Y-%m-%d')
+
+    def _get_start_date(self):
+        period_obj = self.pool.get('account.period')
+        start_date = None
+        for period in period_obj.browse(self.cr,self.uid,
+            self.localcontext['data']['period_ids']):
+            period_start = datetime.strptime(period.date_start, '%Y-%m-%d')
+            if not start_date or start_date > period_start:
+                start_date = period_start
+        return start_date.strftime('%Y-%m-%d')
+
+    def _get_end_date(self):
+        period_obj = self.pool.get('account.period')
+        end_date = None
+        for period in period_obj.browse(self.cr,self.uid,
+            self.localcontext['data']['period_ids']):
+            period_end = datetime.strptime(period.date_stop, '%Y-%m-%d')
+            if not end_date or end_date < period_end:
+                end_date = period_end
+        return end_date.strftime('%Y-%m-%d')
+
+    def _get_moves(self):
+        move_obj = self.pool.get('account.move')
+        move_ids = move_obj.search(self.cr, self.uid,
+                                   [('journal_id.iva_registry_id', '=', self.localcontext['data']['iva_registry_id'])],
+                                   order='protocol_number')
+        return move_obj.browse(self.cr, self.uid, move_ids)
+
+    def __init__(self, cr, uid, name, context):
+        super(Parser, self).__init__(cr, uid, name, context)
+        self.company = self.pool.get('res.users').browse(self.cr, uid, uid, context=context).company_id
+        self.localcontext.update({
+            'tax_lines': self._get_tax_lines,
+            'tax_codes': self._get_tax_codes,
+            'tax_codes_totals': self._get_tax_codes_totals,
+            'all_tax_codes': self._get_all_tax_codes,
+            'all_tax_codes_totals': self._get_all_tax_codes_totals,
+            'all_start_date': self._get_all_start_date,
+            'used_tax_codes': {},
+            'start_date': self._get_start_date,
+            'end_date': self._get_end_date,
+            'invoice_total': self._get_invoice_total,
+            'display_target_move': self._get_display_target_move,
+            'report_name': _('Registro IVA'),
+            'get_moves': self._get_moves,
+        })
+
+    def set_context(self, objects, data, ids, report_type=None):
+
+        header_report_name = ' - '.join((_('Registro I.V.A.'), self.company.name, self.company.currency_id.name))
+
+        footer_date_time = self.formatLang(str(datetime.today()), date_time=True)
+
+        t_year = ''
+        if objects:
+            t_year = objects[0].period_id and objects[0].period_id.fiscalyear_id and objects[0].period_id.fiscalyear_id.name or ''
+
+        self.localcontext.update({
+            'fiscal_page_base': data.get('fiscal_page_base'),
+            'fiscal_year': t_year,
+            'additional_args': [
+                ('--header-font-name', 'Helvetica'),
+                ('--footer-font-name', 'Helvetica'),
+                ('--header-font-size', '10'),
+                ('--footer-font-size', '6'),
+                ('--header-left', header_report_name),
+                ('--header-spacing', '2'),
+                ('--footer-left', footer_date_time),
+                ('--footer-right', ' '.join((_('Pagina'), t_year, _('/'), '[page]'))),
+                ('--footer-line',),
+            ],
+        })
+        return super(Parser, self).set_context(objects, data, ids, report_type=report_type)
+
+HeaderFooterTextWebKitParser('report.vat_registry_sale_webkit',
+                             'account.move',
+                             os.path.dirname(os.path.realpath(__file__)) + 
+                                               '/vat_registry_sale.mako',
+                             parser=Parser)
+HeaderFooterTextWebKitParser('report.vat_registry_purchase_webkit',
+                             'account.move',
+                             os.path.dirname(os.path.realpath(__file__)) + 
+                                               '/vat_registry_purchase.mako',
+                             parser=Parser)
+HeaderFooterTextWebKitParser('report.vat_registry_corrispettivi_webkit',
+                             'account.move',
+                             os.path.dirname(os.path.realpath(__file__)) + 
+                                               '/vat_registry_corrispettivi.mako',
+                             parser=Parser)
