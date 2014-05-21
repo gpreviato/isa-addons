@@ -1,0 +1,169 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_employee_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-09-16 08:58+0000\n"
+"PO-Revision-Date: 2011-09-23 10:54+0000\n"
+"Last-Translator: Loris Turchetti <Unknown>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-19 05:11+0000\n"
+"X-Generator: Launchpad (build 14692)\n"
+
+#. module: res_company_ext_isa
+#: constraint:res.company:0
+msgid "Error! You can not create recursive companies."
+msgstr "Error! You can not create recursive companies."
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Thursday"
+msgstr "Thursday"
+
+#. module: res_company_ext_isa
+#: field:res.company.closed.day,day:0
+msgid "Day of the week"
+msgstr "Day of the week"
+
+#. module: res_company_ext_isa
+#: model:ir.module.module,description:res_company_ext_isa.module_meta_information
+msgid ""
+"\n"
+"    Adds the management of closed days and festivities by adding a tab "
+"called Closing and festivities\n"
+"       "
+msgstr ""
+"\n"
+"    Adds the management of closed days and festivities by adding a tab "
+"called Closing and festivities\n"
+"       "
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Monday"
+msgstr "Monday"
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Friday"
+msgstr "Friday"
+
+#. module: res_company_ext_isa
+#: field:res.company.closed.day,hours:0
+msgid "Number of hours"
+msgstr "Number of hours"
+
+#. module: res_company_ext_isa
+#: model:ir.model,name:res_company_ext_isa.model_res_company_closed_day
+#: view:res.company:0
+#: field:res.company,closed_days:0
+msgid "Closed days"
+msgstr "Closed days"
+
+#. module: res_company_ext_isa
+#: view:res.company:0
+msgid "Business closure"
+msgstr "Business closure"
+
+#. module: res_company_ext_isa
+#: model:ir.module.module,shortdesc:res_company_ext_isa.module_meta_information
+msgid "Adds management of the closed days and festivities"
+msgstr "Adds management of the closed days and festivities"
+
+#. module: res_company_ext_isa
+#: field:res.company.festivity,day:0
+msgid "Day"
+msgstr "Day"
+
+#. module: res_company_ext_isa
+#: field:res.company.closed.day,company_id:0
+#: field:res.company.festivity,company_id:0
+msgid "Company Reference"
+msgstr "Company Reference"
+
+#. module: res_company_ext_isa
+#: view:res.company:0
+msgid "Select day and hours"
+msgstr "Select day and hours"
+
+#. module: res_company_ext_isa
+#: model:ir.model,name:res_company_ext_isa.model_res_company_festivity
+msgid "Day of festivity"
+msgstr "Day of festivity"
+
+#. module: res_company_ext_isa
+#: field:res.company.festivity,name:0
+msgid "Name"
+msgstr "Name"
+
+#. module: res_company_ext_isa
+#: model:ir.model,name:res_company_ext_isa.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Wednesday"
+msgstr "Wednesday"
+
+#. module: res_company_ext_isa
+#: view:res.company:0
+msgid "Enter the details of the festivity"
+msgstr "Enter the details of the festivity"
+
+#. module: res_company_ext_isa
+#: view:res.company:0
+#: field:res.company,festivities:0
+msgid "Festivities"
+msgstr "Festivities"
+
+#. module: res_company_ext_isa
+#: view:res.company:0
+msgid "Comment"
+msgstr "Comment"
+
+#. module: res_company_ext_isa
+#: view:res.company:0
+msgid "Closing and festivities"
+msgstr "Closing and festivities"
+
+#. module: res_company_ext_isa
+#: help:res.company,closed_days:0
+msgid "Identify the days of the week when the company closes"
+msgstr "Identify the days of the week when the company closes"
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Sunday"
+msgstr "Sunday"
+
+#. module: res_company_ext_isa
+#: field:res.company.festivity,month:0
+msgid "Month"
+msgstr "Month"
+
+#. module: res_company_ext_isa
+#: field:res.company.festivity,year:0
+msgid "Year"
+msgstr "Year"
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Tuesday"
+msgstr "Tuesday"
+
+#. module: res_company_ext_isa
+#: help:res.company,festivities:0
+msgid "Indicate the days of the festivities"
+msgstr "Indicate the days of the festivities"
+
+#. module: res_company_ext_isa
+#: selection:res.company.closed.day,day:0
+msgid "Saturday"
+msgstr "Saturday"

@@ -1,0 +1,303 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* depot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-04-11 10:21+0000\n"
+"PO-Revision-Date: 2012-04-11 10:21+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: depot
+#: field:depot.move,desc3:0
+msgid "Description 3"
+msgstr ""
+
+#. module: depot
+#: field:depot,move_ids:0
+msgid "Depot moves"
+msgstr ""
+
+#. module: depot
+#: field:depot,opened:0
+msgid "Opened"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+#: selection:depot.move,state:0
+msgid "Returned"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Current"
+msgstr ""
+
+#. module: depot
+#: code:addons/depot/depot.py:122
+#, python-format
+msgid "Items \"Returned\" for movement n.%s"
+msgstr ""
+
+#. module: depot
+#: view:depot:0
+msgid "Depots search"
+msgstr ""
+
+#. module: depot
+#: selection:depot.move,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: depot
+#: field:depot,location:0
+msgid "Location"
+msgstr ""
+
+#. module: depot
+#: view:depot.move.tree.filter:0
+msgid "Print"
+msgstr ""
+
+#. module: depot
+#: view:depot:0
+#: model:ir.module.module,shortdesc:depot.module_meta_information
+#: model:ir.ui.menu,name:depot.menu_depot_root
+msgid "Depot"
+msgstr ""
+
+#. module: depot
+#: code:addons/depot/depot.py:103
+#, python-format
+msgid "Items \"In storage\" for movement n.%s"
+msgstr ""
+
+#. module: depot
+#: model:ir.actions.act_window,name:depot.depot_move_action
+#: model:ir.ui.menu,name:depot.menu_depot_moves_action
+msgid "Depot Moves"
+msgstr ""
+
+#. module: depot
+#: field:depot,description:0
+msgid "Description"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,date_storage:0
+#: view:depot.move.tree.filter:0
+msgid "Storage date"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Deposit tires"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Depot movement"
+msgstr ""
+
+#. module: depot
+#: view:depot:0
+#: model:ir.actions.act_window,name:depot.depot_action
+#: model:ir.model,name:depot.model_depot
+#: model:ir.ui.menu,name:depot.menu_depot_action
+msgid "Depots"
+msgstr ""
+
+#. module: depot
+#: model:ir.actions.report.xml,name:depot.depot_move_tree_report_id
+msgid "Deposit movements"
+msgstr ""
+
+#. module: depot
+#: field:depot.move.tree.filter,date_pickup_from:0
+#: field:depot.move.tree.filter,date_pickup_scheduled_from:0
+#: field:depot.move.tree.filter,date_storage_from:0
+msgid "From the date"
+msgstr ""
+
+#. module: depot
+#: model:ir.actions.act_window,name:depot.action_depot_move_tree_filter_report_ods
+msgid "Print list of movements"
+msgstr ""
+
+#. module: depot
+#: code:addons/depot/depot.py:97
+#, python-format
+msgid "The field \"Quantity\" must have a value greater than zero"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,depot_id:0
+#: field:depot.move.tree.filter,depot_id:0
+msgid "Depot Code"
+msgstr ""
+
+#. module: depot
+#: model:ir.actions.report.xml,name:depot.deposit_slip_report_id
+msgid "Print Deposit slip"
+msgstr ""
+
+#. module: depot
+#: code:addons/depot/depot.py:97
+#, python-format
+msgid "Quantity zero !"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,partner_id:0
+msgid "Customer"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,desc2:0
+msgid "Description 2"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,desc1:0
+msgid "Description 1"
+msgstr ""
+
+#. module: depot
+#: model:ir.ui.menu,name:depot.menu_depot_mgmt
+msgid "Depots Management"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,desc4:0
+msgid "Description 4"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Movement details"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Picks up tires"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+#: selection:depot.move,state:0
+msgid "In storage"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot1:0
+msgid "DOT 1"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot2:0
+msgid "DOT 2"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot3:0
+msgid "DOT 3"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot4:0
+msgid "DOT 4"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Products details"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Movement dates"
+msgstr ""
+
+#. module: depot
+#: code:addons/depot/depot.py:105
+#: code:addons/depot/depot.py:124
+#, python-format
+msgid "Error status change in movement n.%s"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,qty:0
+msgid "Quantity"
+msgstr ""
+
+#. module: depot
+#: field:depot,name:0
+#: view:depot.move:0
+msgid "Code"
+msgstr ""
+
+#. module: depot
+#: field:depot.move.tree.filter,date_pickup_scheduled_to:0
+#: field:depot.move.tree.filter,date_pickup_to:0
+#: field:depot.move.tree.filter,date_storage_to:0
+msgid "at the date"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Depot movements search"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,date_pickup:0
+#: view:depot.move.tree.filter:0
+msgid "Pick-up date"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,state:0
+msgid "State"
+msgstr ""
+
+#. module: depot
+#: model:ir.module.module,description:depot.module_meta_information
+msgid "This module allows the management of depots."
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+#: field:depot.move,name:0
+msgid "License plate"
+msgstr ""
+
+#. module: depot
+#: view:depot.move.tree.filter:0
+#: model:ir.model,name:depot.model_depot_move_tree_filter
+msgid "Search filter for printing the list of movements of deposit"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+#: model:ir.model,name:depot.model_depot_move
+msgid "Depot movements"
+msgstr ""
+
+#. module: depot
+#: view:depot.move.tree.filter:0
+msgid "Cancel"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,date_pickup_scheduled:0
+#: view:depot.move.tree.filter:0
+msgid "Pick-up date scheduled"
+msgstr ""
+

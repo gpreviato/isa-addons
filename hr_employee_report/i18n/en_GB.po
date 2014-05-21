@@ -1,0 +1,147 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_employee_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-09-16 08:57+0000\n"
+"PO-Revision-Date: 2011-09-23 12:43+0000\n"
+"Last-Translator: Loris Turchetti <Unknown>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-19 05:11+0000\n"
+"X-Generator: Launchpad (build 14692)\n"
+
+#. module: hr_employee_report
+#: view:hr.employee.report.summary_odt.month:0
+msgid "Print Summary Report Monthly"
+msgstr "Print Summary Report Monthly"
+
+#. module: hr_employee_report
+#: model:ir.actions.report.xml,name:hr_employee_report.aeroo_report_rem_holidays_odt_id
+msgid "Employees Remaining Holidays pdf"
+msgstr "Employees Remaining Holidays pdf"
+
+#. module: hr_employee_report
+#: view:hr.employee.report.summary_odt.month:0
+msgid "Print"
+msgstr "Print"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "March"
+msgstr "March"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "August"
+msgstr "August"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "May"
+msgstr "May"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "June"
+msgstr "June"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "July"
+msgstr "July"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "February"
+msgstr "February"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "October"
+msgstr "October"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "January"
+msgstr "January"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "April"
+msgstr "April"
+
+#. module: hr_employee_report
+#: model:ir.actions.act_window,name:hr_employee_report.action_hr_employee_report_summary_odt_month
+msgid "Employee Summary Monthly odt"
+msgstr "Employee Summary Monthly odt"
+
+#. module: hr_employee_report
+#: model:ir.model,name:hr_employee_report.model_hr_employee_report_summary_odt_month
+msgid "Print Monthly Holidays Report"
+msgstr "Print Monthly Holidays Report"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "November"
+msgstr "November"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "September"
+msgstr "September"
+
+#. module: hr_employee_report
+#: selection:hr.employee.report.summary_odt.month,month:0
+#: selection:hr.employee.report.summary_self_odt.month,month:0
+msgid "December"
+msgstr "December"
+
+#. module: hr_employee_report
+#: model:ir.actions.report.xml,name:hr_employee_report.aeroo_report_holidays_odt_id
+msgid "Employees Summary odt"
+msgstr "Employees Summary odt"
+
+#. module: hr_employee_report
+#: field:hr.employee.report.summary_odt.month,month:0
+#: field:hr.employee.report.summary_self_odt.month,month:0
+msgid "Month"
+msgstr "Month"
+
+#. module: hr_employee_report
+#: model:ir.module.module,description:hr_employee_report.module_meta_information
+#: model:ir.module.module,shortdesc:hr_employee_report.module_meta_information
+msgid "report employee"
+msgstr "report employee"
+
+#. module: hr_employee_report
+#: field:hr.employee.report.summary_odt.month,year:0
+#: field:hr.employee.report.summary_self_odt.month,year:0
+msgid "Year"
+msgstr "Year"
+
+#. module: hr_employee_report
+#: view:hr.employee.report.summary_odt.month:0
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: hr_employee_report
+#: model:ir.ui.menu,name:hr_employee_report.menu_hr_employee_report_summary_self_odt_month
+msgid "Employe Summary Monthly"
+msgstr "Employe Summary Monthly"

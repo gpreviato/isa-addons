@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+
+<!--
+ Users Groups
+-->
+        <record model="res.groups" id="call_center_to_mgr">
+            <field name="name">Call Center / Ticket Opener / Manager</field>
+        </record>
+
+        <record model="res.groups" id="call_center_to_usr">
+            <field name="name">Call Center / Ticket Opener / User</field>
+        </record>
+
+        <record model="res.groups" id="call_center_tm_mgr">
+            <field name="name">Call Center / Ticket Manager / Manager</field>
+        </record>
+
+        <record model="res.groups" id="call_center_tm_usr">
+            <field name="name">Call Center / Ticket Manager / User</field>
+        </record>
+
+        <record model="res.groups" id="call_center_tec_mgr">
+            <field name="name">Call Center / Technician / Manager</field>
+        </record>
+
+        <record model="res.groups" id="call_center_tec_usr">
+            <field name="name">Call Center / Technician / User</field>
+        </record>
+
+        <record model="res.groups" id="call_center_ex_to">
+            <field name="name">Call Center / External Ticket Opener</field>
+        </record>
+
+    </data>
+</openerp>
+

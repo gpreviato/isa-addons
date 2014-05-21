@@ -1,0 +1,3 @@
+"id","name","model_id/id","group_id/id","perm_read","perm_write","perm_create","perm_unlink"
+"","res_company_closed_day","res_company_ext_isa.model_res_company_closed_day","base.group_user","True","","",""
+"","res_company_festivity","res_company_ext_isa.model_res_company_festivity","base.group_user","True","","",""

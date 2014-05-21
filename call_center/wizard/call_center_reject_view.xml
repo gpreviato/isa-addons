@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+    
+    <!-- Reason for rejection Form View  -->
+
+    <record model="ir.ui.view" id="call_center_reject">
+        <field name="name">call_center_reject_form</field>
+        <field name="model">call_center.reject</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Reason for rejection">
+                <separator string="Message" colspan="4" />
+                <group colspan="4" >
+                     <field name="message" colspan="4" nolabel="1"/>
+                </group>
+                <separator string="" colspan="4" />
+                <group colspan="4" col="6">
+                    <button icon="gtk-cancel" special="cancel" string="Cancel"/>
+                    <button icon="gtk-ok" name="do_reject" string="Ok" type="object"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Reason for rejection Action  -->
+
+    <record model="ir.actions.act_window" id="action_call_center_refuse">
+        <field name="name">Reason for rejection</field>
+        <field name="res_model">call_center.reject</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="call_center_reject"/>
+        <field name="target">new</field>
+        <field name="context">{'case_type': 'refuse'}</field>
+    </record>  
+    
+    <record model="ir.actions.act_window" id="action_call_center_reject">
+        <field name="name">Reason for rejection</field>
+        <field name="res_model">call_center.reject</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="call_center_reject"/>
+        <field name="target">new</field>
+        <field name="context">{'case_type': 'reject'}</field>
+    </record>  
+
+    </data>
+</openerp>

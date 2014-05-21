@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!--
+            Depot Move Tree Filter View
+        -->
+        
+        <record model="ir.ui.view" id="depot_move_tree_filter_form_view">   
+            <field name="name">depot.move.tree.filter.form</field>
+            <field name="model">depot.move.tree.filter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Search filter for printing the list of movements of deposit">
+                    <group colspan="4" col="4">
+                        <field name="depot_id" colspan="4" widget="selection"/>
+                        <separator colspan="4" string="Storage date"/>
+                        <field name="date_storage_from"/>
+                        <field name="date_storage_to"/>
+                        <separator colspan="4" string="Pick-up date scheduled"/>
+                        <field name="date_pickup_scheduled_from"/>
+                        <field name="date_pickup_scheduled_to"/>
+                        <separator colspan="4" string="Pick-up date"/>
+                        <field name="date_pickup_from"/>
+                        <field name="date_pickup_to"/>
+                    </group>
+                    <newline/>
+                    <separator colspan="4"/>
+                    <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+                    <button name="print_report" string="Print" type="object" icon="gtk-print"/>
+                </form>
+            </field>
+        </record>
+        
+        <!--action -->        
+        <record model="ir.actions.act_window" id="action_depot_move_tree_filter_report_ods">
+            <field name="name">Print list of movements</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">depot.move.tree.filter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>        
+
+        <record model="ir.values" id="depot_move_tree_filter_report_ods">
+            <field name="model_id" ref="depot.model_depot_move" />
+            <field name="object" eval="1" />
+            <field name="name">depot_moves</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_depot_move_tree_filter_report_ods'))" />
+            <field name="key">action</field>
+            <field name="model">depot.move</field>
+        </record>
+
+    </data>
+</openerp>

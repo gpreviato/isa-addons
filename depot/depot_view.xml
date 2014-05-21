@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <menuitem icon="terp-stock" id="menu_depot_root" name="Depot" 
+            web_icon="images/marketing.png" 
+            web_icon_hover="images/marketing-hover.png" />
+        <menuitem id="menu_depot_mgmt" name="Depots Management" parent="menu_depot_root" sequence="1"/>
+                  <!--
+                  web_icon="images/warehouse.png"
+                  web_icon_hover="images/warehouse-hover.png"/>
+                  -->
+        
+        <!--
+            Depot
+        -->
+        
+        <record model="ir.ui.view" id="depot_form_view">
+            <field name="name">depot.form</field>
+            <field name="model">depot</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Depot">
+                    <group col="8" colspan="4">
+                        <field name="name"/>
+                        <field name="location" colspan="5"/>
+                        <field name="description" colspan="8"/>
+                        <field name="opened"/>
+                        <newline/>
+                        <field name="move_ids" nolabel="1" mode="tree" colspan="8"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="depot_tree_view">
+            <field name="name">depot.tree</field>
+            <field name="model">depot</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Depots">
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="description"/>
+                    <field name="opened"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="depot_search_view">
+            <field name="name">depot.search</field>
+            <field name="model">depot</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Depots search">
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="description"/>
+                    <field name="opened"/>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="depot_action">
+            <field name="name">Depots</field>
+            <field name="res_model">depot</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_depot_action" parent="menu_depot_mgmt" action="depot_action"/>
+
+        <!--
+            Depot movements
+        -->
+        
+        <record model="ir.ui.view" id="depot_move_form_view">
+            <field name="name">depot.move.form</field>
+            <field name="model">depot.move</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Depot movement">
+                    <group colspan="4" col="6">
+                        <group colspan="4">
+                            <separator string="Movement details" colspan="4"/>
+                            <field name="id" string="Code"/>
+                            <field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="name" string="License plate" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="depot_id" widget="selection" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <separator string="Products details" colspan="4"/>
+                            <field name="desc1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="dot1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="desc2" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="dot2" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="desc3" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="dot3" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="desc4" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="dot4" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group colspan="2" col="2">
+                            <separator string="Movement dates" colspan="2"/>
+                            <field name="date_storage" attrs="{'readonly':[('state','!=','draft')],'required':[('state','=','draft')]}"/>
+                            <field name="date_pickup_scheduled" attrs="{'readonly':[('state','=','done')],'required':[('state','!=','done')]}"/>
+                            <field name="date_pickup" attrs="{'readonly':[('state','!=','waiting')]}"/>
+                        </group>
+                        <newline/>
+                        <separator colspan="6"/>
+                        <newline/>
+                        <group colspan="6" col="6">
+                            <field name="state" colspan="4"/>
+                            <button name="action_deposit_tires" states="draft" string="Deposit tires" type="object" icon="gtk-go-forward"/>
+                            <button name="action_picks_up_tires" states="waiting" string="Picks up tires" type="object" icon="gtk-apply"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="depot_move_tree_view">
+            <field name="name">depot.move.tree</field>
+            <field name="model">depot.move</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Depot movements">
+                    <field name="id" string="Code"/>
+                    <field name="name"/>
+                    <field name="qty"/>
+                    <field name="partner_id"/>
+                    <field name="depot_id"/>
+                    <field name="date_storage"/>
+                    <field name="date_pickup_scheduled"/>
+                    <field name="date_pickup"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="depot_move_search_view">
+            <field name="name">depot.move.search</field>
+            <field name="model">depot.move</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Depot movements search">
+                    <group>
+                        <filter string="Current" name="current" domain="[('state','in',('draft', 'waiting'))]" separator="1" help="Draft and In Storage" icon="terp-check"/>
+                        <separator orientation="vertical"/>
+                        <filter string="In storage" domain="[('state','=','waiting')]"  help="In Storage" icon="gtk-execute"/>
+                        <filter string="Returned" domain="[('state','=','done')]"  help="Returned" icon="terp-locked"/>
+                        <separator orientation="vertical"/>
+                        <field name="id" string="Code"/>
+                        <field name="depot_id" widget="selection"/>
+                        <field name="partner_id"/>
+                        <field name="name"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- action -->        
+        <record model="ir.actions.act_window" id="depot_move_action">
+            <field name="name">Depot Moves</field>
+            <field name="res_model">depot.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="depot_move_search_view"/>
+        </record>
+        
+        <menuitem id="menu_depot_moves_action" parent="menu_depot_mgmt" action="depot_move_action"/>
+        
+     </data>
+</openerp>

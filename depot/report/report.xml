@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="depot_move_tree_report_id" model="ir.actions.report.xml">
+            <field name="name">Deposit movements</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">depot.move</field>
+            <field name="report_name">depot_move_tree</field>
+            <field name="report_type">aeroo</field>
+            <field name="tml_source">file</field>
+            <field name="in_format">oo-odt</field>
+            <field name="out_format" eval="ref('report_aeroo_ooo.report_mimetypes_pdf_odt')"></field>
+            <field name="parser_loc">depot/report/psr_depot_move_tree.py</field>
+            <field name="report_rml">depot/report/tpl_depot_move_tree.odt</field>
+            <field name="parser_state">loc</field>
+        </record>
+        
+        <record id="deposit_slip_report_id" model="ir.actions.report.xml">
+            <field name="name">Print Deposit slip</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="model">depot.move</field>
+            <field name="report_name">deposit_slip</field>
+            <field name="report_type">aeroo</field>
+            <field name="tml_source">file</field>
+            <field name="in_format">oo-odt</field>
+            <field name="out_format" eval="ref('report_aeroo_ooo.report_mimetypes_pdf_odt')"></field>
+            <field name="parser_loc">depot/report/psr_deposit_slip.py</field>
+            <field name="report_rml">depot/report/tpl_deposit_slip.odt</field>
+            <field name="parser_state">loc</field>
+        </record>
+
+        <ir_set>
+            <field eval="'action'" name="key"/>
+            <field eval="'client_print_multi'" name="key2"/>
+            <field eval="['depot.move']" name="models"/>
+            <field name="name">Print Deposit Slip</field>
+            <field eval="'ir.actions.report.xml,'+str(deposit_slip_report_id)" name="value"/>
+            <field eval="True" name="isobject"/>
+            <field eval="True" name="replace"/>
+        </ir_set>
+
+    </data>
+</openerp>
+

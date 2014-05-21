@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+        <!-- Task -->
+        <record id="call_center_task_form_view" model="ir.ui.view">
+            <field name="name">call_center.task.form</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Task edition">
+                    <group colspan="6" col="6">
+                        <group colspan="2" col="4">
+                            <field name="ticket_id" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                        <field name="name" select="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="user_id" select="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="project_id" select="1" on_change="onchange_project(project_id)" domain="['|',('user_id','=',uid),('members','=',uid)]"  attrs="{'readonly':[('state','!=','draft')]}" />
+                        <field name="priority" required="True" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <group colspan="2" col="4">
+                            <field name="total_hours" widget="float_time" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="progress" widget="progressbar"/>
+                        </group>
+                        <!--<field name="date_deadline" attrs="{'readonly':[('state','in',['done', 'cancelled'])]}"/>-->
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <group col="4" colspan="2">
+                                <separator colspan="4" string="Communication"/>
+                                <group col="2" colspan="2">
+                                <field name="partner_id" attrs="{'readonly':[('state','!=','draft')]}" on_change="onchange_partner_id(partner_id, email_from)"/>
+                                <field name="partner_address_id" attrs="{'readonly':[('state','!=','draft')]}" string="Contact" on_change="onchange_partner_address_id(partner_address_id, email_from)"/>
+                                </group>
+                                <group col="2" colspan="2">
+                                <field name="partner_phone" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="email_from" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                </group>
+                            </group>
+                            <group col="4" colspan="2">
+                                <separator string="Ticket Contact" colspan="4"/>
+                                <field name="name_contact" colspan="2" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="phone_contact" colspan="2" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="mail_contact" colspan="4" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <group colspan="4">
+                                <separator string= "Description" colspan="4" />
+                                <field colspan="4" name="description" nolabel="1"  attrs="{'readonly':[('state','!=','draft')]}" widget="text_wiki"/>
+                            </group>
+                            <group colspan="4">
+                                <separator string= "Reason for closure" colspan="4"/>
+                                <field colspan="4" name="result_description" nolabel="1" attrs="{'invisible': [('state','in',['draft','assign'])],'readonly':[('state','!=','open')],}" widget="text_wiki"/>
+                            </group>
+                            <group colspan="4">
+                                <separator string= "State of processing" colspan="4" />
+                                <group col="2" colspan="2">
+                                    <field
+                                        name="planned_hours"
+                                        widget="float_time"
+                                        attrs="{'invisible': [('state','not in',['open','done','delegate',])],'readonly':[('state','not in',['draft','open'])]}"
+                                        on_change="onchange_planned(planned_hours, effective_hours)"/>
+                                    <field
+                                        name="effective_hours"
+                                        widget="float_time" invisible="1"/>
+                                </group>
+                                <group col="3" colspan="2">
+                                    <field 
+                                        name="remaining_hours" 
+                                        widget="float_time" 
+                                        attrs="{'invisible': [('state','not in',['open','done','delegate'])],'readonly':[('state','not in',['draft','open'])]}" 
+                                        colspan="2"/>
+                                    <button name="%(project.action_project_task_reevaluate)d" string="Reevaluate" type="action" colspan="1" target="new" states="open,pending" icon="gtk-edit"/>
+                                </group>
+                                <field colspan="4" name="work_ids" nolabel="1" attrs="{'invisible': [('state','not in',['open','done','delegate'])],'readonly':[('state','!=','open')], }">
+                                    <tree string="Task Work" editable="top">
+                                        <field name="name" />
+                                        <field name="hours" widget="float_time" sum="Spent Hours"/>
+                                        <field name="user_id" />
+                                        <field name="date" />
+                                    </tree>
+                                </field>
+                            </group>
+                            <newline/>
+                            <group col="11" colspan="4">
+                                <field name="state" select="1"/>
+                                <button name="do_open" states="draft,assign" string="Start Task" type="object" icon="gtk-execute"/>
+                                <button name="%(call_center.action_call_center_reject)d" string="Reject" states="assign" type="action" icon="gtk-cancel"/>
+                                <button name="action_close" states="open" string="Done" type="object" icon="terp-dialog-close"/>
+                            </group>
+                        </page>
+                        
+                        <page groups="base.group_extended" string="Extra Info" attrs="{'readonly':[('state','=','done')]}">
+                            <group colspan="2" col="2">
+                                <separator string="Planning" colspan="2"/>
+                                <!--<field name="priority"/>-->
+                                <field name="sequence"/>
+                            </group>
+                            <group colspan="2" col="2">
+                                <separator string="Dates" colspan="2"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <!--<field name="create_date"/>-->
+                            </group>
+                            <separator string="Miscelleanous" colspan="4"/>
+                            <group col="4" colspan="4">
+                                <!--<field name="partner_id"/>
+                                <field name="company_id" select="1" groups="base.group_multi_company" widget="selection"/>-->
+                                <group col="4" colspan="2">
+                                    <field name="type_id" widget="selection" readonly="1"/>
+                                    <button name="prev_type" string="Previous" type="object" icon="gtk-go-back" help="Change to Previous Stage"/>
+                                    <button name="next_type" string="Next" type="object" icon="gtk-go-forward" help="Change to Next Stage"/>
+                                </group>
+                            </group>
+                            <separator colspan="4" string="Notes"/>
+                            <field colspan="4" name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="call_center_task_tree_view" model="ir.ui.view">
+            <field name="name">call_center.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="type">tree</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Tasks Tree" colors="black:state in ('draft', 'assign', 'pending');cyan:state=='process';blue:state=='open';red:state=='reject';green:state=='done';grey:state in ('cancel', 'refuse')">
+                    <field name="ticket_id"/>
+                    <field name="date_ticket" string="Ticket opened"/>
+                    <field name="create_date" string="Ticket assigned"/>
+                    <field name="date_start" string="Start process" invisible="1"/>
+                    <field name="date_end" string="Start process" invisible="1"/>
+                    <field name="sequence" invisible="not context.get('seq_visible', False)"/>
+                    <field name="name"/>
+                    <field name="partner_id" groups="base.group_extended"/>
+                    <field name="priority"/>
+                    <field name="project_id" icon="gtk-indent" domain="['|',('user_id','=',uid),('members','=',uid)]" invisible="context.get('user_invisible', False)"/>
+                    <field name="user_id" invisible="context.get('user_invisible', False)"/>
+                    <field name="total_hours" invisible="1"/>
+                    <field name="planned_hours"/>
+                    <field name="effective_hours" widget="float_time" sum="Spent Hours" invisible="1"/>
+                    <field name="remaining_hours" widget="float_time" sum="Remaining Hours" on_change="onchange_remaining(remaining_hours,planned_hours)"/>
+                    <field name="date_deadline" invisible="context.get('deadline_visible',True)"/>
+                    <field name="type_id" groups="base.group_extended" invisible="context.get('set_visible',False)"/>
+                    <field name="progress" widget="progressbar" invisible="context.get('set_visible',False)"/>
+                    <field name="state" invisible="context.get('set_visible',False)"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_call_center_tasks_filter" model="ir.ui.view">
+            <field name="name">call_center.task.search.form</field>
+            <field name="model">project.task</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+               <search string="Task Edition">
+                    <group col="20" colspan="4">
+                        <filter string="Current" domain="[('state','in',('draft','assign'))]" name="current" help="Draft and Assigned" icon="terp-check"/>
+                        <filter string="In progress" domain="[('state','=','open')]" help="Tasks in progress" icon="gtk-execute"/>
+                        <filter string="Completed" domain="[('state','=','done')]" help="Completed Tasks" icon="terp-locked"/>
+                        <filter string="Rejected" domain="[('state','=','reject')]" help="Rejected Tasks" icon="terp-gdu-smart-failing"/>
+                        <separator orientation="vertical"/>
+                        <field name="name" select='1'/>
+                        <field name="partner_id" select="1"/>
+                        <field name="user_id">
+                            <filter domain="[('user_id','=',False)]"  help="Unassigned Tasks" icon="terp-personal-" separator="1"/>
+                        </field>
+                        <field name="project_id" select="1">
+                             <filter domain="[('project_id.user_id','=',uid)]" help="My Projects" icon="terp-personal"/>
+                        </field>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Extended Filters..."  groups="base.group_extended">
+                        <field name="state" />
+                        <separator orientation="vertical"/>
+                        <field name="create_date"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="4" col="20">
+                        <filter string="Responsible" name="group_user_id" icon="terp-personal" domain="[]"  context="{'group_by':'user_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}" />
+                        <separator orientation="vertical"/>
+                        <filter string="Project" name="group_project_id" icon="terp-folder-violet" domain="[]" context="{'group_by':'project_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Priority" icon="terp-rating-rated" domain="[]" context="{'group_by':'priority'}" />
+                        <filter string="State" name="group_state" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Deadline" icon="terp-gnome-cpu-frequency-applet+" domain="[]" context="{'group_by':'date_deadline'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="Ticket date" icon="terp-go-month" domain="[]" context="{'group_by':'date_ticket'}"/>
+                        <filter string="Assing date" icon="terp-go-month" domain="[]" context="{'group_by':'create_date'}"/>
+                        <filter string="Start Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_start'}"/>
+                        <filter string="End Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_end'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_open_call_center_tasks">
+            <field name="name">Call Center - Task Manager</field>
+            <field name="res_model">project.task</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,gantt,graph</field>
+            <field name="view_id" ref="call_center_task_form_view"/>
+            <field name="search_view_id" ref="view_call_center_tasks_filter"/>
+            <field name="domain">[('ticket_id','!=',False)]</field>
+            <field name="context">{"search_default_user_id":uid, "search_default_current":1}</field>
+            <field name="help">Task Manager</field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_open_call_center_task_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="call_center_task_tree_view"/>
+            <field name="act_window_id" ref="action_open_call_center_tasks"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_open_call_center_task_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="call_center_task_form_view"/>
+            <field name="act_window_id" ref="action_open_call_center_tasks"/>
+        </record>
+        
+        <menuitem name="Task Manager" parent="menu_open_call_center" id="menu_call_tasks"
+             action="action_open_call_center_tasks" groups = "call_center.call_center_tec_mgr"/>
+
+
+    </data>
+</openerp>

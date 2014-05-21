@@ -1,0 +1,13 @@
+"id","name","model_id/id","group_id/id","perm_read","perm_write","perm_create","perm_unlink"
+"","call_center_claim_ex_to","call_center.model_crm_claim","call_center.call_center_ex_to","True","True","True","True"
+"","call_center_issue_ex_to","call_center.model_project_issue","call_center.call_center_ex_to","","True","True",""
+"","call_center_routing","call_center.model_project_issue","call_center.call_center_tm_mgr","True","True","True","True"
+"","call_center_task","call_center.model_project_task","call_center.call_center_tm_mgr","True","True","True",""
+"","call_center_claim_tm_mgr","call_center.model_crm_claim","call_center.call_center_tm_mgr","True","True","",""
+"","call_center_tm_mgr_acc","analytic.model_account_analytic_account","call_center.call_center_tm_mgr","True","True","",""
+"","call_center_technician_tec_mgr","call_center.model_project_task","call_center.call_center_tec_mgr","True","True","True",""
+"","call_center_issue_tec_mgr","call_center.model_project_issue","call_center.call_center_tec_mgr","True","True","",""
+"","call_center_technician_tec_mgr_task_work","project.model_project_task_work","call_center.call_center_tec_mgr","True","True","True","True"
+"","call_center_technician_tec_mgr_claim","call_center.model_crm_claim","call_center.call_center_tec_mgr","True","True","",""
+"","call_center_technician_tec_mgr_acc","analytic.model_account_analytic_account","call_center.call_center_tec_mgr","True","True","",""
+

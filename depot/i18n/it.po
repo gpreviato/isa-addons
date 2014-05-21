@@ -1,0 +1,301 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: depot\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-04-11 10:21+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Daniele Arcangeli <d.arcangeli@isa.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: depot
+#: field:depot.move,desc3:0
+msgid "Description 3"
+msgstr "Pneumatico 3"
+
+#. module: depot
+#: field:depot,move_ids:0
+msgid "Depot moves"
+msgstr "Movimenti di deposito"
+
+#. module: depot
+#: field:depot,opened:0
+msgid "Opened"
+msgstr "Attivo"
+
+#. module: depot
+#: view:depot.move:0
+#: selection:depot.move,state:0
+msgid "Returned"
+msgstr "Restituito"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Current"
+msgstr "Da fare"
+
+#. module: depot
+#: code:addons/depot/depot.py:122
+#, python-format
+msgid "Items \"Returned\" for movement n.%s"
+msgstr "Articoli \"Restituiti\" per il movimento n.%s"
+
+#. module: depot
+#: view:depot:0
+msgid "Depots search"
+msgstr "Depositi Ricerca"
+
+#. module: depot
+#: selection:depot.move,state:0
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: depot
+#: field:depot,location:0
+msgid "Location"
+msgstr "Località"
+
+#. module: depot
+#: view:depot.move.tree.filter:0
+msgid "Print"
+msgstr "Stampa"
+
+#. module: depot
+#: view:depot:0
+#: model:ir.module.module,shortdesc:depot.module_meta_information
+#: model:ir.ui.menu,name:depot.menu_depot_root
+msgid "Depot"
+msgstr "Deposito"
+
+#. module: depot
+#: code:addons/depot/depot.py:103
+#, python-format
+msgid "Items \"In storage\" for movement n.%s"
+msgstr "Articoli \"In deposito\" per il movimento n.%s"
+
+#. module: depot
+#: model:ir.actions.act_window,name:depot.depot_move_action
+#: model:ir.ui.menu,name:depot.menu_depot_moves_action
+msgid "Depot Moves"
+msgstr "Movimenti di Deposito"
+
+#. module: depot
+#: field:depot,description:0
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: depot
+#: field:depot.move,date_storage:0
+#: view:depot.move.tree.filter:0
+msgid "Storage date"
+msgstr "Data di consegna"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Deposit tires"
+msgstr "Consegna pneumatici"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Depot movement"
+msgstr "Movimento di deposito"
+
+#. module: depot
+#: view:depot:0
+#: model:ir.actions.act_window,name:depot.depot_action
+#: model:ir.model,name:depot.model_depot
+#: model:ir.ui.menu,name:depot.menu_depot_action
+msgid "Depots"
+msgstr "Depositi"
+
+#. module: depot
+#: model:ir.actions.report.xml,name:depot.depot_move_tree_report_id
+msgid "Deposit movements"
+msgstr "Movimenti di deposito"
+
+#. module: depot
+#: field:depot.move.tree.filter,date_pickup_from:0
+#: field:depot.move.tree.filter,date_pickup_scheduled_from:0
+#: field:depot.move.tree.filter,date_storage_from:0
+msgid "From the date"
+msgstr "Dalla data"
+
+#. module: depot
+#: model:ir.actions.act_window,name:depot.action_depot_move_tree_filter_report_ods
+msgid "Print list of movements"
+msgstr "Elenco dei movimenti"
+
+#. module: depot
+#: code:addons/depot/depot.py:97
+#, python-format
+msgid "The field \"Quantity\" must have a value greater than zero"
+msgstr "Il campo \"Quantità\" deve avere un valore maggiore di zero."
+
+#. module: depot
+#: field:depot.move,depot_id:0
+#: field:depot.move.tree.filter,depot_id:0
+msgid "Depot Code"
+msgstr "Codice del deposito"
+
+#. module: depot
+#: model:ir.actions.report.xml,name:depot.deposit_slip_report_id
+msgid "Print Deposit slip"
+msgstr "Ricevuta di deposito"
+
+#. module: depot
+#: code:addons/depot/depot.py:97
+#, python-format
+msgid "Quantity zero !"
+msgstr "Quantità a zero !"
+
+#. module: depot
+#: field:depot.move,partner_id:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: depot
+#: field:depot.move,desc2:0
+msgid "Description 2"
+msgstr "Pneumatico 2"
+
+#. module: depot
+#: field:depot.move,desc1:0
+msgid "Description 1"
+msgstr "Pneumatico 1"
+
+#. module: depot
+#: model:ir.ui.menu,name:depot.menu_depot_mgmt
+msgid "Depots Management"
+msgstr "Gestione Depositi"
+
+#. module: depot
+#: field:depot.move,desc4:0
+msgid "Description 4"
+msgstr "Pneumatico 4"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Movement details"
+msgstr "Dettagli del movimento"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Picks up tires"
+msgstr "Ritiro pneumatici"
+
+#. module: depot
+#: view:depot.move:0
+#: selection:depot.move,state:0
+msgid "In storage"
+msgstr "In Deposito"
+
+#. module: depot
+#: field:depot.move,dot1:0
+msgid "DOT 1"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot2:0
+msgid "DOT 2"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot3:0
+msgid "DOT 3"
+msgstr ""
+
+#. module: depot
+#: field:depot.move,dot4:0
+msgid "DOT 4"
+msgstr ""
+
+#. module: depot
+#: view:depot.move:0
+msgid "Products details"
+msgstr "Dettagli del Prodotto"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Movement dates"
+msgstr "Date del movimento"
+
+#. module: depot
+#: code:addons/depot/depot.py:105
+#: code:addons/depot/depot.py:124
+#, python-format
+msgid "Error status change in movement n.%s"
+msgstr "Errore nel cambio di stato nel movimento n.%s"
+
+#. module: depot
+#: field:depot.move,qty:0
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: depot
+#: field:depot,name:0
+#: view:depot.move:0
+msgid "Code"
+msgstr "Progr."
+
+#. module: depot
+#: field:depot.move.tree.filter,date_pickup_scheduled_to:0
+#: field:depot.move.tree.filter,date_pickup_to:0
+#: field:depot.move.tree.filter,date_storage_to:0
+msgid "at the date"
+msgstr "alla data"
+
+#. module: depot
+#: view:depot.move:0
+msgid "Depot movements search"
+msgstr "Movimenti di deposito Ricerca"
+
+#. module: depot
+#: field:depot.move,date_pickup:0
+#: view:depot.move.tree.filter:0
+msgid "Pick-up date"
+msgstr "Data di ritiro effettiva"
+
+#. module: depot
+#: field:depot.move,state:0
+msgid "State"
+msgstr "Stato"
+
+#. module: depot
+#: model:ir.module.module,description:depot.module_meta_information
+msgid "This module allows the management of depots."
+msgstr "Questo modulo permette la gestione dei depositi."
+
+#. module: depot
+#: view:depot.move:0
+#: field:depot.move,name:0
+msgid "License plate"
+msgstr "Targa"
+
+#. module: depot
+#: view:depot.move.tree.filter:0
+#: model:ir.model,name:depot.model_depot_move_tree_filter
+msgid "Search filter for printing the list of movements of deposit"
+msgstr "Filtro di ricerca per la stampa dei movimenti di deposito"
+
+#. module: depot
+#: view:depot.move:0
+#: model:ir.model,name:depot.model_depot_move
+msgid "Depot movements"
+msgstr "Movimenti di deposito"
+
+#. module: depot
+#: view:depot.move.tree.filter:0
+msgid "Cancel"
+msgstr "Cancella"
+
+#. module: depot
+#: field:depot.move,date_pickup_scheduled:0
+#: view:depot.move.tree.filter:0
+msgid "Pick-up date scheduled"
+msgstr "Data di ritiro prevista"
+
+#~ msgid "depot_moves"
+#~ msgstr "movimenti_deposito"
+

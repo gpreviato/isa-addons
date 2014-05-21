@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Sequences for call_center_ticket -->
+        <record id="seq_type_call_center_ticket" model="ir.sequence.type">
+            <field name="name">Ticket_id</field>
+            <field name="code">call_center.ticket_id</field>
+        </record>
+
+        <record id="seq_call_center_ticket" model="ir.sequence">
+            <field name="name">ticket_id</field>
+            <field name="code">call_center.ticket_id</field>
+            <field name="prefix">TK%(year)s/</field>
+            <field name="padding">0</field>
+        </record>
+
+    </data>
+</openerp>

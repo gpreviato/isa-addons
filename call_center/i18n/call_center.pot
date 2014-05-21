@@ -1,0 +1,794 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* call_center
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-10-07 14:43+0000\n"
+"PO-Revision-Date: 2011-10-07 14:43+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: call_center
+#: view:project.task:0
+msgid "Ticket assigned"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:139
+#, python-format
+msgid "The ticket '%s' has been refused by %s."
+msgstr ""
+
+#. module: call_center
+#: model:ir.module.module,description:call_center.module_meta_information
+msgid "\n"
+"Call Center module that covers:\n"
+"    Ticket Open\n"
+"    Call Routing\n"
+"    Task Manager\n"
+"\n"
+"This module extends:\n"
+"    CRM Claim\n"
+"    Project Issue\n"
+"    Project Task\n"
+"       "
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Group By..."
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Delegations"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "Call Search"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Ticket opened"
+msgstr ""
+
+#. module: call_center
+#: constraint:project.task:0
+msgid "Error ! You cannot create recursive tasks."
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Parent Tasks"
+msgstr ""
+
+#. module: call_center
+#: field:crm.claim,phone_contact:0
+#: field:project.issue,phone_contact:0
+#: field:project.task,phone_contact:0
+msgid "Phone Contact"
+msgstr ""
+
+#. module: call_center
+#: field:crm.claim,mail_contact:0
+#: field:project.issue,mail_contact:0
+#: field:project.task,mail_contact:0
+msgid "Mail Contact"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+msgid "Tickets"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "Add Internal Note"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Refuse"
+msgstr ""
+
+#. module: call_center
+#: model:ir.model,name:call_center.model_project_task
+msgid "Task"
+msgstr ""
+
+#. module: call_center
+#: view:call_center.reject:0
+msgid "Ok"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Open and assigns"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Notes"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+msgid "Claim Description"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Project"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Start Task"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Call Routing Form"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "Attachments"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Tasks Tree"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Assing date"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:102
+#, python-format
+msgid "The ticket '%s' has been rejected by '%s'."
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Planning"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Extra Info"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Partner"
+msgstr ""
+
+#. module: call_center
+#: model:ir.actions.act_window,name:call_center.action_open_call_center_tasks
+msgid "Call Center - Task Manager"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:158
+#, python-format
+msgid "Unknown operator !"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Previous"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Ticket date"
+msgstr ""
+
+#. module: call_center
+#: view:call_center.reject:0
+#: model:ir.actions.act_window,name:call_center.action_call_center_refuse
+#: model:ir.actions.act_window,name:call_center.action_call_center_reject
+#: model:ir.model,name:call_center.model_call_center_reject
+msgid "Reason for rejection"
+msgstr ""
+
+#. module: call_center
+#: field:crm.claim,name_contact:0
+#: field:project.issue,name_contact:0
+#: field:project.task,name_contact:0
+msgid "Name Contact"
+msgstr ""
+
+#. module: call_center
+#: model:ir.actions.act_window,name:call_center.action_open_call_center
+msgid "Call Center - Ticket Open"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Next"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Priority"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "State"
+msgstr ""
+
+#. module: call_center
+#: field:project.task,email_from:0
+msgid "Email"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Reevaluate"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:119
+#, python-format
+msgid "To complete the call you have to fill in the field 'Reason for closure'."
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Miscelleanous"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Task Work"
+msgstr ""
+
+#. module: call_center
+#: model:ir.actions.act_window,name:call_center.action_open_call_center_manager
+msgid "Call Center - Call Routing"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_opener.py:115
+#: code:addons/call_center/call_center_opener.py:164
+#, python-format
+msgid "Invalid action !"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Deadline"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "State of processing"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "History Information"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Dates"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+msgid "Calls"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Task Edition"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_opener.py:150
+#, python-format
+msgid "Issue '%s' opened from ticket: %s"
+msgstr ""
+
+#. module: call_center
+#: model:ir.module.module,shortdesc:call_center.module_meta_information
+msgid "Call Center module"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Contact"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Delegate"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:142
+#, python-format
+msgid "The ticket '%s' has been completed."
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Communication"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:158
+#, python-format
+msgid "To continue, you must select an operator in the field \"Assigned to\"."
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Ticket Contact"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Month"
+msgstr ""
+
+#. module: call_center
+#: view:call_center.reject:0
+#: field:call_center.reject,message:0
+msgid "Message"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:103
+#, python-format
+msgid "Reason for rejection:"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:133
+#: code:addons/call_center/call_center_technician.py:145
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+#, python-format
+msgid "Completed"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Delegated tasks"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:106
+#: code:addons/call_center/call_center_manager.py:141
+#: code:addons/call_center/call_center_opener.py:151
+#: code:addons/call_center/call_center_technician.py:71
+#: code:addons/call_center/call_center_technician.py:106
+#: code:addons/call_center/call_center_technician.py:134
+#: code:addons/call_center/call_center_technician.py:146
+#, python-format
+msgid "Note"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Reject"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "Communication & History"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "To Do"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+#: field:project.task,result_description:0
+msgid "Reason for closure"
+msgstr ""
+
+#. module: call_center
+#: field:project.task,partner_phone:0
+msgid "Phone"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Date"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Extended Filters..."
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Start process"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+msgid "Closure"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Task edition"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+msgid "Claim Date"
+msgstr ""
+
+#. module: call_center
+#: help:project.task,email_from:0
+msgid "These people will receive email."
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Assign"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "History"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: field:project.issue,assigned_to_temp:0
+msgid "Assigned to"
+msgstr ""
+
+#. module: call_center
+#: model:ir.model,name:call_center.model_crm_claim
+msgid "Claim"
+msgstr ""
+
+#. module: call_center
+#: field:project.task,partner_address_id:0
+msgid "Partner Contact"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:104
+#, python-format
+msgid "The ticket '%s' has been assigned to '%s'."
+msgstr ""
+
+#. module: call_center
+#: model:ir.actions.act_window,help:call_center.action_open_call_center_tasks
+#: model:ir.ui.menu,name:call_center.menu_call_tasks
+msgid "Task Manager"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: view:project.task:0
+msgid "General"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Done"
+msgstr ""
+
+#. module: call_center
+#: view:call_center.reject:0
+msgid "Cancel"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_opener.py:149
+#: view:crm.claim:0
+#, python-format
+msgid "Open"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Remaining Hours"
+msgstr ""
+
+#. module: call_center
+#: model:ir.model,name:call_center.model_project_issue
+msgid "Project Issue"
+msgstr ""
+
+#. module: call_center
+#: constraint:project.task:0
+msgid "Error ! Task end-date must be greater then task start-date"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Responsible"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Current"
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+#: view:project.issue:0
+msgid "Details"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:68
+#, python-format
+msgid "The ticket '%s' has been accepted by '%s'."
+msgstr ""
+
+#. module: call_center
+#: view:crm.claim:0
+msgid "Claim/Action Description"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:131
+#: code:addons/call_center/call_center_technician.py:143
+#, python-format
+msgid "Result:"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: view:project.task:0
+msgid "Description"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/wizard/call_center_reject.py:46
+#, python-format
+msgid "REASON FOR REJECTION"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Assign to other user"
+msgstr ""
+
+#. module: call_center
+#: model:ir.actions.act_window,help:call_center.action_open_call_center_manager
+#: model:ir.ui.menu,name:call_center.menu_call_routing
+msgid "Call Routing"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:130
+#, python-format
+msgid "The ticket '%s' has been completed and closed by '%s'."
+msgstr ""
+
+#. module: call_center
+#: model:ir.actions.act_window,help:call_center.action_open_call_center
+#: model:ir.ui.menu,name:call_center.menu_ticket_open
+msgid "Ticket Open"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "End Date"
+msgstr ""
+
+#. module: call_center
+#: field:crm.claim,ticket_id:0
+#: field:project.issue,ticket_id:0
+#: field:project.task,ticket_id:0
+msgid "Ticket ID"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Spent Hours"
+msgstr ""
+
+#. module: call_center
+#: model:ir.ui.menu,name:call_center.menu_open_call_center
+msgid "Call Center"
+msgstr ""
+
+#. module: call_center
+#: view:project.task:0
+msgid "Start Date"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_opener.py:115
+#, python-format
+msgid "User type \"Call Center / External Ticket Opener\" must have a default project!"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_opener.py:164
+#, python-format
+msgid "Cannot delete ticket(s) that are already opened!"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/wizard/call_center_reject.py:25
+#, python-format
+msgid "The call is not relevant."
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+msgid "Call Routing Tree"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:119
+#, python-format
+msgid "The reason for the closure is required!"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: call_center
+#: field:project.task,date_ticket:0
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+msgid "Opened"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+msgid "Closed"
+msgstr ""
+
+#. module: call_center
+#: view:project.issue:0
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+msgid "Pending"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:105
+#: code:addons/call_center/call_center_manager.py:115
+#: view:crm.claim:0
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+#, python-format
+msgid "Assigned"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_manager.py:140
+#: code:addons/call_center/call_center_manager.py:150
+#: view:crm.claim:0
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+#, python-format
+msgid "Refused"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:105
+#: view:project.task:0
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+#, python-format
+msgid "Rejected"
+msgstr ""
+
+#. module: call_center
+#: code:addons/call_center/call_center_technician.py:70
+#: code:addons/call_center/call_center_technician.py:80
+#: view:crm.claim:0
+#: view:project.issue:0
+#: view:project.task:0
+#: selection:crm.claim,state:0
+#: selection:project.issue,state:0
+#: selection:project.task,state:0
+msgid "In progress"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,priority:0
+#: selection:project.issue,priority:0
+#: selection:project.task,priority:0
+msgid "Very urgent"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,priority:0
+#: selection:project.issue,priority:0
+#: selection:project.task,priority:0
+msgid "Urgent"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,priority:0
+#: selection:project.issue,priority:0
+#: selection:project.task,priority:0
+msgid "Normal"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,priority:0
+#: selection:project.issue,priority:0
+#: selection:project.task,priority:0
+msgid "Low"
+msgstr ""
+
+#. module: call_center
+#: selection:crm.claim,priority:0
+#: selection:project.issue,priority:0
+#: selection:project.task,priority:0
+msgid "Very Low"
+msgstr ""
+
+
