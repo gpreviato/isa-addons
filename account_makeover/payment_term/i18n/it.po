@@ -1,0 +1,107 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* readytec_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130924-231032\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-25 15:50+0000\n"
+"PO-Revision-Date: 2013-09-25 15:50+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: readytec_custom
+#: view:stock.picking.out:0
+msgid "Print Values Stock Picking Out"
+msgstr "Stampa DDT con valori"
+
+#. module: readytec_custom
+#: field:wizard.vat.registry,date_end:0
+msgid "Date End"
+msgstr "Data Fine"
+
+#. module: readytec_custom
+#: view:wizard.vat.registry:0
+msgid "View report"
+msgstr "Vedi report"
+
+#. module: readytec_custom
+#: view:wizard.vat.registry:0
+msgid "Vat Registry"
+msgstr "Registro IVA"
+
+#. module: readytec_custom
+#: model:ir.actions.act_window,name:readytec_custom.action_vat_registry
+msgid "Payment Creation"
+msgstr "Creazione Pagamento"
+
+#. module: readytec_custom
+#: model:ir.model,name:readytec_custom.model_wizard_vat_registry
+msgid "Wizard Vat Registry"
+msgstr "Wizard Vat Registry"
+
+#. module: readytec_custom
+#: view:wizard.vat.registry:0
+msgid "or"
+msgstr "O"
+
+#. module: readytec_custom
+#: view:stock.picking.out:0
+msgid "Print Stock Picking Out"
+msgstr "Stampa Ordini di Consegna"
+
+#. module: readytec_custom
+#: view:purchase.order:0
+msgid "Print Purchase Order"
+msgstr "Stampa Ordini d'acquisto"
+
+#. module: readytec_custom
+#: model:ir.model,name:readytec_custom.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ordine Acquisto"
+
+#. module: readytec_custom
+#: model:ir.model,name:readytec_custom.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: readytec_custom
+#: view:wizard.vat.registry:0
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: readytec_custom
+#: model:ir.ui.menu,name:readytec_custom.menu_action_vat_registry
+msgid "Vat Registry Readytec"
+msgstr "Registro IVA Readytec"
+
+#. module: readytec_custom
+#: field:wizard.vat.registry,date_start:0
+msgid "Date Start"
+msgstr "Data Inizio"
+
+#. module: readytec_custom
+#: model:ir.model,name:readytec_custom.model_stock_picking_out
+msgid "Delivery Orders"
+msgstr "Ordini di Consegna"
+
+#. module: readytec_custom
+#: view:account.invoice:0
+msgid "Print Invoice"
+msgstr "Stampa Fattura"
+
+#. module: readytec_custom
+#: code:addons/readytec_custom/account/account_invoice.py:41
+#: code:addons/readytec_custom/purchase/purchase_order.py:40
+#: code:addons/readytec_custom/stock/stock_picking_out.py:40
+#: code:addons/readytec_custom/stock/stock_picking_out.py:82
+#: code:addons/readytec_custom/wizard/wizard_vat_registry.py:49
+#, python-format
+msgid "Errore!"
+msgstr "Errore!"
+

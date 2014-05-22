@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Company View -->
+        <record id="view_res_company_account_makeover" model="ir.ui.view">
+            <field name="name">view.res.company.account.makeover.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Configuration']" position="inside">
+                  <group string="Sub-Accounting Generation">
+                     <group>             
+                        <field name="subaccount_auto_generation_customer"/>
+                        <field name="account_parent_customer"
+						       domain="[('type','=','view')]"
+						       attrs="{'invisible': [('subaccount_auto_generation_customer','=',False)],'required': [('subaccount_auto_generation_customer','=',True)]}" />
+                    
+					    <field name="subaccount_auto_generation_supplier"/>                    
+					    <field name="account_parent_supplier"
+						       domain="[('type','=','view')]"
+                    	       attrs="{'invisible': [('subaccount_auto_generation_supplier','=',False)],'required': [('subaccount_auto_generation_supplier','=',True)]}"/>
+                    </group>
+                  </group>
+                </xpath>
+            </field>
+        </record>
+     </data>
+</openerp>
