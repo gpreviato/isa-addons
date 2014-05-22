@@ -69,12 +69,6 @@ I documenti soggetti ad Iva emessi o ricevuti sono contrassegnati con un
 numero di protocollo, il registro iva è ordinato in base a questa numerazione.
 
 
-Partitario Contabile
---------------------
-
-Da completare...
-
-
 Anteprima Scadenze
 ------------------
 
@@ -135,24 +129,6 @@ mese successivo viene aggiunto nella tabella dei termini di pagamento ed
 utilizzato per calcolo della scadenza del pagamento della rda.
 Se il pagamento non è ancora creato, nel calcolo della scadenza del pagamento
 della rda si considera la data di scadenza della fattura.
-
-Estratti Conto
---------------
-
-Per Estratto Conto si intende un documento che riporta le singole partite
-che compongono il saldo contabile di un conto di credito o debito.
-Prevediamo due tipi di estratto conto:
-1) a partite aperte (che esclude tutte le voci saldate elencando soltanto
-quelle ancora da regolare in tutto o in parte);
-2) storico (che include tutte le partite e relativi pagamenti).
-Nell'estratto conto storico i movimenti sono raggruppati per partita.
-
-La procedura per l'interrogazione e la stampa prevede:
-a) schermata di richiesta dei parametri di selezione
-b) visualizzazione dell'estratto conto a partite aperte
-c) stampa (PDF) dell'estratto conto a partite aperte
-d) visualizzazione dell'estratto conto storico
-e) stampa (PDF) dell'estratto conto storico
 
 
 Lettere d'intento
