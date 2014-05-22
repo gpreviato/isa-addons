@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Account Invoice Customer -->
+        <record id="account_invoice_makeover_form_view" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='period_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="recompute_values"/>
+                </xpath>
+                <xpath expr="//field[@name='date_due']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='fiscal_position']" position="after">           
+                    <newline/>
+                    <field name="bank_account" domain="[('partner_id','=',partner_id)]" context="{'default_partner_id': partner_id}" colspan="2"/>
+                </xpath>
+                <xpath expr="//button[@string='Print Invoice']" position="replace"></xpath>
+                <field name='partner_bank_id' position="replace"></field>
+                 <xpath expr="//field[@name='partner_id']" position="after">
+                       <field name='exporter_id' domain="[('partner_id','=',partner_id), ('letter_status','=','A')]" />    
+                 </xpath>
+                <xpath expr="//field[@name='account_id']" position="after">
+                    <field name="document_number"/>
+                    <field name="registration_date" required="1" />
+                    <field name="protocol_number" required="0" attrs="{'invisible':[('state','=', 'draft')]}"/>
+                    <newline/>
+                    <field name="partner_bank_id" string="Company Bank" domain="[('partner_id','=',company_id)]" colspan="2"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']" position="attributes">
+                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'exporter_id': exporter_id, 'registration_date': registration_date, 'fiscal_position': fiscal_position, 'company_id': company_id}</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@string='Payments']" position="after">           
+                    <newline/>
+                        <page string="Maturities" groups="base.group_user">
+                            <button name="button_display_view_list"
+                                    string="(update)" class="oe_link oe_edit_only"
+                                    type="object" help="Recompute due list"
+                                    attrs="{'invisible':[('state','!=', 'draft')]}"/>
+                            <group col="4">
+                                <group>
+                                    <field name="payment_term_label"/>
+                                </group>
+                            </group>
+                            <field name="payments_overview" attrs="{'invisible':[('state','=', 'draft')]}">
+                              <tree>
+                                <field name="pay_overv_date" colspan="1"/>
+                                <field name="pay_overv_amount" colspan="1" sum="Total amount"/>
+                                <field name="pay_overv_currency"/>
+                              </tree>
+                            </field>
+                            <newline/>
+                            <newline/>
+                            <newline/>
+                            <label for="payments_preview"/>
+                            <field name="payments_preview" >
+                              <tree>
+                                <field name="date" colspan="1"/>
+                                <field name="amount" colspan="1" sum="Total amount"/>
+                                <field name="currency_name"/>
+                              </tree>
+                            </field>
+                        </page>
+                </xpath>
+                <xpath expr="//sheet/notebook/page/group/field[@name='payment_term']" position="replace">           
+                    <field name="payment_term" class="oe_inline" on_change="onchange_paymentterm(payment_term, date_invoice, amount_total, context)"/>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='date_invoice']" position="attributes">
+                    <attribute name="required">1</attribute>
+                    <attribute name="on_change">onchange_paymentterm(payment_term, date_invoice, amount_total, context)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Account Invoice Supplier -->
+        <record id="view_invoice_supplier_makeover_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.document.reference.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='period_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="recompute_values"/>
+                </xpath>
+                <xpath expr="//field[@name='date_due']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='invoice_open']" position="replace">
+                    <button name="invoice_open" states="draft" string="Validate" type="object" class="oe_highlight" groups="account.group_account_invoice"/>
+                    <button name="invoice_open" states="proforma2" string="Validate" type="object" class="oe_highlight" groups="account.group_account_invoice"/>             
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name='exporter_id' domain="[('partner_id','=',partner_id)]" />    
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='account_id']" position="after" >
+                    <field name="document_number" invisible="1"/>
+                    <field name="registration_date" required="1" on_change="onchange_registration_date(date_invoice, registration_date)"/>
+                    <field name="protocol_number" required="0" attrs="{'invisible':[('state','=', 'draft')]}"/>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='fiscal_position']" position="attributes">
+                    <attribute name="select">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='supplier_invoice_number']" position="replace">           
+                    <field name="supplier_invoice_number" required="1" on_change="onchange_supplier_invoice_number(partner_id, supplier_invoice_number)"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/group/field[@name='amount_total']" position="after" >
+                    <field name="wht_amount" widget="monetary" attrs="{'invisible': [('wht_amount', '=', 0.0)]}" on_change="onchange_withholding_amount(wht_amount, amount_total)" />
+                    <field name="net_pay" class="oe_subtotal_footer_separator" widget="monetary" attrs="{'invisible': [('wht_amount', '=', 0.0)]}" readonly="1" />
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='comment']" position="after" >
+                    <group>
+                        <field name="wht_code" attrs="{'invisible': [('wht_amount', '=', 0.0)]}" readonly="1" />
+                        <field name="wht_tax_rate" attrs="{'invisible': [('wht_amount', '=', 0.0)]}" readonly="1" />
+                        <field name="wht_base_amount" attrs="{'invisible': [('wht_amount', '=', 0.0)]}" readonly="1" />
+                    </group>
+                </xpath>
+                <xpath expr="//form/sheet/group/group/field[@name='date_invoice']" position="attributes" >
+                    <attribute name="required">1</attribute>
+                    <attribute name="on_change">onchange_paymentterm(payment_term, date_invoice, amount_total, context)</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line']" position="attributes">
+                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'exporter_id': exporter_id, 'registration_date': registration_date, 'fiscal_position': fiscal_position, 'company_id': company_id}</attribute>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@string='Payments']" position="after">
+                    <newline/>
+                        <page string="Maturities" groups="base.group_user">
+                            <button name="button_display_view_list"
+                                    string="(update)" class="oe_link oe_edit_only"
+                                    type="object" help="Recompute due list"
+                                    attrs="{'invisible':[('state','!=', 'draft')]}"/>
+                            <group col="4">
+                                <group>
+                                    <field name="payment_term_label"/>
+                                </group>
+                            </group>
+                            <field name="payments_overview" attrs="{'invisible':[('state','=', 'draft')]}">
+                              <tree>
+                                <field name="pay_overv_date" colspan="1"/>
+                                <field name="pay_overv_amount" colspan="1" sum="Total amount"/>
+                                <field name="pay_overv_currency"/>
+                              </tree>
+                            </field>
+                            <newline/>
+                            <newline/>
+                            <newline/>
+                            <label for="payments_preview"/>
+                            <field name="payments_preview" >
+                              <tree>
+                                <field name="date" colspan="1"/>
+                                <field name="amount" colspan="1" sum="Total amount"/>
+                                <field name="currency_name"/>
+                              </tree>
+                            </field>
+                        </page>
+                </xpath>
+                <xpath expr="//sheet/notebook/page/group/group/field[@name='payment_term']" position="attributes">
+                    <attribute name="required">1</attribute>
+                    <attribute name="widget">selection</attribute>
+                    <attribute name="on_change">onchange_paymentterm(payment_term, date_invoice, amount_total, context)</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Account Invoice Tree -->
+        <record id="view_invoice_supplier_makeover_tree" model="ir.ui.view">
+            <field name="name">account.invoice.makeover.tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_due']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+     </data>
+</openerp>

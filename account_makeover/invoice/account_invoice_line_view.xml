@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="account_invoice_line_makeover_view" model="ir.ui.view">
+            <field name="name">view.account.invoice.line.makeover.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='account_analytic_id']" position="before">
+                    <field name="account_user_report_type" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="attrs">{'required': ['|',('account_user_report_type','=','income'),('account_user_report_type','=','expense')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

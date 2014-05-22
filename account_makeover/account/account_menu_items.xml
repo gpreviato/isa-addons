@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	    <menuitem name="Anagrafica Conti" parent="account.menu_finance"
+	         groups="account.group_account_invoice" id="account_makeover_anagrafica_conti" sequence="5"/>
+	
+	    <menuitem name="Conti" parent="account_makeover_anagrafica_conti" id="account_makeover_conti" action="account.action_account_form" sequence="1"/> 
+    </data>
+</openerp>
