@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="ir_header_webkit_export_statements_id" model="ir.header_webkit">
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">0</field>
+            <field name="html"><![CDATA[<html>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+        <script>
+            function subst() {
+            var vars={};
+            var x=document.location.search.substring(1).split('&');
+            for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+            var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+            for(var i in x) {
+            var y = document.getElementsByClassName(x[i]);
+            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                }
+            }
+        </script>
+    </head>
+    <body style="border:0; margin: 0;" >
+    </body>
+</html>]]>
+</field>
+            
+            <field  name="name">Print Export Statements Header</field>
+        </record>
+        
+         <report
+            auto="False"
+            id="ir_webkit_exporter_statements_report"
+            model="account.exporter.statements"
+            name="exporter.statements"
+            file="account_makeover/report/exporter_statements.mako"
+            string="Print Exporter Statements"
+            report_type="webkit"
+            menu="False"
+            webkit_header="ir_header_webkit_export_statements_id"/>
+
+        <report auto="False"
+            id="account.aged_trial_balance"
+            model="account.account_aged_trial_balance"
+            name="account.account_aged_trial_balance"
+            rml="account_makeover/report/aged_partner_balance.rml"
+            string="Analisi anzianità dei crediti/debiti"
+            usage="default"/>
+
+        <report auto="False" id="account.account_invoices" 
+                model="account.invoice" 
+                name="account.invoice"
+                rml="account_makeover/report/account_print_invoice.rml" 
+                string="Fattura"
+                usage="default"/>
+
+        <report
+            auto="False"
+            id="vat_registry_report_id"
+            model="account.invoice"
+            name="vat_registry"
+            file="account_makeover/report/vat_registry.mako"
+            string="Vat Registry"
+            menu="False"
+            report_type="webkit"
+            webkit_header="base_headers_webkit.base_reports_portrait_header" />
+
+        <report
+            auto="False"
+            id="vat_registry_report_landscape_id"
+            model="account.invoice"
+            name="vat_registry_landscape"
+            file="account_makeover/report/vat_registry.mako"
+            string="Vat Registry"
+            menu="False"
+            report_type="webkit"
+            webkit_header="base_headers_webkit.base_reports_landscape_header" />
+
+       <record id="account_invoice_report_gen_isa" model="ir.actions.report.xml">
+            <field name="report_type">webkit</field>
+            <field name="report_name">fattura_gen_report</field>
+            <field eval="[(6,0,[])]" name="groups_id"/>
+            <field eval="0" name="multi"/>
+            <field eval="0" name="auto"/>
+            <field eval="1" name="header"/>
+            <field name="model">account.invoice</field>
+            <field name="type">ir.actions.report.xml</field>
+            <field name="name">Stampa Fattura Differita</field>
+            <field name="report_rml">account_makeover/report/invoice_gen.mako</field>
+            <field name="report_file">account_makeover/report/invoice_gen.mako</field>
+        </record>
+        <record id="property_account_invoice_report_gen_isa" model="ir.property">
+            <field name="name">property_account_invoice_report_gen_isa</field>
+            <field name="fields_id" ref="report_webkit.field_ir_act_report_xml_webkit_header"/>
+            <field eval="'ir.header_webkit,'+str(ref('base_headers_webkit.base_reports_portrait_logo_header'))" model="ir.header_webkit" name="value"/>
+            <field eval="'ir.actions.report.xml,'+str(ref('account_invoice_report_gen_isa'))" model="ir.actions.report.xml" name="res_id"/>
+        </record>
+
+    </data>
+</openerp>
+
