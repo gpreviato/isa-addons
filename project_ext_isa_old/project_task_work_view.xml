@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+        <!-- Project Task Work -->
+        <record id="view_project_task_work_form_ext_isa" model="ir.ui.view">
+            <field name="name">project.task.work.form.ext.isa</field>
+            <field name="model">project.task.work</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_work_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="task" readonly="true"/>
+                    <field name="project_id" readonly="true"/>
+                    <field name="type_id" colspan="4"/>
+
+                </field>
+                <field name="hours" position="after">
+                    <field name="not_billing" select="1"/>
+                    <field name="billable_hours" select="1" widget="float_time"  invisible="1"/>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="program" select="1"/>
+                    <field name="file" select="1"/>
+                    <field name="field" select="1"/>
+                    <field name="ptf_code" select="1"/>
+                    <field name="description" string="Work description" colspan="4"/>
+                    <button icon="gtk-ok" confirm="If confirmed the record will be saved once and then you will be able to change anyway. Confirm?" name="duplicate_work" string="Duplicate Work" type="object"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_task_work_tree_ext_isa" model="ir.ui.view">
+            <field name="name">project.task.work.tree.ext.isa</field>
+            <field name="model">project.task.work</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="project.view_task_work_tree"/>
+            <field name="arch" type="xml">
+                <tree position="replace">
+                    <tree string="Works">
+                        <field name="date"/>
+                        <field name="type_id"/>
+                        <!--field name="name"/-->
+                        <field name="hours" widget="float_time" sum="Hours"/>
+                        <field name="billable_hours" widget="float_time" sum="Hours"/>
+                        <field name="user_id"/>
+                        <field name="program"/>
+                        <field name="file"/>
+                        <field name="field"/>
+                        <field name="ptf_code"/>
+                    </tree>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <!-- Project Task -->
+        <record id="view_project_task_form2_ext_isa" model="ir.ui.view">
+            <field name="name">project.task.form2.ext.isa</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="work_ids" position="replace">
+                    <field colspan="4" name="work_ids" nolabel="1" attrs="{'invisible':[('state','in',['draft'])],'readonly':[('state','=','done')]}" widget="one2many_list">
+                        <!--copia tree precedente da passaree come riferimento -->
+                        <tree string="Works">
+                            <field name="date"/>
+                            <field name="type_id"/>
+                            <!--field name="name"/-->
+                            <field name="hours" widget="float_time" sum="Hours"/>
+                            <field name="billable_hours" widget="float_time" sum="Hours"/>
+                            <field name="user_id"/>
+                            <field name="program"/>
+                            <field name="description"/>
+                            <field name="file"/>
+                            <field name="field"/>
+                            <field name="ptf_code"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+        <!-- report richiesto -->
+
+<!-- search -->
+        <record id="search_action_project_task_work_ext_isa" model="ir.ui.view">
+            <field name="name">Works Search</field>
+            <field name="model">project.task.work</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Works Search">
+                    <group expand="0" string="Filters...">
+                        <field colspan="3" name="user_id"/>
+                        <field colspan="6" name="type_id"/>
+                        <newline/>
+                    <filter icon="terp-go-today" string="Today"
+                    domain="[('date','&lt;', time.strftime('%%Y-%%m-%%d 23:59:59')), ('date','&gt;=', time.strftime('%%Y-%%m-%%d 00:00:00'))]" 
+                    help="Todays' Task Work" />
+                        <field colspan="10" name="date"/>
+                        <newline/>
+                        <field name="program"/>
+                        <field name="file"/>
+                        <field name="field"/>
+                        <field name="ptf_code" />
+                        <newline/>
+                        <field colspan="10" name="description" />
+                    </group>
+                    <group expand="0" string="Group By...">
+                        <filter string="User" icon="terp-personal" domain="[]" context="{'group_by':'user_id'}"/>
+                        <filter string="Activities" icon="terp-stock_align_left_24" domain="[]" context="{'group_by':'type_id'}"/>
+                        <filter string="Date" icon="terp-project" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>            
+        </record>
+
+<!-- view -->
+        <record model="ir.ui.view" id="action_project_task_work_ext_isa_tree">
+            <field name="name">project.task.work.tree_new</field>
+            <field name="model">project.task.work</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Work activity Tree">
+                    <field name="project_id"/>
+                    <field name="task_id"/>
+                    <field name="type_id"/>
+                    <field name="date"/>
+                    <field name="hours" widget="float_time" sum="Hours" />
+                    <field name="user_id"/>
+                    <field name="program"/>
+                    <field name="file"/>
+                    <field name="field"/>
+                    <field name="ptf_code"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+<!-- action -->
+        <record id="action_project_task_work_ext_isa" model="ir.actions.act_window">
+            <field name="name">Works</field>
+            <field name="res_model">project.task.work</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_action_project_task_work_ext_isa"/>
+            <field name="view_id" ref="action_project_task_work_ext_isa_tree"/>
+        </record>
+<!-- menu  -->
+        <menuitem action="action_project_task_work_ext_isa" id="menu_action_project_task_work_ext_isa" parent="project.menu_project_management" sequence="3"/>
+
+        <!-- Project Task Work Types -->
+
+        <record model="ir.ui.view" id="project_task_work_type_form">
+            <field name="name">project.task.work.type.form</field>
+            <field name="model">project.task.work.type</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Type of work activity Form">
+                    <field name="code"/>
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="project_task_work_type_tree">
+            <field name="name">project.task.work.type.tree</field>
+            <field name="model">project.task.work.type</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Type of work activity Tree">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="project_task_work_type_search">
+            <field name="name">project.task.work.type.search</field>
+            <field name="model">project.task.work.type</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Type of work activity Search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project_task_work_type_action">
+            <field name="name">Type of work</field>
+            <field name="res_model">project.task.work.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="project_task_work_type_search"/>
+        </record>
+        
+        <menuitem id="menu_works_config" name="Works" parent="project.menu_definitions" sequence="1"/>
+        <menuitem id="menu_project_task_work_type_action" parent="menu_works_config" action="project_task_work_type_action" />
+
+    </data>
+</openerp>

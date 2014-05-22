@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+        <!-- Project Task -->
+        <record id="view_project_task_form_ext_isa" model="ir.ui.view">
+            <field name="name">project.task.form.ext.isa</field>
+            <field name="model">project.task</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+                <field name="progress" position="after">
+                <field name="isa_billing_hours" widget="float_time"/>
+                <field name="billing_as400" /> 
+                    <separator string="References" colspan="6"/>
+                    <field name="category_id" select="1" on_change="onchange_category(category_id)"/>
+                    <field name="need_ticket" invisible="True"/>
+                    <field name="ticket_reference" select="1" colspan="4" attrs="{'required':[('need_ticket','==',True)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_project_task_tree_ext_isa" model="ir.ui.view">
+            <field name="name">project.task.tree.ext.isa</field>
+            <field name="model">project.task</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="after">
+                    <field name="category_id" select="1"/>
+                </field>
+                <field name="date_deadline" position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </field>
+                <field name="date_deadline" position="after">
+                     <field name="priority"/>
+                </field>
+                <field name="effective_hours" position="replace">
+                    <field name="effective_hours" widget="float_time" sum="Spent Hours" />
+                    <field name="isa_billing_hours" widget="float_time" sum="Billable Hours" />
+                </field>
+                <field name="planned_hours" position="replace">
+                    <field name="planned_hours" widget="float_time" sum="Planned Hours" />
+                </field>
+            </field>
+        </record>
+
+        <!-- Project Task Categories -->
+
+        <record model="ir.ui.view" id="project_task_category_form">
+            <field name="name">project.task.category.form</field>
+            <field name="model">project.task.category</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Category of task Form">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="ticket_required"/>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="project_task_category_tree">
+            <field name="name">project.task.category.tree</field>
+            <field name="model">project.task.category</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Category of task Tree">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="project_task_category_search">
+            <field name="name">project.task.category.search</field>
+            <field name="model">project.task.category</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Category of task Search">
+                    <field name="code"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project_task_category_action">
+            <field name="name">Categories</field>
+            <field name="res_model">project.task.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="project_task_category_search"/>
+        </record>
+        
+        <menuitem id="menu_project_task_category_action" parent="project.menu_tasks_config" action="project_task_category_action" />
+        
+    </data>
+</openerp>

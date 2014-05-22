@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- aggiunta campo per forzare il numero fattura -->
+        <record model="ir.ui.view" id="account_invoice_form_int_number_isa">
+            <field name="name">account.invoice.form.int_number_isa</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_invoice_force_number_ext_isa.account_invoice_form_int_number"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/field[@name='internal_number']" position="replace">
+                    <newline/>            
+                    <field name="internal_number_visible" invisible="1" />
+                    <field name="internal_number" attrs="{'invisible':['|',('state','!=','draft'),('internal_number_visible','=',False)]}" string="Force Number" help="Force invoice number. Use this field if you don't want to use the default numbering" groups="account_invoice_management_isa.account_invoice_managment_view"/>            
+                    <field name="internal_number_isa_visible" invisible="1" />            
+                    <field name="internal_number_isa" attrs="{'invisible':['|',('state','!=','draft'),('internal_number_isa_visible','=',False)]}" domain="[('journal_id', '=', journal_id)]" string="Retrieve Number" help="Select invoice number. Use this field if you don't want to use the default numbering"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- sostituzione pulsante per type action-->
+		<record model="ir.ui.view" id="account_invoice_form_managment_isa">
+            <field name="name">account.invoice.form.managment.isa</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/notebook/page[@string='Invoice']/group[@col='4']/group[@col='8']/button[@name='invoice_open']" position="replace">
+                    <button name="invoice_open" states="draft,proforma2" type="object" string="Validate" icon="gtk-go-forward"/>               
+                </xpath>
+		    </field>
+        </record>
+        
+	</data>
+</openerp>

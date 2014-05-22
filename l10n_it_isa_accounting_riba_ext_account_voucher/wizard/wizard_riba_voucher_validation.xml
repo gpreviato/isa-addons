@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <!-- VIEW-->        
+        <record id="form_riba_validation_voucher" model="ir.ui.view">
+            <field name="name">riba.voucher.validation</field>
+            <field name="model">riba_wizard_voucher_validation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Voucher Validation">
+                    <group col="4" colspan="4">
+                        <button string="Cancel" special="cancel" icon="gtk-cancel" colspan="2"/>
+                        <button string="Validate" name="validate_voucher" type="object" icon="gtk-ok" colspan="2"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- ACTION-->        
+        <record id="riba_voucher_validation_action" model="ir.actions.act_window">
+            <field name="name">Ri.Ba. Voucher Validation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">riba_wizard_voucher_validation</field>
+            <field name="src_model">riba_wizard_voucher_validation</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+			<field name="view_id" ref="form_riba_validation_voucher"/>
+        </record>
+
+
+        <!-- PULSANTE-->
+        <record model="ir.values" id="menu_riba_voucher_validation_wizard">
+            <field name="name">Validate Riba Voucher Draft</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('riba_voucher_validation_action'))" />
+            <field name="key">action</field>
+            <field name="model">account.voucher</field>
+        </record>     
+    </data>
+</openerp>
+

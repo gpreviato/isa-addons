@@ -1,0 +1,22 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* sale_layout_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-04-27 07:04+0000\n"
+"PO-Revision-Date: 2012-04-27 07:04+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_layout_report
+#: model:ir.actions.report.xml,name:sale_layout_report.sale_layout_report_id_isa
+msgid "Print Sale Order Layout"
+msgstr ""
+

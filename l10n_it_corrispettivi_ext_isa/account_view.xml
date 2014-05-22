@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!-- invoice tree-->
+        <record id="corrispettivi_tree_ext_isa" model="ir.ui.view">
+            <field name="name">account.corrispettivi.tree.ext.isa</field>
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="l10n_it_corrispettivi.corrispettivi_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="replace"/>
+                <field name="company_id" position="replace">
+                    <field name="partner_id"/>
+                </field>
+            </field>
+        </record>
+
+    <!-- invoice form-->
+        <record id="corrispettivi_form_ext_isa" model="ir.ui.view">
+            <field name="name">account.corrispettivi.form.ext.isa</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="l10n_it_corrispettivi.corrispettivi_form"/>
+            <field name="arch" type="xml">
+                    <field name="corrispettivo"  position="replace">
+                        <field name="corrispettivo" />
+                    </field>
+                <xpath expr="//form[@string='Corrispettivi']//group[@groups='account.group_account_user']" position="after">
+                    <field name="isa_receipt_number" />
+                </xpath> 
+            </field>
+        </record>
+    </data>
+</openerp>

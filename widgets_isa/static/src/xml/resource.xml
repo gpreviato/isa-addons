@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<t t-name="test">
+    <button class="oe_button" id="mybutton" onclick="window.open(varurl);">
+        <img t-att-src='_s + "/web/static/src/img/icons/gtk-file.png"'/>
+        <span>Apri</span>
+    </button> 
+</t>
+</templates> 

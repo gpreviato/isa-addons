@@ -1,0 +1,17 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-04-27 07:04+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Daniele Arcangeli <d.arcangeli@isa.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: sale_layout_report
+#: model:ir.actions.report.xml,name:sale_layout_report.sale_layout_report_id_isa
+msgid "Print Sale Order Layout"
+msgstr "Stampa Ordine di vendita (layout)"
+

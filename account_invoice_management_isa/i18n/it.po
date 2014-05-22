@@ -1,0 +1,139 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_management_isa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-20130107-003459\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-04 16:19+0000\n"
+"PO-Revision-Date: 2013-02-07 09:49+0100\n"
+"Last-Translator: Loris Turchetti <l.turchetti@isa.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_management_isa
+#: view:account.invoice:0
+msgid "Retrieve Number"
+msgstr "Recupera numero"
+
+#. module: account_invoice_management_isa
+#: view:account.invoice.cancel.isa:0
+#: model:ir.actions.act_window,name:account_invoice_management_isa.account_cancel_isa_action
+#: model:ir.ui.menu,name:account_invoice_management_isa.account_cancel_isa_menu
+msgid "Invoice Cancelled"
+msgstr "Fatture cancellate"
+
+#. module: account_invoice_management_isa
+#: help:account.journal,update_force_number:0
+msgid "Check this box if you want to allow the force invoice number for this journal"
+msgstr "Selezionare per consentire di forzare il numero fattura per questo sezionale."
+
+#. module: account_invoice_management_isa
+#: field:account.journal,update_force_number:0
+msgid "Allow Force Number"
+msgstr "Consenti la forzatura diretta del numero fattura"
+
+#. module: account_invoice_management_isa
+#: field:account.invoice,internal_number_isa_visible:0
+#: field:account.invoice,internal_number_visible:0
+msgid "unknown"
+msgstr "sconosciuto"
+
+#. module: account_invoice_management_isa
+#: field:account.invoice.cancel.isa,journal_id:0
+#: model:ir.model,name:account_invoice_management_isa.model_account_journal
+msgid "Journal"
+msgstr "Sezionale"
+
+#. module: account_invoice_management_isa
+#: model:res.groups,name:account_invoice_management_isa.account_invoice_managment_view
+msgid "Account Invoice Managment Isa view"
+msgstr "Visualizzazione Invoice Managment Isa"
+
+#. module: account_invoice_management_isa
+#: model:ir.model,name:account_invoice_management_isa.model_account_invoice_cancel_isa
+msgid "Account invoice cancel Isa"
+msgstr "Cancellazione fattura isa"
+
+#. module: account_invoice_management_isa
+#: field:account.invoice.cancel.isa,number:0
+msgid "Invoice Number"
+msgstr "Numero Fattura"
+
+#. module: account_invoice_management_isa
+#: model:res.groups,name:account_invoice_management_isa.account_invoice_managment_menu
+msgid "Account Invoice Managment Isa Menù"
+msgstr "Menù Invoice Managment Isa"
+
+#. module: account_invoice_management_isa
+#: view:account.invoice:0
+msgid "Force Number"
+msgstr "Forza Numero"
+
+#. module: account_invoice_management_isa
+#: field:account.journal,update_force_number_isa:0
+msgid "Allow Force Number from Cancelled Invoice"
+msgstr "Permetti di forzare il numero della fattura scegliendo tra i numeri dalle fatture cancellate"
+
+#. module: account_invoice_management_isa
+#: view:account.invoice.cancel.isa:0
+msgid "Invoice Cancelled search"
+msgstr "Ricerca fatture Cancellate"
+
+#. module: account_invoice_management_isa
+#: view:account.invoice:0
+msgid "Force invoice number. Use this field if you don't want to use the default numbering"
+msgstr "Forza il numero fattura. Usa questo campo se non si vuole utilizzare la numerazione ordinaria."
+
+#. module: account_invoice_management_isa
+#: field:account.invoice,internal_number_isa:0
+msgid "Invoice number"
+msgstr "Numero fattura."
+
+#. module: account_invoice_management_isa
+#: constraint:account.journal:0
+msgid "Configuration error! The currency chosen should be shared by the default accounts too."
+msgstr "Errore di configurazione! L'attuale scelta deve essere condivisa anche tra gli account."
+
+#. module: account_invoice_management_isa
+#: view:account.invoice:0
+msgid "Select invoice number. Use this field if you don't want to use the default numbering"
+msgstr "Selezionare il numero della fattura. Utilizzare questo campo se non si vuole utilizzare la numerazione ordinaria"
+
+#. module: account_invoice_management_isa
+#: view:account.invoice:0
+msgid "Validate"
+msgstr "Valida"
+
+#. module: account_invoice_management_isa
+#: sql_constraint:account.invoice:0
+msgid "Invoice Number must be unique per Company!"
+msgstr "Il numero della fattura deve essere unico per la Società!"
+
+#. module: account_invoice_management_isa
+#: sql_constraint:account.journal:0
+msgid "The name of the journal must be unique per company !"
+msgstr "Il nome del sezionale deve essere unico per la Società!"
+
+#. module: account_invoice_management_isa
+#: sql_constraint:account.journal:0
+msgid "The code of the journal must be unique per company !"
+msgstr "Il codice del sezionale deve essere unico per la Società!"
+
+#. module: account_invoice_management_isa
+#: model:ir.model,name:account_invoice_management_isa.model_account_invoice
+msgid "Invoice"
+msgstr "Fattura"
+
+#. module: account_invoice_management_isa
+#: help:account.journal,update_force_number_isa:0
+msgid "Check this box if you want to allow the force number from a list of invoice number cancelled for this journal"
+msgstr "Selezionare il campo se si vuole concedere di forzare il numero della fattura scegliendo tra i numeri delle fatture cancellate per questo sezionale."
+
+#~ msgid "Select to Force Number"
+#~ msgstr "Selezionare per forzare il Numero."
+

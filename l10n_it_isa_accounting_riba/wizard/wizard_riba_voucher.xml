@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <!-- VIEW-->        
+        <record id="form_riba_voucher" model="ir.ui.view">
+            <field name="name">riba.voucher</field>
+            <field name="model">riba_wizard_voucher</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Customer Payment">
+                    <field name="isa_date_riba" colspan="2"/>
+                    <group col="4" colspan="4">
+                        <button string="Cancel" special="cancel" icon="gtk-cancel" colspan="2"/>
+                        <button string="Create" name="create_voucher" type="object" icon="gtk-ok" colspan="2"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- ACTION-->        
+        <record id="riba_voucher_action" model="ir.actions.act_window">
+            <field name="name">Ri.Ba. Voucher</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">riba_wizard_voucher</field>
+            <field name="src_model">riba_wizard_voucher</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+			<field name="view_id" ref="form_riba_voucher"/>
+        </record>
+
+
+        <!-- PULSANTE-->
+        <record model="ir.values" id="menu_riba_voucher_wizard">
+            <field name="name">Ri.Ba. Pagamento Voucher</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('riba_voucher_action'))" />
+            <field name="key">action</field>
+            <field name="model">riba.voucher_isa</field>
+        </record>     
+    </data>
+</openerp>
+

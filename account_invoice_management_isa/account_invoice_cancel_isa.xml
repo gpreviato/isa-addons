@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <record model="ir.ui.view" id="account_cancel_isa_form_view">
+            <field name="name">account.invoice.cancel.isa.form</field>
+            <field name="model">account.invoice.cancel.isa</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Cancelled">
+                	<field name="number"/>
+                    <field name="journal_id" />
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="account_cancel_isa_tree_view">
+            <field name="name">account.invoice.cancel.isa.tree</field>
+            <field name="model">account.invoice.cancel.isa</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Cancelled">
+                	<field name="number"/>
+                    <field name="journal_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_cancel_isa_search_view">
+            <field name="name">account.invoice.cancel.isa.search</field>
+            <field name="model">account.invoice.cancel.isa</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Invoice Cancelled search">
+                	<field name="number"/>
+                    <field name="journal_id" widget="selection"/>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="account_cancel_isa_action">
+            <field name="name">Invoice Cancelled</field>
+            <field name="res_model">account.invoice.cancel.isa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>   
+	
+        <menuitem id="account_cancel_isa_menu" parent="account.menu_finance_receivables" action="account_cancel_isa_action"/>     
+     </data>
+</openerp>

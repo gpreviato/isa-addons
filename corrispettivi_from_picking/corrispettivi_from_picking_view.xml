@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <!-- picking -->
+        <record id="view_picking_form_ext_isa2" model="ir.ui.view">
+            <field name="name">stock.picking.form_extisa2</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@string='Create Invoice']" position="after">
+                    <button name="%(stock.action_stock_invoice_onshipping)d" string="Create Corrispettivo"  attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}"  context="{'invoice_type':'corrispettivo','form_view_ref':'corrispettivi_from_picking.view_stock_corrispettivi_onshipping'}" type="action" icon="terp-gtk-go-back-rtl" />
+                </xpath>
+            </field>
+        </record>
+        
+        
+    </data>
+</openerp>
+
+

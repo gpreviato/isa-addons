@@ -1,0 +1,106 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* accompanying_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-03-14 16:56+0000\n"
+"PO-Revision-Date: 2012-03-14 16:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: accompanying_invoice
+#: code:addons/accompanying_invoice/wizard/wizard_accompaying_invoice.py:64
+#, python-format
+msgid "Warning: you can create accompanying invoices only for out delivery to customers!"
+msgstr ""
+
+#. module: accompanying_invoice
+#: model:ir.model,name:accompanying_invoice.model_stock_invoice_onshipping
+msgid "Stock Invoice Onshipping"
+msgstr ""
+
+#. module: accompanying_invoice
+#: view:stock.invoice.onshipping:0
+msgid "_Cancel"
+msgstr ""
+
+#. module: accompanying_invoice
+#: field:account.journal,accompanying:0
+msgid "Fatt. Accompagnatorie"
+msgstr ""
+
+#. module: accompanying_invoice
+#: view:stock.invoice.onshipping:0
+msgid "Create"
+msgstr ""
+
+#. module: accompanying_invoice
+#: model:ir.actions.act_window,name:accompanying_invoice.action_accompanying_invoice_tree
+#: model:ir.ui.menu,name:accompanying_invoice.menu_accompanying_invoice_tree
+msgid "Accompaying Invoice"
+msgstr ""
+
+#. module: accompanying_invoice
+#: sql_constraint:account.journal:0
+msgid "The name of the journal must be unique per company !"
+msgstr ""
+
+#. module: accompanying_invoice
+#: view:stock.picking:0
+msgid "Create Accompanying Invoice"
+msgstr ""
+
+#. module: accompanying_invoice
+#: code:addons/accompanying_invoice/wizard/wizard_accompaying_invoice.py:71
+#, python-format
+msgid "Either there are no moves linked to the picking or Accounting Journals are misconfigured!"
+msgstr ""
+
+#. module: accompanying_invoice
+#: model:ir.model,name:accompanying_invoice.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: accompanying_invoice
+#: model:ir.model,name:accompanying_invoice.model_stock_picking
+msgid "Picking List"
+msgstr ""
+
+#. module: accompanying_invoice
+#: sql_constraint:account.journal:0
+msgid "The code of the journal must be unique per company !"
+msgstr ""
+
+#. module: accompanying_invoice
+#: field:account.invoice,accompanying_invoice:0
+msgid "Accompanying Invoice"
+msgstr ""
+
+#. module: accompanying_invoice
+#: code:addons/accompanying_invoice/wizard/wizard_accompaying_invoice.py:71
+#, python-format
+msgid "Warning !"
+msgstr ""
+
+#. module: accompanying_invoice
+#: model:ir.model,name:accompanying_invoice.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: accompanying_invoice
+#: view:stock.invoice.onshipping:0
+msgid "Create Accompaying Invoice"
+msgstr ""
+
+#. module: accompanying_invoice
+#: model:ir.actions.report.xml,name:accompanying_invoice.invoice_report_id
+msgid "Fattura Accompagnatoria"
+msgstr ""
+

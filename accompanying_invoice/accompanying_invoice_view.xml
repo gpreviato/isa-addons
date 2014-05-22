@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- journal -->
+         <record id="view_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="allow_date" position="after">
+                    <field name="accompanying"/>
+                </field>
+            </field>
+        </record>
+        
+    <!-- picking -->
+        <record id="view_picking_form_ext_isa" model="ir.ui.view">
+            <field name="name">stock.picking.form_extisa</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@string='Create Invoice']" position="after">
+                    <button name="%(stock.action_stock_invoice_onshipping)d" string="Create Accompanying Invoice"  attrs="{'invisible': ['|','|',('state','&lt;&gt;','done'),('invoice_state','=','invoiced'),('invoice_state','=','none')]}"  context="{'invoice_type':'accompanying','form_view_ref':'accompanying_invoice.view_stock_accompaying_invoice_onshipping'}" type="action" icon="terp-gtk-go-back-rtl" />
+                </xpath>
+            </field>
+        </record>
+        
+    <!-- accompanying invoice -->
+        <record id="action_accompanying_invoice_tree" model="ir.actions.act_window">
+                <field name="name">Accompaying Invoice</field>
+                <field name="res_model">account.invoice</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form,calendar,graph</field>
+                <field eval="False" name="view_id"/>
+                <field name="domain">[('type','=','out_invoice'),('accompanying_invoice','=',True)]</field>
+                <field name="context">{'type':'out_invoice', 'journal_type': 'sale','form_view_ref':'account_invoice_ext_isa.account_invoice_ext_isa_form_view' }</field>
+        </record>
+        
+        <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="context">{'accompanying_invoice': False,'journal_type': 'sale'}</field>
+        </record>
+        
+        <menuitem action="action_accompanying_invoice_tree" id="menu_accompanying_invoice_tree" parent="account.menu_finance_receivables"/>
+        
+    </data>
+</openerp>
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Riba da emettere Tree View di account_view-->
+        <record id="view_riba_da_emettere_tree_isa" model="ir.ui.view" >
+            <field name="name">Issue Ri.Ba.</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="l10n_it_ricevute_bancarie.view_riba_da_emettere_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="date_maturity" position="replace" />
+                <field name="invoice_origin" position="replace" />
+                <field name="riba" position="replace" />
+                <field name="stored_invoice_id" position="before">
+                    <field name="distinta_line_ids" string="emessa" />
+                    <field name="date_maturity"/>
+                </field>        
+            </field>
+        </record>
+        
+        
+         <!-- Riba da emettere Filtro di account_view-->
+          <record id="riba_filter_isa" model="ir.ui.view" >
+            <field name="name">Ri.Ba. filter</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="l10n_it_ricevute_bancarie.riba_filter"/>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <field name="invoice_origin" position="replace" />
+                <field name="account_id" position="before" >                
+                    <group expand="1" string="Da emettere">
+
+                <filter icon="terp-go-month" string="Month" name="Month"
+                domain="[('distinta_line_ids', '=', False),('date_maturity','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%%Y-%%m-%%d')),
+                ('date_maturity','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%%Y-%%m-%%d'))]"
+                help="Order in  current month"/>
+     <filter icon="terp-dolar_ok!" string="Unsolved" domain="[('distinta_line_ids', '=', False),('stored_invoice_id','=',False)]"                               name="unsolved"/>                    
+                </group>
+</field>       
+                      
+            </field>
+        </record>
+    </data>
+</openerp>

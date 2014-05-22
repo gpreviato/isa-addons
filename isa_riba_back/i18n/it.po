@@ -1,0 +1,56 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* isa_riba_back
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.1-1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-08 13:41+0000\n"
+"PO-Revision-Date: 2012-08-08 15:45+0100\n"
+"Last-Translator: Loris Turchetti <l.turchetti@isa.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: isa_riba_back
+#: view:riba.distinta:0
+msgid "Reset to Draft"
+msgstr "Reimposta a bozza"
+
+#. module: isa_riba_back
+#: code:addons/isa_riba_back/isa_riba_back.py:52
+#: code:addons/isa_riba_back/isa_riba_back.py:86
+#, python-format
+msgid "Attention!"
+msgstr "Attenzione!"
+
+#. module: isa_riba_back
+#: code:addons/isa_riba_back/isa_riba_back.py:86
+#, python-format
+msgid "In this distinta there is at least a riba paid.It's not possible back to draft!"
+msgstr "In questa distinta c'è almeno una riba che è stata pagata.Non è possibile rimpostarla in stato bozza!"
+
+#. module: isa_riba_back
+#: model:ir.model,name:isa_riba_back.model_riba_distinta
+msgid "Distinta Riba"
+msgstr "Distinta Riba"
+
+#. module: isa_riba_back
+#: view:riba.distinta:0
+msgid "allow back in draft"
+msgstr "Permetti reimpostare stato bozza"
+
+#. module: isa_riba_back
+#: code:addons/isa_riba_back/isa_riba_back.py:52
+#, python-format
+msgid "If you want back to draft, you mast set 'allow back in draft'"
+msgstr "Se vuoi rimpostare lo stato bozza, devi spuntare 'Permetti reimpostare stato bozza'"
+
+#. module: isa_riba_back
+#: field:riba.distinta,draftable:0
+msgid "draftable"
+msgstr "Abozzabile"
+

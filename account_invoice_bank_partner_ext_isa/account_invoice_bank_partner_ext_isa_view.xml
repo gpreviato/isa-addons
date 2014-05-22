@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="account_invoice_bank_partner_ext_isa_view" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_invoice_ext_isa.account_invoice_ext_isa_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fiscal_position']" position="after">           
+                    <newline/>
+                    <field name="bank_account" domain="[('partner_id','=',partner_id)]" context="{'default_partner_id': partner_id}" colspan="4"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_bank_id']" position="replace">           
+                    <field name="partner_bank_id" string="Banca Azienda" domain="[('partner_id','=',company_id)]" colspan="3" groups="account.group_account_user" />
+                </xpath>
+            </field>
+        </record>
+     </data>
+</openerp>

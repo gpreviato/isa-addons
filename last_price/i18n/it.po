@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-04-16 14:35+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Paolo <p.chiara@isa.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: last_price
+#: field:product.product,last_purchase_price:0
+msgid "Last purchase price"
+msgstr "Ultimo prezzo d'acquisto"
+
+#. module: last_price
+#: model:ir.model,name:last_price.model_product_product
+msgid "Product"
+msgstr "Product"
+
+#. module: last_price
+#: constraint:product.product:0
+msgid "Error: Invalid ean code"
+msgstr "Errore: codice ean non valido"
+

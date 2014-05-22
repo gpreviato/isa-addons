@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2012-03-08 09:43+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Paolo <p.chiara@isa.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. module: corrispettivi_from_picking
+#: model:ir.model,name:corrispettivi_from_picking.model_stock_invoice_onshipping
+msgid "Stock Invoice Onshipping"
+msgstr "Fatturazione alla spedizione"
+
+#. module: corrispettivi_from_picking
+#: view:stock.invoice.onshipping:0
+msgid "Create"
+msgstr "Crea"
+
+#. module: corrispettivi_from_picking
+#: code:addons/corrispettivi_from_picking/wizard/wizard_corrispettivi_from_picking.py:72
+#, python-format
+msgid "Either there are no moves linked to the picking or Accounting Journals are misconfigured!"
+msgstr ""
+
+#. module: corrispettivi_from_picking
+#: view:stock.invoice.onshipping:0
+#: view:stock.picking:0
+msgid "Create Corrispettivo"
+msgstr "Crea Corrispettivo"
+
+#. module: corrispettivi_from_picking
+#: view:stock.invoice.onshipping:0
+msgid "_Cancel"
+msgstr "Cancella"
+
+#. module: corrispettivi_from_picking
+#: model:ir.model,name:corrispettivi_from_picking.model_stock_picking
+msgid "Picking List"
+msgstr "Lista Consegne"
+
+#. module: corrispettivi_from_picking
+#: code:addons/corrispettivi_from_picking/wizard/wizard_corrispettivi_from_picking.py:72
+#, python-format
+msgid "Warning !"
+msgstr "Attenzione!"
+
+#. module: corrispettivi_from_picking
+#: code:addons/corrispettivi_from_picking/wizard/wizard_corrispettivi_from_picking.py:64
+#, python-format
+msgid "Warning: you can create corrispettivi only for out delivery to customers!"
+msgstr "Attenzione: puoi creare corrispettivi solo per spedizione in uscita verso clienti!"
+

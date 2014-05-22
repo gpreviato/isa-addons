@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+              <record id="view_distinta_riba_back_form" model="ir.ui.view">
+            <field name="name">distinta.riba.back.form</field>
+            <field name="model">riba.distinta</field>
+            <field name="inherit_id" ref="l10n_it_ricevute_bancarie.view_distinta_riba_form"/>
+            <field name="arch" type="xml">
+                <button name="cancel" position="after">
+                    <button name="action_revert_done" string="Reset to Draft" attrs="{'invisible':[('state','in',('draft','cancel','paid'))]}" type="object" icon="gtk-cancel" />
+                    <field name="draftable" string="allow back in draft" attrs="{'invisible':[('state','in',('draft','cancel','paid'))]}" />
+                </button>
+            </field>
+		</record>
+    </data>
+</openerp>

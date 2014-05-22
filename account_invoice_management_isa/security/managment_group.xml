@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>                                
+        <!-- creazione gruppo account_invoice_managment_isa-->
+        <record id="account_invoice_managment_menu" context="{'noadmin':True}" model="res.groups">
+           <field name="name">Account Invoice Managment Isa Menù</field>
+        </record>
+        <!-- creazione gruppo account_invoice_managment_view-->
+        <record id="account_invoice_managment_view" context="{'noadmin':True}" model="res.groups">
+           <field name="name">Account Invoice Managment Isa view</field>
+        </record>
+        
+        <!-- aggiunta menù magazzino al gruppo-->
+        <record id="account_cancel_isa_menu" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4,ref('account_invoice_managment_menu'))]"/>
+        </record>
+
+    </data>
+</openerp>

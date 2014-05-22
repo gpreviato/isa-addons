@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Riba da emettere Tree View di account_view-->
+        <record id="view_riba_configurazione_form_isa" model="ir.ui.view" >
+            <field name="name">riba.configurazione_isa.form</field>
+            <field name="model">riba.configurazione</field>
+            <field name="inherit_id" ref="l10n_it_ricevute_bancarie.view_riba_configurazione_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+
+                <field name="protest_charge_account_id" position="after">
+                        <separator colspan="4" string="Payment"/>
+                    <field name="journal_id" attrs="{'required':[('tipo','=','sbf')]}"/>
+                </field>        
+            </field>
+        </record>
+    </data>
+</openerp>

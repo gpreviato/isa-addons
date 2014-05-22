@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+		<!-- ====================================================== -->
+		<!-- 				VOUCHER RIBA TREE 				-->
+		<!-- ====================================================== -->
+		<record model="ir.ui.view" id="view_riba_voucher_isa_tree">
+			<field name="name">riba.voucher.tree</field>
+			<field name="model">riba.voucher_isa</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<form string="Ri.Ba. - voucher">
+					<field name="name" />
+					<field name="amount" />
+					<field name="date" />
+					<field name="date_due" />
+					<field name="partner_id" />
+					<field name="journal_payment_id" />
+					<field name="distinta_id" />
+					<field name="account_id" />
+
+				</form>
+			</field>
+        </record>
+
+
+		<!-- ====================================================== -->
+		<!-- 				VOUCHER RIBA FORM 				-->
+		<!-- ====================================================== -->
+		<record model="ir.ui.view" id="view_riba_voucher_isa_form">
+			<field name="name">riba.voucher.form</field>
+			<field name="model">riba.voucher_isa</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Ri.Ba. - voucher">
+					<field name="name" />
+					<field name="account_move_line_id" />
+					<field name="partner_id" />
+					<field name="journal_payment_id" />
+					<field name="distinta_id" />
+
+				</form>
+			</field>
+		</record>
+		<!-- ====================================================== -->
+		<!-- 				VOUCHER RIBA ACTION				-->
+		<!-- ====================================================== -->
+		<record model="ir.actions.act_window" id="action_riba_voucher_isa">
+				<field name="name">Ri.Ba. - Voucher</field>
+				<field name="type">ir.actions.act_window</field>
+				<field name="res_model">riba.voucher_isa</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree</field>
+		</record>
+		<!-- ====================================================== -->
+		<!-- 				VOUCHER RIBA MENU 				-->
+		<!-- ====================================================== -->
+   <menuitem name="Voucher ISA" parent="l10n_it_ricevute_bancarie.menu_riba" id="menu_riba_voucher_isa" action="action_riba_voucher_isa" />		
+
+
+	</data>
+</openerp>

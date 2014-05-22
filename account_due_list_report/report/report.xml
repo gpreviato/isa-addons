@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<openerp>
+<data noupdate="0">
+    
+    <record id="aeroo_report_due_list_ods" model="ir.actions.report.xml">
+        <field name="name">Due List ods</field>
+        <field name="type">ir.actions.report.xml</field>
+        <field name="model">account.move.line</field>
+        <field name="report_name">due_list_ods</field>
+        <field name="report_type">aeroo</field>
+        <field name="in_format">oo-ods</field>
+        <field name='out_format' eval="ref('report_aeroo_ooo.report_mimetypes_pdf_ods')"/>
+        <field name="parser_loc">account_due_list_report/report/parser_due_list.py</field>
+        <field name="report_rml">account_due_list_report/report/template_due_list.ods</field>
+        <field name="parser_state">loc</field>
+        <field name="tml_source">file</field>
+    </record>
+    
+    <record id="aeroo_report_due_list_odt" model="ir.actions.report.xml">
+        <field name="name">Due List odt</field>
+        <field name="type">ir.actions.report.xml</field>
+        <field name="model">account.move.line</field>
+        <field name="report_name">due_list_odt</field>
+        <field name="report_type">aeroo</field>
+        <field name="in_format">oo-odt</field>
+        <field name='out_format' eval="ref('report_aeroo_ooo.report_mimetypes_pdf_odt')"/>
+        <field name="parser_loc">account_due_list_report/report/parser_due_list.py</field>
+        <field name="report_rml">account_due_list_report/report/template_due_list.odt</field>
+        <field name="parser_state">loc</field>
+        <field name="tml_source">file</field>
+    </record>
+
+</data>
+</openerp>
+

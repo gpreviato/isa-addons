@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_invoice_template_form_isa" model="ir.ui.view">
+            <field name="name">account.invoice.template.form</field>
+            <field name="model">account.invoice.template</field>
+            <field name="inherit_id" ref="account_invoice_template.view_invoice_template_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/field[@name='type']" position="replace">
+                    <field name="type" on_change="onchange_type(type)" />
+                    <field name="journal_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_invoice_template_line_form_isa" model="ir.ui.view">
+            <field name="name">account.invoice.template.line.form</field>
+            <field name="model">account.invoice.template.line</field>
+            <field name="inherit_id" ref="account_invoice_template.view_invoice_template_line_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/field[@name='python_code']" position="replace">
+                    <field name="python_code" colspan="4" attrs="{'readonly': [('type', '!=', 'computed')], 'required':[('type','=','computed')]}" nolabel="1"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_invoice_template_search_isa" model="ir.ui.view">
+            <field name="name">account.invoice.template.search</field>
+            <field name="model">account.invoice.template</field>
+            <field name="inherit_id" ref="account_invoice_template.view_invoice_template_search" />
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <xpath expr="/search/group/field[@name='type']" position="after">
+                    <field name="journal_id" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

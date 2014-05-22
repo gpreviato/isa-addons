@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+                <!-- Project Contract -->
+        <record model="ir.ui.view" id="project_contract_form">
+            <field name="name">project.contract.form</field>
+            <field name="model">project.contract</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Project Contract">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="contract_number"/>
+                </form>
+            </field>
+        </record>
+       
+        <record model="ir.ui.view" id="project_contract_tree">
+            <field name="name">project.contract.tree</field>
+            <field name="model">project.contract</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Project Contract">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="contract_number"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="project_contract_search">
+            <field name="name">project.contract.search</field>
+            <field name="model">project.contract</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Project Contract">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="contract_number"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project_contract_action">
+            <field name="name">Contracts</field>
+            <field name="res_model">project.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="project_contract_search"/>
+        </record>
+        <menuitem id="menu_project_contract_action" parent="menu_project_config" action="project_contract_action" />  
+
+                <!-- Project Contract Line-->
+        <record model="ir.ui.view" id="project_contract_line_form">
+            <field name="name">project.contract.line.form</field>
+            <field name="model">project.contract.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Project Contract Line">
+                    <field name="name"/>
+                    <field name="contract_id"/>
+                    <field name="contract_line_number"/>
+                </form>
+            </field>
+        </record>
+       
+        <record model="ir.ui.view" id="project_contract_line_tree">
+            <field name="name">project.contract.line.tree</field>
+            <field name="model">project.contract.line</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <form string="Project Contract Line">
+                    <field name="name"/>
+                    <field name="contract_id"/>
+                    <field name="contract_line_number"/>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="project_contract_line_search">
+            <field name="name">project.contract.line.search</field>
+            <field name="model">project.contract.line</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Project Contract Line">
+                    <field name="name"/>
+                    <field name="contract_id"/>
+                    <field name="contract_line_number"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project_contract_line_action">
+            <field name="name">Contracts Line</field>
+            <field name="res_model">project.contract.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="project_contract_line_search"/>
+        </record>
+        <menuitem id="menu_project_contract_line_action" parent="menu_project_contract_action" action="project_contract_line_action" />  
+    </data>
+</openerp>

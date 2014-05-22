@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+      <record model="ir.ui.view" id="view_idea_idea_form_isa">
+        <field name="name">idea.idea.form.inherit</field>
+        <field name="model">idea.idea</field>
+        <field name="inherit_id" ref="idea.view_idea_idea_form"/>
+        <field name="arch" type="xml">
+                <field name="name" position="after" >
+                    <field name="customurl" widget="test" readonly="True"  attrs="{'invisible':[('name','=','')]}"  />
+		</field>
+	</field>
+      </record>
+    </data>
+</openerp>
+
+

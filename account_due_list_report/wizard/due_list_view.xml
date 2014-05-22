@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--view ods -->        
+        <record id="view_due_list_report" model="ir.ui.view">
+            <field name="name">Print Account Due List Report</field>
+            <field name="model">account.due.list.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Print Account Due List Report">
+                <field name="date_maturity_from"/>
+                <field name="date_maturity_to"/>
+                <field name="partner_wizard"/>
+                <newline/>
+                <separator colspan="4"/>
+                <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+                <button name="print_report_ods" string="Print ods" type="object"  icon="gtk-print"/>
+                <button name="print_report_odt" string="Print odt" type="object"  icon="gtk-print"/>
+            </form>
+            </field>
+        </record>
+        
+        <!--action -->        
+        <record id="action_due_list_report" model="ir.actions.act_window">
+            <field name="name">Print Account Due List Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.due.list.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>  
+              
+        <!--ir set -->
+        <record model="ir.values" id="due_list_report">
+            <field name="model_id" ref="account_due_list.model_account_move_line" />
+            <field name="object" eval="1" />
+            <field name="name">Account Due List Report</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_due_list_report'))" />
+            <field name="key">action</field>
+            <field name="model">account.move.line</field>
+        </record>
+
+    </data>
+</openerp>

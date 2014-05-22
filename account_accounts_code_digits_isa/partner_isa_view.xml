@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+   		<record id="view_partner_property_form_isa" model="ir.ui.view">
+            <field name="name">partner.property.form.isa</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="property_account_receivable" position="replace">
+                    <field name="property_account_receivable" groups="account.group_account_invoice" context="{'customer':True,'partner_name':name}"/>              
+                </field>
+                <field name="property_account_payable" position="replace">
+                    <field name="property_account_payable" groups="account.group_account_invoice" context="{'supplier':True,'partner_name':name}"/>              
+                </field>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
