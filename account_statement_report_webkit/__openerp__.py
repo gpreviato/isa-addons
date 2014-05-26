@@ -33,8 +33,7 @@ This module adds the following standard OpenERP financial reports:
     'license': 'AGPL-3',
     'category': 'Finance',
     'website': 'http://www.isa.it',
-    'images': [
-        'images/ledger.png',],
+
     'depends': ['account',
                 'account_ricevute_bancarie',
                 'account_financial_report_webkit',
