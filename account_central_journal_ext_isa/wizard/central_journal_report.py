@@ -134,7 +134,7 @@ class central_journal_report(orm.TransientModel):
         datas['print_final'] = False
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'central_journal_report',
+            'report_name': 'central_journal_report2',
             'datas': datas,
         }
 
@@ -146,7 +146,7 @@ class central_journal_report(orm.TransientModel):
         datas['print_final'] = True
         return {
             'type': 'ir.actions.report.xml',
-            'report_name': 'central_journal_report',
+            'report_name': 'central_journal_report2',
             'datas': datas,
         }
         

@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Authors: Nicolas Bessi, Guewen Baconnier
-#    Copyright Camptocamp SA 2011
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2014 ISA s.r.l. (<http://www.isa.it>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     'name': 'Report Estratti Conto - Webkit',
     'description': """
@@ -35,7 +36,7 @@ dei clienti/fornitori e differenziandosi così dalla gestione dei partitari
 contabili ove i movimenti vengono gestiti in ordine di data di registrazione. 
 
 """,
-    'version': '0.0.1',
+    'version': '0.1',
     'author': 'ISA srl',
     'license': 'AGPL-3',
     'category': 'Finance',

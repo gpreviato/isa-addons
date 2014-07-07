@@ -5,7 +5,6 @@
         <record id="wizard_vat_registry" model="ir.ui.view">
             <field name="name">Registro IVA</field>
             <field name="model">wizard.vat.registry</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Registro IVA" version="7.0">
                     <group>

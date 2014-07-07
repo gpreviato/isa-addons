@@ -24,6 +24,7 @@ from openerp.report import report_sxw
 from openerp import pooler
 import os
 
+from webkit_parser_header_fix import HeaderFooterTextWebKitParser
 
 class parser_invoice_report_gen(report_sxw.rml_parse):
     _name = 'account.invoice.report.gen.isa'
@@ -87,8 +88,8 @@ class parser_invoice_report_gen(report_sxw.rml_parse):
                 num_lines = num_lines +1
         return num_lines
 
-report_sxw.report_sxw('report.fattura_gen_report',
-                      'account.invoice',
-                      os.path.dirname(os.path.realpath(__file__)) + 
+report_sxw.report_sxw('report.fattura_gen_report2',
+                             'account.invoice',
+                             os.path.dirname(os.path.realpath(__file__)) + 
                                                       '/invoice_gen.mako',
-                      parser=parser_invoice_report_gen)
+                             parser=parser_invoice_report_gen)

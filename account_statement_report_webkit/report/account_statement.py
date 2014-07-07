@@ -82,6 +82,8 @@ class AccountReportStatement(report_sxw.rml_parse, CommonPartnersReportHeaderWeb
         return t_dict[self.filter]
 
     def _get_accounts(self, selected_items):
+        if not selected_items:
+            return None
         t_items = "(" + str(selected_items) + ")"
         if isinstance(selected_items, list):
             t_items = "(" + ",".join(str(x) for x in selected_items) + ") "

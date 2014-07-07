@@ -43,7 +43,7 @@
                 <field name="debit" readonly="1" sum="Total Debit"/>
                 <field name="amount_residual" readonly="1" sum="Total Amount" />
                 <field name="date_maturity"/>
-                <field name="payment_type" />
+                <field name="payment_type_move_line" />
                 <field name="distinta_line_ids" invisible="1" />
                 <field name="reconcile_id" invisible="1" />
             </tree>
@@ -84,7 +84,7 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="view_riba_da_emettere_tree" />
         <field name="context">{'search_default_da_emettere':1}</field>
-        <field name="domain">['&amp;','|',('payment_type','=','D'),('unsolved_invoice_ids','!=',False),('account_id.type','=','receivable'), ('reconcile_id', '=', False)]</field>
+        <field name="domain">['&amp;','|',('payment_type_move_line','=','D'),('unsolved_invoice_ids','!=',False),('account_id.type','=','receivable'), ('reconcile_id', '=', False)]</field>
         <field name="search_view_id" ref="riba_filter"/>
     </record>
 

@@ -26,6 +26,3 @@ import payment_term
 import withholding_tax
 import report
 import res
-import wizard
-import vat_protocol
-import exporter_statements

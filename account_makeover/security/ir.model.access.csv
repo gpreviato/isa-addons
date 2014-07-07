@@ -1,8 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_vat_registries_isa,vat.registries.isa,model_vat_registries_isa,account.group_account_user,1,1,1,1
-access_vat_registries_isa,vat.registries.isa,model_vat_registries_isa,account.group_account_manager,1,1,1,1
 access_account_withholding_tax_isa,account.withholding.tax.isa,model_account_withholding_tax_isa,,1,1,1,1
-access_account_exporter_statements,account.exporter.statements,model_account_exporter_statements,,1,1,1,1
 
 
 

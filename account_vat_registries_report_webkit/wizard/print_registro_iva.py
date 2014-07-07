@@ -107,11 +107,11 @@ class wizard_vat_registry(orm.TransientModel):
             'datas': datas,
         }
         if t_layout_type == 'customer':
-            res['report_name'] = 'vat_registry_sale_webkit'
+            res['report_name'] = 'vat_registry_sale_webkit2'
         elif t_layout_type == 'supplier':
-            res['report_name'] = 'vat_registry_purchase_webkit'
+            res['report_name'] = 'vat_registry_purchase_webkit2'
         elif t_layout_type == 'corrispettivi':
-            res['report_name'] = 'vat_registry_corrispettivi_webkit'
+            res['report_name'] = 'vat_registry_corrispettivi_webkit2'
         return res
 
     def onchange_iva_registry_id(self, cr, uid, ids,

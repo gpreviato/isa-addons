@@ -59,16 +59,6 @@ Alla creazione di un conto sul pdc il modulo recupera in AUTOMATICO
 il codice del mastro e gruppo selezionati e propone l'ultimo
 progressivo numerico disponibile (comunque editabile).
 
-Registri IVA
-------------
-
-Si tratta di una procedura contabile per conformità con le disposizioni
-fiscali italiane non prevista nello standard OperErp, DPR 633/62 art. 23 c.1.
-
-I documenti soggetti ad Iva emessi o ricevuti sono contrassegnati con un
-numero di protocollo, il registro iva è ordinato in base a questa numerazione.
-
-
 Anteprima Scadenze
 ------------------
 
@@ -131,38 +121,6 @@ Se il pagamento non è ancora creato, nel calcolo della scadenza del pagamento
 della rda si considera la data di scadenza della fattura.
 
 
-Lettere d'intento
------------------
-
-La normativa IVA prevede che i soggetti esportatori abituali che emettono
-fatture senza applicazione di imposta possano effettuare i loro acquisti
-chiedendo al fornitore di non applicare l'IVA.
-In questi casi l'esportatore abituale trasmette al fornitore una
-dichiarazione definita “lettera d'intento” in quanto afferma la propria
-intenzione di effettuare esportazioni ed il fornitore indicherà gli
-estremi della lettera nelle fatture.
-La dichiarazione può valere per una singola operazione, per un periodo o
-fino a concorrenza di un determinato ammontare.
-
-Le dichiarazioni di intento emesse e ricevute sono memorizzate in una
-tabella di database. Per le dichiarazioni ricevute, in fase di
-emissione delle fatture verrà applicato il corretto assoggettamento fiscale.
-
-
-Riepilogo degli adempimenti previsti per i fornitori degli esportatori abituali:
-
-1) La dichiarazione d’intento deve essere annotata, entro 15 giorni,
-in un apposito registro o in una sezione del registro delle fatture emesse o dei corrispettivi.
-
-2) Sulla fattura saranno annotati gli estremi della dichiarazione
-d’intento ed il titolo di non imponibilità.
-
-3) Entro il 16 del mese successivo a quello di ricevimento della dichiarazione,
-deve essere effettuata un’apposita comunicazione in via telematica.
-Per la preparazione di questa dichiarazione si vedano le specifiche
-tecniche dell'Agenzia delle Entrate riportate in allegato.
-
-
 Gestione Automatica Sottoconti
 ------------------------------
 
@@ -192,35 +150,29 @@ il pulsante 'Richiesta nota di credito' nella pagina della specifica fattura.
     'website': 'http://www.isa.it',
     'license': 'AGPL-3',
     'depends' : ['account',
+                 'account_financial_report_webkit',
                  'base_fiscalcode',
                  'l10n_it',
                  'report_webkit',
                  'base_headers_webkit',
+                 'account_exporter_statements_webkit',
+                 'account_vat_registries_report',
                 ],
     'data' : [
               'security/ir.model.access.csv',
               'report/report.xml',
-              'report/report_analytic_account.xml',
-              'data/account_data_sequence.xml',
               'data/account_payment_term.xml',
               'data/account_withholding_tax.xml',
               'data/account.fiscal.position.template.csv',
               'payment_term/payment_term_line_view.xml',
-              'wizard/wizard_exporter_statements_view.xml',
-              'wizard/wizard_aged_partner_balance_view.xml',
-              'wizard/wizard_vat_registry_view.xml',
               'product/product_view.xml',
               'invoice/account_invoice_view.xml',
               'invoice/account_invoice_line_view.xml',
               'withholding_tax/withholding_tax_view.xml',
               'account/account_move_view.xml',
               'account/account_account_view.xml',
-              'vat_protocol/account_journal_view.xml',
-              'vat_protocol/vat_registries_view.xml',
-              'exporter_statements/account_exporter_statements_view.xml',
               'res/res_partner_view.xml',
               'res/res_company_view.xml',
-              'account/account_menu_items.xml',
         ],
     'demo' : [],
     'installable': True,

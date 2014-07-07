@@ -1,8 +1,16 @@
 ## -*- coding: utf-8 -*-
-<html>
-<head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <style type="text/css">
+            .overflow_ellipsis {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
 
+            ${css}
+        </style>
     <script type="text/javascript">
 
 

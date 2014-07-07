@@ -256,17 +256,17 @@ class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
         })
         return super(Parser, self).set_context(objects, data, ids, report_type=report_type)
 
-HeaderFooterTextWebKitParser('report.vat_registry_sale_webkit',
+HeaderFooterTextWebKitParser('report.vat_registry_sale_webkit2',
                              'account.move',
                              os.path.dirname(os.path.realpath(__file__)) + 
                                                '/vat_registry_sale.mako',
                              parser=Parser)
-HeaderFooterTextWebKitParser('report.vat_registry_purchase_webkit',
+HeaderFooterTextWebKitParser('report.vat_registry_purchase_webkit2',
                              'account.move',
                              os.path.dirname(os.path.realpath(__file__)) + 
                                                '/vat_registry_purchase.mako',
                              parser=Parser)
-HeaderFooterTextWebKitParser('report.vat_registry_corrispettivi_webkit',
+HeaderFooterTextWebKitParser('report.vat_registry_corrispettivi_webkit2',
                              'account.move',
                              os.path.dirname(os.path.realpath(__file__)) + 
                                                '/vat_registry_corrispettivi.mako',

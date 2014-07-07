@@ -120,7 +120,7 @@ class central_journal_report(report_sxw.rml_parse):
 
         return res
 
-report_sxw.report_sxw('report.central_journal_report',
+report_sxw.report_sxw('report.central_journal_report2',
                        'account.move.line',
                        os.path.dirname(os.path.realpath(__file__)) + \
                                 '/report/central_journal_report.mako',

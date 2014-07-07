@@ -33,7 +33,7 @@
         </record>
         <record id="action_account_moves_riba" model="ir.actions.act_window">
             <field name="context">{'journal_type':'general'}</field>
-            <field name="domain">[('payment_type','=','D'),('reconcile_id','in',[False,None]),('credit','=',0.0)]</field>
+            <field name="domain">[('payment_type_move_line','=','D'),('reconcile_id','in',[False,None]),('credit','=',0.0)]</field>
             <field name="name">Selezione Movimenti</field>
             <field name="res_model">account.move.line</field>
             <field name="view_id" ref="view_move_line_tree_riba"/>
