@@ -36,7 +36,7 @@ dei clienti/fornitori e differenziandosi così dalla gestione dei partitari
 contabili ove i movimenti vengono gestiti in ordine di data di registrazione. 
 
 """,
-    'version': '0.2',
+    'version': '0.1',
     'author': 'ISA srl',
     'license': 'AGPL-3',
     'category': 'Finance',

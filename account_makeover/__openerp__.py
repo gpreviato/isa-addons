@@ -21,7 +21,7 @@
 
 {
     'name': 'Account Makeover',
-    'version': '0.2',
+    'version': '0.1',
     'category': 'Accounting & Finance',
     'description': """
 Account Makeover
@@ -154,7 +154,6 @@ il pulsante 'Richiesta nota di credito' nella pagina della specifica fattura.
                  'base_fiscalcode',
                  'l10n_it',
                  'report_webkit',
-                 'base_headers_webkit',
                  'account_exporter_statements_webkit',
                  'account_vat_registries_report',
                 ],

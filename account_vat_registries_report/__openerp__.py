@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'Registri IVA - VAT Registries',
-    'version': '0.3',
+    'version': '0.2',
     'category': 'Localisation/Italy',
     'description': """
 Registri IVA
