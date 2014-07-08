@@ -21,7 +21,7 @@
 
 {
     'name': 'Account Makeover',
-    'version': '0.1',
+    'version': '0.2',
     'category': 'Accounting & Finance',
     'description': """
 Account Makeover
