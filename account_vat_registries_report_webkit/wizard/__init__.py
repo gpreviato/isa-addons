@@ -20,3 +20,5 @@
 ##############################################################################
 
 import print_registro_iva
+import reset_protocol_numbers
+import wizard_post_reset

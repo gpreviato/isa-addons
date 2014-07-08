@@ -5,13 +5,13 @@
         <record id="wizard_vat_registry" model="ir.ui.view">
             <field name="name">Registro IVA</field>
             <field name="model">wizard.vat.registry</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Registro IVA" version="7.0">
                     <group>
                         <group>
                             <field name="iva_registry_id" required="1" on_change="onchange_iva_registry_id(iva_registry_id)" />
                             <field name="fiscal_page_base"/>
+                            <field name="padding"/>
                         </group>
                         <group>
                             <field name="tax_sign" invisible="1" />
@@ -24,7 +24,7 @@
                     </group>
                     <footer>
                         <button string="Stampa" name="print_registro" type="object" class="oe_highlight"/>
-                        or
+                        	or
                         <button string="Annulla" class="oe_link" special="cancel"/>
                     </footer>
                 </form>

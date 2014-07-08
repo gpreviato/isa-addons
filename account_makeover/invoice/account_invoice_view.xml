@@ -29,7 +29,6 @@
                 <xpath expr="//field[@name='account_id']" position="after">
                     <field name="document_number"/>
                     <field name="registration_date" required="1" />
-                    <field name="protocol_number" required="0" attrs="{'invisible':[('state','=', 'draft')]}"/>
                     <newline/>
                     <field name="partner_bank_id" string="Company Bank" domain="[('partner_id','=',company_id)]" colspan="2"/>
                 </xpath>
@@ -103,7 +102,6 @@
                 <xpath expr="//form/sheet/group/group/field[@name='account_id']" position="after" >
                     <field name="document_number" invisible="1"/>
                     <field name="registration_date" required="1" on_change="onchange_registration_date(date_invoice, registration_date)"/>
-                    <field name="protocol_number" required="0" attrs="{'invisible':[('state','=', 'draft')]}"/>
                 </xpath>
                 <xpath expr="//form/sheet/group/group/field[@name='fiscal_position']" position="attributes">
                     <attribute name="select">1</attribute>

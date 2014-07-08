@@ -27,7 +27,7 @@
 {
     "name": "Ricevute Bancarie",
     "version": "1.3",
-    "author": "ISA srl/OpenERP Italian Community",
+    "author": ["ISA srl", "OpenERP Italian Community"],
     "category": "Accounting & Finance",
     "website": "http://www.openerp-italia.org",
     "description": """

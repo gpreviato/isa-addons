@@ -25,32 +25,11 @@ from openerp.osv import fields, orm
 class account_move_makeover(orm.Model):
 
     _inherit = 'account.move'
-    
-    def _get_move_isa(self, cr, uid, ids, context=None):
-        result = {}
-        for move in self.browse(cr, uid, ids, context=context):
-            result[move.id] = True
-        return result.keys()
-
-    def _get_int_protocol_number(self, cr, uid, ids, field_name, arg,
-                                   context=None):
-        res = {}
-        for move in self.browse(cr, uid, ids, context=context):
-            if move.protocol_number:
-                res[move.id] = int(move.protocol_number)
-        return res
 
     _columns = {
         'protocol_number': fields.char('Numero Protocollo',
                                      size=64,
                                      readonly=True),
-        'integer_protocol_number': fields.function(_get_int_protocol_number,
-                                    method=True,
-                                    type='integer',
-                                    string='Protocollo (Num. Intero)',
-                                    store={
-                                           'account.move': (_get_move_isa, ['protocol_number'], 10),
-                                           }),
         'document_number': fields.char('Document Number',
                                      size=64),
         'document_date': fields.date('Document Date',

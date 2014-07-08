@@ -49,12 +49,15 @@ class wizard_vat_registry(orm.TransientModel):
         'iva_registry_id': fields.many2one('vat.registries.isa',
                                        'Registro',
                                        required=True),
+        'padding': fields.integer('Padding', 
+                                  require=True)
         }
 
     _defaults = {
         'period_ids': _get_period,
         'tax_sign': 1.0,
         'fiscal_page_base': 0,
+        'padding':0,
         }
 
     def print_registro(self, cr, uid, ids, context=None):
@@ -102,6 +105,7 @@ class wizard_vat_registry(orm.TransientModel):
         datas['layout'] = t_layout_type
         datas['tax_sign'] = wizard['tax_sign']
         datas['iva_registry_id'] = wizard['iva_registry_id'].id
+        datas['padding'] = wizard['padding']
         res= {
             'type': 'ir.actions.report.xml',
             'datas': datas,

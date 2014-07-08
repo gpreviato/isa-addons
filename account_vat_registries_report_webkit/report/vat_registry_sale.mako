@@ -58,7 +58,7 @@
                         %for line in tax_lines(object) :
                             %if line['index']==0:
                               <div class="act_as_row lines">
-                                  <div class="act_as_cell ${style} first_column">${object.protocol_number or ''| entity}</div>
+                                  <div class="act_as_cell ${style} first_column">${compute_protocol_number(object.protocol_number)}</div>
                                   <div class="act_as_cell ${style}">${ formatLang(object.date,date=True) or '' | entity}</div>
                                   <div class="act_as_cell ${style}">${object.partner_id.name or ''| entity}</div>
                                   <div class="act_as_cell ${style}">${object.name or ''| entity}</div>

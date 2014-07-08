@@ -71,17 +71,17 @@ class account_invoice_makeover(orm.Model):
         new_payment_term = payment_term_obj.compute(cr,
             uid, p_term_id, withholding_amount,
             date_ref=t_min_payment_term or False)
-        
+
         if len(new_payment_term) > 1:
             raise orm.except_orm(_('Error'),
                 _('The payment term %s has too many due dates')
                 % p_term_name)
-            
+
         if len(new_payment_term) == 0:
             raise orm.except_orm(_('Error'),
                 _('The payment term %s does not have due dates')
                 % p_term_name)
-            
+
         return new_payment_term
 
     def _recreate_move_lines(self, invoice_browse, m_lines, old_pt,
@@ -92,9 +92,9 @@ class account_invoice_makeover(orm.Model):
             if (m_lines[t_mline][2]['date_maturity'] and
                     m_lines[t_mline][2]['credit'] > 0 and 
                     m_lines[t_mline][2]['name'] == t_suppl_inv_number):
-                
+
                 last_move_line = m_lines[t_mline]
-                
+
                 for i in range(len(old_pt)):
                     new_pt_date = new_pt[i][0]
                     new_pt_credit = new_pt[i][1]
@@ -169,7 +169,7 @@ class account_invoice_makeover(orm.Model):
             'product_id': x.get('product_id', False),
             'product_uom_id': x.get('uos_id', False),
             'analytic_account_id': x.get('account_analytic_id', False),
-            'payment_type': x.get('payment_type', False),
+            'payment_type_move_line': x.get('payment_type_move_line', False),
         }
 
     def onchange_withholding_amount(self, cr, uid, ids, wht_amount=False,
@@ -354,7 +354,7 @@ class account_invoice_makeover(orm.Model):
                         'currency_id': diff_currency_p \
                                 and inv.currency_id.id or False,
                         'ref': ref,
-                        'payment_type': t_line[2]
+                        'payment_type_move_line': t_line[2]
                     })
             else:
                 iml.append({
@@ -368,7 +368,7 @@ class account_invoice_makeover(orm.Model):
                     'currency_id': diff_currency_p \
                             and inv.currency_id.id or False,
                     'ref': ref,
-                    'payment_type': None
+                    'payment_type_move_line': None
             })
 
             date = inv.date_invoice or time.strftime('%Y-%m-%d')
@@ -718,14 +718,15 @@ class account_invoice_makeover(orm.Model):
                 t_partner_data = self.pool.get('res.partner').browse(cr, uid, partner_id)
                 if t_partner_data.bank_ids:
                     bank_id = t_partner_data.bank_ids[0].id
-        result['value']['bank_account'] = bank_id
-
-        ext_obj = self.pool.get('account.exporter.statements')
-        exp_ids = ext_obj.search(cr, uid,
-                                 [('partner_id', '=', partner_id),
-                                  ('letter_status', '=', 'A')])
-        if(exp_ids and exp_ids[0]):
-            result['value']['exporter_id'] = exp_ids[0]
+        if 'value' in result:
+            result['value']['bank_account'] = bank_id
+    
+            ext_obj = self.pool.get('account.exporter.statements')
+            exp_ids = ext_obj.search(cr, uid,
+                                     [('partner_id', '=', partner_id),
+                                      ('letter_status', '=', 'A')])
+            if(exp_ids and exp_ids[0]):
+                result['value']['exporter_id'] = exp_ids[0]
 
         return result
 
@@ -947,20 +948,6 @@ class account_invoice_makeover(orm.Model):
             result[rec.id] = t_pterm_label
         return result
     
-    def _get_invoice_isa(self, cr, uid, ids, context=None):
-        result = {}
-        for invoice in self.browse(cr, uid, ids, context=context):
-            result[invoice.id] = True
-        return result.keys()
-    
-    def _get_int_protocol_number(self, cr, uid, ids, field_name, arg,
-                                   context=None):
-        res = {}
-        for invoice in self.browse(cr, uid, ids, context=context):
-            if invoice.protocol_number:
-                res[invoice.id] = int(invoice.protocol_number)
-        return res
-
     _columns = {
         'bank_account': fields.many2one('res.partner.bank',
                                     'Bank Account of Client',
@@ -1011,13 +998,6 @@ class account_invoice_makeover(orm.Model):
                                     type="char",
                                     string="Payment term", readonly=True),
         'recompute_values': fields.boolean('Ricalcola Importi al Salvataggio'),
-        'integer_protocol_number': fields.function(_get_int_protocol_number,
-                                    method=True,
-                                    type='integer',
-                                    string='Integer Protocol Number',
-                                    store={
-                                           'account.invoice': (_get_invoice_isa, ['protocol_number'], 10),
-                                           }),
         'is_autoinvoice': fields.boolean('Autofattura'),
         'ref_autoinvoice': fields.many2one('account.invoice',
                                     'Rif. Autofattura'),

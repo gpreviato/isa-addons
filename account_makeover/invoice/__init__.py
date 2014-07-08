@@ -22,4 +22,3 @@
 import account_invoice
 import account_invoice_line
 import account_invoice_maturity_preview_lines
-import mail_compose_message

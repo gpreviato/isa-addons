@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2014 ISA s.r.l. (<http://www.isa.it>).
+#    Copyright (C) 2012 ISA s.r.l. (<http://www.isa.it>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,5 +19,5 @@
 #
 ##############################################################################
 
-import wizard
-import report
+import vat_registries
+import account_journal

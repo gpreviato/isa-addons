@@ -51,7 +51,7 @@ class account_move_line_makeover(orm.Model):
         return res
 
     _columns = {
-        'payment_type': fields.selection([('C', 'Cash'),
+        'payment_type_move_line': fields.selection([('C', 'Cash'),
                                           ('B', 'Bank Transfer'),
                                           ('D', 'Bank Draft')],
                                          'Payment Type',),

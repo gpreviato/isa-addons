@@ -21,33 +21,32 @@
 #
 ##############################################################################
 {
-    'name': 'Registri IVA - Webkit Report',
+    'name': 'Registri IVA - VAT Registries',
     'version': '0.2',
     'category': 'Localisation/Italy',
     'description': """
-Report Registri IVA - Webkit
-============================
+Registri IVA
+============
 
-Report Registri IVA - Italian localization
-            
-http://wiki.openerp-italia.org/doku.php/moduli/l10n_it_tax_journal
+Si tratta di una procedura contabile per conformità con le disposizioni
+fiscali italiane non prevista nello standard OperErp, DPR 633/62 art. 23 c.1.
+
+I documenti soggetti ad Iva emessi o ricevuti sono contrassegnati con un
+numero di protocollo, il registro iva è ordinato in base a questa numerazione.
+
             
             """,
-    'author': ['ISA srl','OpenERP Italian Community'],
-    'website': 'http://www.openerp-italia.org',
+    'author': 'ISA srl',
+    'website': 'http://www.isa.it',
     'license': 'AGPL-3',
-    "depends" : ['report_webkit',
-                 'account_financial_report_webkit',
+    "depends" : ['account',
                  'l10n_it_base',
-                 'base_fiscalcode',
-                 'account_vat_registries_report',
-                 'l10n_it_partially_deductible_vat'],
+                ],
     "data" : [
-              'data/vat_registries_webkit_header.xml',
-              'report/reports.xml',
-              'wizard/print_registro_iva.xml',
-              'wizard/reset_protocol_numbers.xml',
-              'wizard/wizard_post_reset_view.xml',
+              'security/ir.model.access.csv',
+              'data/registry_sequence.xml',
+              'vat_protocol/vat_registries_view.xml',
+              'vat_protocol/account_journal_view.xml',
              ],
     "demo" : [],
     "active": False,

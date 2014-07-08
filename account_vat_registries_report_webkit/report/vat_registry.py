@@ -23,6 +23,7 @@ import os
 from openerp.report import report_sxw
 from openerp.tools.translate import _
 import logging
+import math
 from datetime import datetime
 from openerp.addons.account_financial_report_webkit.report.common_partner_reports import CommonPartnersReportHeaderWebkit
 from openerp.addons.account_financial_report_webkit.report.webkit_parser_header_fix import HeaderFooterTextWebKitParser
@@ -31,6 +32,14 @@ _logger = logging.getLogger(__name__)
 
 class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
 
+    def _compute_protocol_number(self,protocol_number):
+        padding = self._get_padding()
+        pnumb = str(protocol_number)
+        digits = math.floor(math.log10(float(protocol_number)))+1
+        for i in range(0,int(padding-digits)):
+            pnumb = '0'+pnumb
+        return pnumb
+        
     def _tax_amounts_by_code(self, move):
         res={}
         for move_line in move.line_id:
@@ -119,7 +128,11 @@ class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
     
     def _get_tax_codes(self):
         return self._compute_totals(self.localcontext['used_tax_codes'].keys())
-        
+
+    def _get_padding(self):
+        padding = self.localcontext['data']['padding']
+        return self.localcontext['data']['padding']
+                
     def _get_tax_codes_totals(self):
         parent_codes = {}
         tax_code_obj = self.pool.get('account.tax.code')
@@ -227,6 +240,8 @@ class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
             'display_target_move': self._get_display_target_move,
             'report_name': _('Registro IVA'),
             'get_moves': self._get_moves,
+            'compute_protocol_number':self._compute_protocol_number,
+            'get_padding':self._get_padding,
         })
 
     def set_context(self, objects, data, ids, report_type=None):
