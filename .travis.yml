@@ -7,6 +7,10 @@ virtualenv:
 
 env:
   - VERSION="8.0"
+  
+
+before_install:
+  - git clone https://github.com/isasrl/isa-addons $HOME/isa-addons -b master
 
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
