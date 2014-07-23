@@ -12,6 +12,7 @@ env:
 before_install:
   - git clone https://github.com/isasrl/isa-addons $HOME/isa-addons -b master
   - git clone https://github.com/OCA/account-financial-reporting ${HOME}/account-financial-reporting
+  - git clone https://github.com/OCA/l10n-italy ${HOME}/l10n-italy -b 7.0
 
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
