@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Invoice Lines View -->
+        <record id="view_account_invoice_line_intracee_incoterm" model="ir.ui.view">
+            <field name="name">view.account.invoice.line.intracee.incoterm.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account_invoice_intracee.view_account_invoice_line_intracee_isa"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='province_destination']" position="after">
+                    <field name="delivery"
+                           attrs="{'invisible': [('is_intracee','!=',True)]}" />
+                </xpath>
+            </field>
+        </record>
+     </data>
+</openerp>

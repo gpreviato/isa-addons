@@ -43,12 +43,17 @@ http://wiki.openerp-italia.org/doku.php/moduli/l10n_it_tax_journal
                  'account_vat_registries_report',
                  'l10n_it_partially_deductible_vat'],
     "data" : [
+              'security/ir.model.access.csv',
               'data/vat_registries_webkit_header.xml',
               'report/reports.xml',
+              'security/vat_registries_group.xml',
               'wizard/print_registro_iva.xml',
               'wizard/reset_protocol_numbers.xml',
               'wizard/wizard_post_reset_view.xml',
              ],
+    'conflicts': [
+        'l10n_it_vat_registries',
+    ],
     "demo" : [],
     "active": False,
     "installable": True

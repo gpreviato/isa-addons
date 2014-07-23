@@ -37,7 +37,7 @@
         	name="Reset Protocol Numbers" 
         	parent="account.menu_finance_entries"  
         	sequence="5" 
-        	groups="account.group_account_user,account.group_account_manager"
+        	groups="account_reset_protocol_numbers_group_isa"
         	action="action_reset_registry"/>            	
     </data>
 </openerp>

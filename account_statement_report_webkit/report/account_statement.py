@@ -38,8 +38,8 @@ class AccountReportStatement(report_sxw.rml_parse, CommonPartnersReportHeaderWeb
         self.date_start = None
         self.filter = None
 
-        company = self.pool.get('res.users').browse(self.cr, uid, uid, context=context).company_id
-        header_report_name = ' - '.join((_('Estratto Conto Per Partita'), company.name, company.currency_id.name))
+        self.company = self.pool.get('wizard.account.statement').browse(self.cr, self.uid, context['active_id']).company_id        
+        header_report_name = ' - '.join((_('Estratto Conto Per Partita'), self.company.name, self.company.currency_id.name))
 
         footer_date_time = self.formatLang(str(datetime.today()), date_time=True)
 
@@ -94,6 +94,7 @@ class AccountReportStatement(report_sxw.rml_parse, CommonPartnersReportHeaderWeb
                              account_account.name as account_name
                       from account_account
                       WHERE account_account.id IN """ + t_items + """
+                      AND company_id = """ + str(self.company.id) + """
                       order by account_code
                       """
 
@@ -116,10 +117,13 @@ class AccountReportStatement(report_sxw.rml_parse, CommonPartnersReportHeaderWeb
                               on account_move_line.move_id = account_move.id
                           join account_account
                               on account_move_line.account_id = account_account.id
-                          LEFT JOIN account_invoice on (account_move.id = account_invoice.move_id)
+                          LEFT JOIN account_invoice 
+                              on (account_move.id = account_invoice.move_id)
                       WHERE account_account.id IN """ + t_items + """
                             and account_move_line.unsolved_move_originator_id is null
-                            and account_invoice.id is not null """
+                            and account_invoice.id is not null
+                        ) AND
+                    account_move.company_id = """ + str(self.company.id) + """ """
 
         if form_values['date_from']:
             query_move += "AND (account_move.date>='" + form_values['date_from'] + "') "
@@ -188,10 +192,10 @@ class AccountReportStatement(report_sxw.rml_parse, CommonPartnersReportHeaderWeb
                                   on account_move_line.move_id = account_move.id
                               join account_account
                                   on account_move_line.account_id = account_account.id
-                                              LEFT JOIN account_invoice on (account_move.id = account_invoice.move_id)
+                              LEFT JOIN account_invoice on (account_move.id = account_invoice.move_id)
                               WHERE account_account.id IN """ + t_items + """
-                            and account_move_line.unsolved_move_originator_id is null
-                      """
+                            and account_move_line.unsolved_move_originator_id is null)
+                        AND account_move.company_id = """ + str(self.company.id) + """ """
 
         if form_values['date_from']:
             query_move += "AND (account_move.date>='" + form_values['date_from'] + "') "
@@ -241,7 +245,7 @@ class AccountReportStatement(report_sxw.rml_parse, CommonPartnersReportHeaderWeb
                               on account_move_line.account_id = account_account.id
                       WHERE account_account.id IN """ + t_items + """
                             and account_move_line.unsolved_move_originator_id is null
-                      """
+                            AND account_move.company_id = """ + str(self.company.id) + """ """
 
         if form_values['date_from']:
             query_move += "AND (account_move.date>='" + form_values['date_from'] + "') "

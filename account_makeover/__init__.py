@@ -24,5 +24,4 @@ import invoice
 import product
 import payment_term
 import withholding_tax
-import report
 import res

@@ -21,3 +21,4 @@
 
 import wizard
 import report
+import account_journal_fiscalyear_related

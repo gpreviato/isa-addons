@@ -27,7 +27,7 @@
 from openerp.osv import fields, orm
 #import time
 import openerp.addons.decimal_precision as dp
-from openerp import netsvc
+from openerp import netsvc, workflow
 from openerp.tools.translate import _
 
 
@@ -203,10 +203,10 @@ class riba_distinta(orm.Model):
         
     def action_cancel_draft(self, cr, uid, ids, *args):
         self.write(cr, uid, ids, {'state':'draft'})
-        wf_service = netsvc.LocalService("workflow")
+
         for distinta_id in ids:
-            wf_service.trg_delete(uid, 'riba.distinta', distinta_id, cr)
-            wf_service.trg_create(uid, 'riba.distinta', distinta_id, cr)
+            workflow.trg_delete(uid, 'riba.distinta', distinta_id, cr)
+            workflow.trg_create(uid, 'riba.distinta', distinta_id, cr)
         return True
 
 
@@ -232,13 +232,13 @@ class riba_distinta_line(orm.Model):
         return res
 
     def _reconciled(self, cr, uid, ids, name, args, context=None):
-        wf_service = netsvc.LocalService("workflow")
+
         res = {}
         for id in ids:
             res[id] = self.test_paid(cr, uid, [id])
             if res[id]:
                 self.write(cr, uid, id, {'state': 'paid'}, context=context)
-                wf_service.trg_validate(
+                workflow.trg_validate(
                     uid, 'riba.distinta',
                     self.browse(cr, uid, id).distinta_id.id, 'paid', cr)
         return res
@@ -361,7 +361,7 @@ class riba_distinta_line(orm.Model):
     def confirm(self, cr, uid, ids, context=None):
         move_pool = self.pool.get('account.move')
         move_line_pool = self.pool.get('account.move.line')
-        wf_service = netsvc.LocalService("workflow")
+
         for line in self.browse(cr, uid, ids, context=context):
             journal = line.distinta_id.config.acceptance_journal_id
             total_credit = 0.0
@@ -403,7 +403,7 @@ class riba_distinta_line(orm.Model):
                 'acceptance_move_id': move_id,
                 'state': 'confirmed',
                 })
-            wf_service.trg_validate(
+            workflow.trg_validate(
                 uid, 'riba.distinta', line.distinta_id.id, 'accepted', cr)
         return True
 

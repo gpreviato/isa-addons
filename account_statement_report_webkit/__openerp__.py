@@ -51,7 +51,6 @@ contabili ove i movimenti vengono gestiti in ordine di data di registrazione.
     'data': [
                'data/financial_webkit_header.xml',
                'report/report.xml',
-               'wizard/wizard.xml',
                'wizard/account_statement_wizard.xml',
                ],
 

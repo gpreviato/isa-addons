@@ -30,6 +30,8 @@ from openerp.tools.translate import _
 from openerp import tools
 from openerp.osv.orm import browse_record
 
+from openerp import workflow, api
+
 
 class account_invoice_makeover(orm.Model):
     _inherit = "account.invoice"
@@ -204,220 +206,55 @@ class account_invoice_makeover(orm.Model):
                 'warning': warning
                  }
 
-    def finalize_invoice_move_lines(self, cr, uid,
-                                    invoice_browse, move_lines):
+    @api.multi
+    def finalize_invoice_move_lines(self, move_lines):
 
-        move_lines = super(account_invoice_makeover,
-                           self).finalize_invoice_move_lines(cr, uid,
-                                                             invoice_browse,
-                                                             move_lines)
+        if (self.type in ('in_invoice')
+                    and self.partner_id.wht_account_id
+                    and self.wht_amount > 0):
 
-        if (invoice_browse.type in ('in_invoice')
-                    and invoice_browse.partner_id.wht_account_id
-                    and invoice_browse.wht_amount > 0):
+            self._check_withholding_integrity(self)
 
-            self._check_withholding_integrity(invoice_browse)
-
-            date_invoice = invoice_browse.date_invoice
+            date_invoice = self.date_invoice
             if not date_invoice:
                 date_invoice = time.strftime(DF)
 
             old_pt, new_pt, add_pt = self._calculate_payment_terms(cr, uid,
-                                            invoice_browse, move_lines,
+                                            self, move_lines,
                                             date_invoice)
 
-            move_lines = self._recreate_move_lines(invoice_browse,
+            move_lines = self._recreate_move_lines(self,
                                             move_lines, old_pt,
                                             new_pt, add_pt)
 
         return move_lines
 
     def action_move_create(self, cr, uid, ids, context=None):
-        """Creates invoice related analytics and financial move lines"""
-        ait_obj = self.pool.get('account.invoice.tax')
-        cur_obj = self.pool.get('res.currency')
-        period_obj = self.pool.get('account.period')
-        payment_term_obj = self.pool.get('account.payment.term')
-        journal_obj = self.pool.get('account.journal')
-        move_obj = self.pool.get('account.move')
         if context is None:
             context = {}
-        for inv in self.browse(cr, uid, ids, context=context):
+        t_invoice_data = self.browse(cr, uid, ids, context=context)
+        for inv in t_invoice_data:
             if not inv.journal_id:
                 raise orm.except_orm(_('Error!'),
                     _('Journal not defined for this invoice!'))
             if not inv.journal_id.iva_registry_id:
                 raise orm.except_orm(_('Error!'),
                     _('You must link %s with a VAT registry!') % (inv.journal_id.name))
-            if not inv.journal_id.sequence_id:
-                raise orm.except_orm(_('Error!'),
-                                     _('Please define sequence on the journal related to this invoice.'))      
-            if not inv.invoice_line:
-                raise orm.except_orm(_('No Invoice Lines!'),
-                                     _('Please create some invoice lines.'))
-            if inv.move_id:
-                continue
 
-            ctx = context.copy()
-            ctx.update({'lang': inv.partner_id.lang})
-            if not inv.date_invoice:
-                self.write(cr, uid, [inv.id],
-                           {'date_invoice': fields.date.context_today(self,
-                                                                      cr,
-                                                                      uid,
-                                                                      context=context)},
-                           context=ctx)
-            company_currency = self.pool['res.company'].browse(cr, uid,
-                                                               inv.company_id.id).currency_id.id
-            # create the analytical lines
-            # one move line per invoice line
-            # iml = self._get_analytic_lines(cr, uid, inv.id, context=ctx)
-            iml = super(account_invoice_makeover, self)._get_analytic_lines(cr, uid, inv.id, context=ctx)
-            # check if taxes are all computed
-            compute_taxes = ait_obj.compute(cr, uid, inv.id, context=ctx)
-            # self.check_tax_lines(cr, uid, inv, compute_taxes, ait_obj)
-            super(account_invoice_makeover, self).check_tax_lines(cr, uid, inv, compute_taxes, ait_obj)
-
-            # I disabled the check_total feature
-            group_check_total_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'account', 'group_supplier_inv_check_total')[1]
-            group_check_total = self.pool.get('res.groups').browse(cr, uid,
-                                                                   group_check_total_id,
-                                                                   context=context)
-            if group_check_total and uid in [x.id for x in group_check_total.users]:
-                if (inv.type in ('in_invoice', 'in_refund') and abs(inv.check_total - inv.amount_total) >= (inv.currency_id.rounding / 2.0)):
-                    raise orm.except_orm(_('Bad Total!'), _('Please verify the price of the invoice!\nThe encoded total does not match the computed total.'))
-
-            if inv.payment_term:
-                total_fixed = total_percent = 0
-                for line in inv.payment_term.line_ids:
-                    if line.value == 'fixed':
-                        total_fixed += line.value_amount
-                    if line.value == 'procent':
-                        total_percent += line.value_amount
-                total_fixed = (total_fixed * 100) / (inv.amount_total or 1.0)
-                if (total_fixed + total_percent) > 100:
-                    raise orm.except_orm(_('Error!'), _("Cannot create the invoice.\nThe related payment term is probably misconfigured as it gives a computed amount greater than the total invoiced amount. In order to avoid rounding issues, the latest line of your payment term must be of type 'balance'."))
-
-            # one move line per tax line
-            iml += ait_obj.move_line_get(cr, uid, inv.id)
-
-#             entry_type = ''
-            if inv.type in ('in_invoice', 'in_refund'):
-                ref = inv.reference
-#                 entry_type = 'journal_pur_voucher'
-#                 if inv.type == 'in_refund':
-#                     entry_type = 'cont_voucher'
-            else:
-                # ref = self._convert_ref(cr, uid, inv.number)
-                ref = super(account_invoice_makeover, self)._convert_ref(cr, uid, inv.number)
-#                 entry_type = 'journal_sale_vou'
-#                 if inv.type == 'out_refund':
-#                     entry_type = 'cont_voucher'
-
-            diff_currency_p = inv.currency_id.id <> company_currency
-            # create one move line for the total and possibly adjust the other lines amount
-            total = 0
-            total_currency = 0
-            # total, total_currency, iml = self.compute_invoice_totals(cr, uid, inv, company_currency, ref, iml, context=ctx)
-            total, total_currency, iml = super(account_invoice_makeover, self).compute_invoice_totals(cr, uid, inv, company_currency, ref, iml, context=ctx)
-            acc_id = inv.account_id.id
-
-            name = inv['name'] or inv['supplier_invoice_number'] or '/'
-            totlines = False
-            if inv.payment_term:
-                totlines = payment_term_obj.compute(cr,
-                        uid, inv.payment_term.id, total, inv.date_invoice or False, context=ctx)
-            if totlines:
-                res_amount_currency = total_currency
-                i = 0
-                ctx.update({'date': inv.date_invoice})
-                for t_line in totlines:
-                    if inv.currency_id.id != company_currency:
-                        amount_currency = cur_obj.compute(cr, uid, company_currency, inv.currency_id.id, t_line[1], context=ctx)
-                    else:
-                        amount_currency = False
-
-                    # last line add the diff
-                    res_amount_currency -= amount_currency or 0
-                    i += 1
-                    if i == len(totlines):
-                        amount_currency += res_amount_currency
-
-                    iml.append({
-                        'type': 'dest',
-                        'name': name,
-                        'price': t_line[1],
-                        'account_id': acc_id,
-                        'date_maturity': t_line[0],
-                        'amount_currency': diff_currency_p \
-                                and amount_currency or False,
-                        'currency_id': diff_currency_p \
-                                and inv.currency_id.id or False,
-                        'ref': ref,
-                        'payment_type_move_line': t_line[2]
-                    })
-            else:
-                iml.append({
-                    'type': 'dest',
-                    'name': name,
-                    'price': total,
-                    'account_id': acc_id,
-                    'date_maturity': inv.date_due or False,
-                    'amount_currency': diff_currency_p \
-                            and total_currency or False,
-                    'currency_id': diff_currency_p \
-                            and inv.currency_id.id or False,
-                    'ref': ref,
-                    'payment_type_move_line': None
-            })
-
-            date = inv.date_invoice or time.strftime('%Y-%m-%d')
-
-            part = self.pool.get("res.partner")._find_accounting_partner(inv.partner_id)
-
-            line = map(lambda x:(0, 0, self.line_get_convert(cr, uid, x, part.id, date, context=ctx)), iml)
-
-            # line = self.group_lines(cr, uid, iml, line, inv)
-            line = super(account_invoice_makeover, self).group_lines(cr, uid, iml, line, inv)
-
-            journal_id = inv.journal_id.id
-            journal = journal_obj.browse(cr, uid, journal_id, context=ctx)
-            if journal.centralisation:
-                raise orm.except_orm(_('User Error!'),
-                        _('You cannot create an invoice on a centralized journal. Uncheck the centralized counterpart box in the related journal from the configuration menu.'))
-
-            line = self.finalize_invoice_move_lines(cr, uid, inv, line)
-
-            move = {
-                'ref': inv.reference and inv.reference or inv.name,
-                'line_id': line,
-                'journal_id': journal_id,
-                'date': date,
-                'narration': inv.comment,
-                'company_id': inv.company_id.id,
-            }
+            if 'company_id' not in context:
+                context = {'company_id':inv.company_id.id}
             period_id = inv.period_id and inv.period_id.id or False
-            ctx.update(company_id=inv.company_id.id,
-                       account_period_prefer_normal=True)
             if not period_id:
-                period_ids = period_obj.find(cr, uid, inv.registration_date, context=ctx)
+                period_obj = self.pool.get('account.period')
+                period_ids = period_obj.find(cr, uid, inv.registration_date, context=context)
                 period_id = period_ids and period_ids[0] or False
-            if period_id:
-                move['period_id'] = period_id
-                for i in line:
-                    i[2]['period_id'] = period_id
-
-            ctx.update(invoice=inv)
-            move_id = move_obj.create(cr, uid, move, context=ctx)
-            new_move_name = move_obj.browse(cr, uid, move_id, context=ctx).name
-            # make the invoice point to that move
-            self.write(cr, uid, [inv.id], {'move_id': move_id, 'period_id':period_id, 'move_name':new_move_name}, context=ctx)
-            # Pass invoice in context in method post: used if you want to get the same
-            # account move reference when creating the same invoice after a cancelled one:
-            move_obj.post(cr, uid, [move_id], context=ctx)
-        # self._log_event(cr, uid, ids)
-        super(account_invoice_makeover, self)._log_event(cr, uid, ids)
-        return True
+                if period_id:
+                    self.write(cr, uid, [inv.id],
+                               {'period_id': period_id},
+                           context=context)
+        res = super(account_invoice_makeover,
+                    self).action_move_create(cr, uid, ids, context=None)
+        return res
 
     def button_display_view_list(self, cr, uid, ids, context=None):
         invoice = self.read(cr, uid, ids)[0]
@@ -451,6 +288,7 @@ class account_invoice_makeover(orm.Model):
                                      _('The selected partner must be a Customer'))
         return True
 
+    @api.v7
     def _set_invoice_tax(self, cr, user, t_id, ctx):
         ait_obj = self.pool.get('account.invoice.tax')
         cr.execute("DELETE FROM account_invoice_tax WHERE invoice_id=%s AND manual is False", (t_id,))
@@ -511,9 +349,16 @@ class account_invoice_makeover(orm.Model):
            ('partner_bank_id' not in vals
              or not vals["partner_bank_id"])):
             if self._payment_term_contains_bank_transfer(cr, user, [vals["payment_term"]]):
-                raise orm.except_orm(_('Error!'),
-                                     _('Il conto bancario è obbligatorio perché il termine di pagamento è di tipo bonifico'))
 
+                t_partner_data = self.pool.get('res.partner').browse(cr, uid, vals["partner_id"])
+                if not t_partner_data.bank_ids:
+                    raise orm.except_orm(_('Error!'),
+                                         _('Il conto bancario è obbligatorio perché il termine di pagamento è di tipo bonifico'))
+                else:
+                    vals['partner_bank_id'] = t_partner_data.bank_ids[0].id
+                    for t_bank in t_partner_data.bank_ids:
+                        if t_bank.default_bank:
+                            vals['partner_bank_id'] = t_bank.id
         invoice_partner = vals["partner_id"]
 
         is_autoinvoice = False
@@ -573,8 +418,8 @@ class account_invoice_makeover(orm.Model):
             if is_riba:
                 if (('bank_account' in vals and not vals['bank_account']) or 
                     'bank_account' not in vals and not t_acc_inv.bank_account):
-                    raise orm.except_orm(_('Error!'), 
-                        _('Il campo "Conto Bancario del Cliente" deve essere compilato poiché il termine di pagamento selezionato prevede le Ricevute Bancarie.'))
+                    return False
+        return True
 
     def write(self, cr, uid, ids, vals, context=None):
         if context is None:
@@ -631,7 +476,16 @@ class account_invoice_makeover(orm.Model):
                     raise orm.except_orm(_('Error!'),
                                          _('Il conto bancario è obbligatorio perché il termine di pagamento è di tipo bonifico'))
 
-            self._check_bank_account_riba(cr, uid, vals, t_id)
+            if not self._check_bank_account_riba(cr, uid, vals, t_id):
+                t_partner_data = self.pool.get('res.partner').browse(cr, uid, invoice_partner)
+                if not t_partner_data.bank_ids:
+                    raise orm.except_orm(_('Error!'), 
+                        _('Il campo "Conto Bancario del Cliente" deve essere compilato poiché il termine di pagamento selezionato prevede le Ricevute Bancarie.'))
+                else:
+                    vals['bank_account'] = t_partner_data.bank_ids[0].id
+                    for t_bank in t_partner_data.bank_ids:
+                        if t_bank.default_bank:
+                            vals['bank_account'] = t_bank.id
 
             ctx = None
             t_recompute_vals = t_acc_inv.recompute_values
@@ -697,15 +551,16 @@ class account_invoice_makeover(orm.Model):
                     wt_amount = wt_amount + t_quantity * t_price_unit * t_wht_tax_rate * t_wht_base
         return wt_amount, t_invoice_id
 
-    def onchange_partner_id(self, cr, uid, ids, invoice_type, partner_id,
+    def onchange_partner_id(self, cr, uid, ids, type, partner_id,
                                 date_invoice=False, payment_term=False,
-                                partner_bank_id=False, company_id=False):
+                                partner_bank_id=False, company_id=False,
+                                context=None):
         """
                 Extends the onchange.
         """
         result = super(account_invoice_makeover,
                        self).onchange_partner_id(cr, uid, ids,
-                                            invoice_type, partner_id,
+                                            type, partner_id,
                                             date_invoice=date_invoice,
                                             payment_term=payment_term,
                                             partner_bank_id=partner_bank_id,
@@ -714,7 +569,7 @@ class account_invoice_makeover(orm.Model):
         self.button_display_withholding_amount(cr, uid, ids, context=None)
 
         bank_id = None
-        if partner_id and invoice_type in ('out_invoice', 'out_refund'):
+        if partner_id and type in ('out_invoice', 'out_refund'):
                 t_partner_data = self.pool.get('res.partner').browse(cr, uid, partner_id)
                 if t_partner_data.bank_ids:
                     bank_id = t_partner_data.bank_ids[0].id
@@ -1124,9 +979,8 @@ class account_invoice_makeover(orm.Model):
 
     def invoice_open(self, cr, uid, ids, *args):
 
-        wf_service = netsvc.LocalService("workflow")
         for t_id in ids:
-            wf_service.trg_validate(uid, 'account.invoice',
+            workflow.trg_validate(uid, 'account.invoice',
                                     t_id, 'invoice_open', cr)
         return True
 

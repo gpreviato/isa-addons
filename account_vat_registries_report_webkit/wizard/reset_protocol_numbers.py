@@ -56,7 +56,7 @@ class wizard_reset_protocol_numbers(orm.TransientModel):
         #UPDATE DEI MOVIMENTI
         cr.execute('''
                         UPDATE account_move
-                        SET protocol_number=subquery.position
+                        SET protocol_number=subquery.position+offs.number
                         FROM
                             (
                             SELECT
@@ -69,17 +69,38 @@ class wizard_reset_protocol_numbers(orm.TransientModel):
                                 ) AS inv_id
                             FROM 
                                 account_move as mov, 
-                                account_period as per 
+                                account_period as per,
+                                vat_registries_isa AS vat,
+                                account_journal AS jour,
+                                account_journal_fiscalyear_related AS rel 
                             WHERE  
                                 mov.period_id = per.id AND 
                                 per.fiscalyear_id = %s AND 
-                                mov.journal_id = %s
+                                mov.journal_id = %s AND
+                                mov.journal_id = jour.id AND
+                                jour.iva_registry_id = vat.id AND
+                                vat.id = rel.iva_registry_id AND
+                                per.fiscalyear_id = rel.fiscalyear_id AND
+                                CAST(mov.protocol_number AS integer) > rel.last_printed_protocol
                             ORDER BY 
                                 mov.protocol_number, 
                                 mov.id
-                            ) AS subquery
-                        WHERE account_move.id = subquery.id''',
-                    (fiscalyear_id, journal_id))
+                            ) AS subquery,
+                            (
+                            SELECT rel.last_printed_protocol AS number
+                            FROM 
+                                account_journal_fiscalyear_related AS rel,
+                                account_journal AS jou
+                            WHERE
+                                rel.fiscalyear_id = %s AND
+                                jou.iva_registry_id = rel.iva_registry_id AND
+                                jou.id = %s
+                            ) AS offs
+
+                        WHERE 
+                            account_move.id = subquery.id                          
+                        ''',
+                    (fiscalyear_id, journal_id, fiscalyear_id, journal_id))
 
         #UPDATE DELLE FATTURE
         cr.execute('''
@@ -112,12 +133,29 @@ class wizard_reset_protocol_numbers(orm.TransientModel):
         cr.execute('''
                         SELECT vat.sequence_iva_registry_id,
                             ( 
-                                SELECT count(mov.id)
-                                FROM account_move AS mov, account_period AS per
-                                WHERE mov.journal_id = %s AND mov.period_id = per.id AND per.fiscalyear_id = %s
-                            ) AS next_numb
-                        FROM account_journal AS jou, vat_registries_isa AS vat
-                        WHERE jou.id = %s AND jou.iva_registry_id = vat.id''',
+                            SELECT COUNT(mov.id)
+                            FROM 
+                                account_move AS mov, 
+                                account_period AS per, 
+                                account_journal_fiscalyear_related AS rel
+                            WHERE 
+                                mov.journal_id = 1 AND 
+                                mov.period_id = per.id AND 
+                                per.fiscalyear_id = 1 AND
+                                mov.journal_id = jou.id AND
+                                jou.iva_registry_id = rel.iva_registry_id AND
+                                rel.iva_registry_id = vat.id AND
+                                CAST(mov.protocol_number AS integer)> rel.last_printed_protocol
+                            )+rel.last_printed_protocol AS next_numb
+                        FROM 
+                            account_journal AS jou, 
+                            vat_registries_isa AS vat,
+                            account_journal_fiscalyear_related AS rel
+                        WHERE 
+                            jou.id = 1 AND 
+                            jou.iva_registry_id = vat.id AND
+                            jou.iva_registry_id = rel.iva_registry_id
+                    ''',
                     (journal_id,fiscalyear_id,journal_id))
         
         tmp = cr.fetchall()[0]

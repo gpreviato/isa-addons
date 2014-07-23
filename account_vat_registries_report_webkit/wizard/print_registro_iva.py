@@ -21,7 +21,8 @@
 
 from openerp.osv import fields, orm
 from openerp.tools.translate import _
-
+from datetime import datetime, date, timedelta
+from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 class wizard_vat_registry(orm.TransientModel):
 
@@ -33,6 +34,9 @@ class wizard_vat_registry(orm.TransientModel):
         return period_ids
 
     _columns = {
+        'company_id': fields.many2one('res.company', 
+                                      'Company', 
+                                      required=True),        
         'period_ids': fields.many2many('account.period',
                                        'registro_iva_periods_rel',
                                        'period_id',
@@ -58,7 +62,20 @@ class wizard_vat_registry(orm.TransientModel):
         'tax_sign': 1.0,
         'fiscal_page_base': 0,
         'padding':0,
+        'company_id': lambda self, cr, uid, c: self.pool.get('res.company')._company_default_get(cr, uid, context=c),        
         }
+
+    def onchange_company_id(self, cr, uid, ids, company_id, context=None):
+        if context is None:
+            context = {}
+        context['company_id'] = company_id
+        res = {'value': {}}
+
+        if not company_id:
+            return res
+        
+        res['value'].update({'period_ids': self._get_period(cr, uid, context)})        
+        return res
 
     def print_registro(self, cr, uid, ids, context=None):
         if context is None:
@@ -106,6 +123,7 @@ class wizard_vat_registry(orm.TransientModel):
         datas['tax_sign'] = wizard['tax_sign']
         datas['iva_registry_id'] = wizard['iva_registry_id'].id
         datas['padding'] = wizard['padding']
+        datas['company_id'] = wizard['company_id'].id
         res= {
             'type': 'ir.actions.report.xml',
             'datas': datas,
@@ -117,6 +135,99 @@ class wizard_vat_registry(orm.TransientModel):
         elif t_layout_type == 'corrispettivi':
             res['report_name'] = 'vat_registry_corrispettivi_webkit'
         return res
+
+    def print_registro_final(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        wizard = self.browse(cr, uid, ids)[0]
+
+        journal_obj = self.pool.get('account.journal')
+        period_obj = self.pool.get('account.period')
+        journal_year_rel_obj = self.pool.get('account.journal.fiscalyear.related')
+
+        iva_registry_id = wizard.iva_registry_id
+
+        t_journal_ids = journal_obj.search(cr, uid,
+                                    [('iva_registry_id', '=', iva_registry_id.id)])
+
+
+        period_ids = wizard.period_ids        
+        today_date = date.today()
+        
+        for p in period_ids:
+            #CONTROLLA CHE TRA I PERIODI NON CI SIA QUELLO IN CORSO
+            str_date_stop = period_obj.read(cr,uid,[p.id],['date_stop'])[0]['date_stop']
+            date_stop = datetime.strptime(str_date_stop, DF).date() 
+            if date_stop > today_date:
+                self.write(cr, uid,  ids, {'message': _('You can not print a VAT register of the current period!')})
+                model_data_ids = obj_model_data.search(cr, uid, [('model','=','ir.ui.view'), ('name','=','wizard_vat_registry')])
+                resource_id = obj_model_data.read(cr, uid, model_data_ids, fields=['res_id'])[0]['res_id']
+                return {
+                    'name': _('No documents'),
+                    'res_id': ids[0],
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'res_model': 'wizard.vat.registry',
+                    'views': [(resource_id,'form')],
+                    'context': context,
+                    'type': 'ir.actions.act_window',
+                    'target': 'new',
+                }
+            
+        #RICHIAMA LA STAMPA    
+        res = self.print_registro(cr, uid, ids, context)
+        
+        #SE NELLA STAMPA NON CI SONO ERRORI
+        if 'datas' in res:
+            for p in period_ids:
+              
+                v_iva = iva_registry_id.id
+                v_year = period_obj.read(cr,uid,[p.id],['fiscalyear_id'])[0]['fiscalyear_id'][0],               
+                str_date_stop = period_obj.read(cr,uid,[p.id],['date_stop'])[0]['date_stop']
+                date_stop = datetime.strptime(str_date_stop, DF).date() 
+                rel_ids = journal_year_rel_obj.search(cr,uid,[('iva_registry_id','=',v_iva),('fiscalyear_id','=',v_year)])
+                
+                #CALCOLA ED ASSEGNA IL VALORE DELL'ULTIMO PROTOCOL NUMBER STAMPATO
+                cr.execute( """
+                                SELECT protocol_number
+                                FROM account_move
+                                WHERE 
+                                    period_id = %s AND
+                                    journal_id = %s
+                            """, (p.id,t_journal_ids[0],)
+                            )
+                p_numbers = cr.fetchall()
+                numbers = []
+                for number in p_numbers:
+                    numbers.append(int(number[0]))
+                if len(numbers)> 0:
+                    v_pnumb = max(numbers)
+                else:
+                    v_pnumb = 0
+                    
+                #SE SONO GIA' STATI STAMPATI PERIODI PRECEDENTI DELLO STESSO FISCALYEAR, ESEGUE AGGIORNA IL RECORD
+                #SE SONO GIA' STATI STAMPATI PERIODI SUCCESSIVI DELLO STESSO FISCALYEAR, NON MODIFICA IL RECORD
+                if len(rel_ids)>0:
+                    rel_id = rel_ids[0]
+                    t_relation = journal_year_rel_obj.read(cr,uid,[rel_id],['last_print_date','last_printed_protocol'])
+                    t_str_date_stop = t_relation[0]['last_print_date']
+                    t_pnumb = t_relation[0]['last_printed_protocol']
+                    t_date_stop = datetime.strptime(t_str_date_stop, DF).date()
+                    if t_date_stop < date_stop:
+                        journal_year_rel_obj.write(cr,uid,[rel_id],{'last_print_date':date_stop,})
+                        if v_pnumb > t_pnumb:
+                            journal_year_rel_obj.write(cr,uid,[rel_id],{'last_printed_protocol':v_pnumb,})                        
+                #SE NON SONO STATI MAI STAMPATI PERIODI DELLO STESSO FISCALYEAR, CREA UN NUOVO RECORD
+                else:
+                    values = {
+                                'iva_registry_id': v_iva,
+                                'fiscalyear_id': v_year,
+                                'last_print_date': date_stop,
+                                'last_printed_protocol': v_pnumb, 
+                             }
+                    journal_year_rel_obj.create(cr,uid,values)
+        return res
+
 
     def onchange_iva_registry_id(self, cr, uid, ids,
                                           iva_registry_id,

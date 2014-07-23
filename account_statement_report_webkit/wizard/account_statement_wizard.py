@@ -29,6 +29,9 @@ class account_statement(orm.TransientModel):
 
 
     _columns = {
+        'company_id': fields.many2one('res.company', 
+                                      'Company', 
+                                      required=True), 
         'statement_type': fields.selection(
                                 [
                                  ('E', 'Aperte e Chiuse'),
@@ -45,6 +48,7 @@ class account_statement(orm.TransientModel):
     _defaults = {
         'statement_type': 'E',
         'target_move': 'posted',
+        'company_id': lambda self, cr, uid, c: self.pool.get('res.company')._company_default_get(cr, uid, context=c),        
     }
 
     def print_report(self, cr, uid, ids, context=None):

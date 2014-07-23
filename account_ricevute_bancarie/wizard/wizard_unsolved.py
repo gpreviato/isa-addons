@@ -23,7 +23,7 @@
 
 from openerp.osv import fields,orm
 from openerp.tools.translate import _
-from openerp import netsvc
+from openerp import netsvc, workflow
 
 
 class riba_unsolved(orm.TransientModel):
@@ -91,21 +91,21 @@ class riba_unsolved(orm.TransientModel):
     def skip(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        wf_service = netsvc.LocalService("workflow")
+
         active_id = context and context.get('active_id', False) or False
         if not active_id:
             raise orm.except_orm(_('Error'), _('No active ID found'))
         line_pool = self.pool.get('riba.distinta.line')
         line_pool.write(cr, uid, active_id,
             {'state': 'unsolved'}, context=context)
-        wf_service.trg_validate(
+        workflow.trg_validate(
             uid, 'riba.distinta', line_pool.browse(cr, uid, active_id).distinta_id.id, 'unsolved', cr)
         return {'type': 'ir.actions.act_window_close'}
 
     def create_move(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        wf_service = netsvc.LocalService("workflow")
+
         active_id = context and context.get('active_id', False) or False
         if not active_id:
             raise orm.except_orm(_('Error'), _('No active ID found'))
@@ -159,7 +159,7 @@ class riba_unsolved(orm.TransientModel):
             'unsolved_move_id': move_id,
             'state': 'unsolved',
             })
-        wf_service.trg_validate(
+        workflow.trg_validate(
             uid, 'riba.distinta', distinta_line.distinta_id.id, 'unsolved', cr)
         return {
             'name': _('Unsolved Entry'),

@@ -70,6 +70,9 @@ Qui https://docs.google.com/document/d/1xCqeTcY6CF-Dgk_Avthhy7iwg_aG86WzNv3E_HHQ
         "move/account_move_line_view.xml",
         "security/ir.model.access.csv",
     ],
+    'conflicts': [
+        'l10n_it_ricevute_bancarie',
+    ],
     'demo': [],
     'test': [],
     'installable': True,

@@ -44,6 +44,9 @@ Questo modulo customizza OpenERP per permettere di essere allineati con le leggi
     "data" : [
                   'res_partner_view.xml',
                   ],
+    'conflicts': [
+        'l10n_it_fiscalcode',
+    ],
     "demo" : [],
     'test': [],
     "active": False,

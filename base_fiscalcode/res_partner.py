@@ -34,25 +34,7 @@ class res_partner_fiscalcode(orm.Model):
     def check_fiscalcode(self, cr, uid, ids, context={}):
 
         for partner in self.browse(cr, uid, ids):
-            t_fiscalcode = partner.fiscalcode
-            if not t_fiscalcode:
-                return True
-            elif ((len(t_fiscalcode) != 16
-                       and  len(t_fiscalcode) != 11)
-                   and partner.individual):
-                return False
-            else:
-                regCf = '^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$'
-                regSTP = '^STP\d{13}$'
-                regCRA = '^CRA\d{13}$'
-                regENI = '^ENI\d{13}$'
-                regTEMP = '^\d{11}$'
-                if not (re.match(regCf, partner.fiscalcode)
-                        or re.match(regSTP, partner.fiscalcode)
-                        or re.match(regCRA, partner.fiscalcode)
-                        or re.match(regENI, partner.fiscalcode)
-                        or re.match(regTEMP, partner.fiscalcode)):
-                    return False
+
             return True
 
     _columns = {

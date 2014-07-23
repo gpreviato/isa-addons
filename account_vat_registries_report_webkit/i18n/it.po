@@ -4,187 +4,267 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 6.0.3\n"
-"Report-Msgid-Bugs-To: support@openerp.com\n"
-"POT-Creation-Date: 2011-11-30 16:28+0000\n"
-"PO-Revision-Date: 2011-11-30 17:33+0100\n"
-"Last-Translator: Lorenzo Battistini <lorenzo.battistini@agilebg.com>\n"
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-10 13:50+0000\n"
+"PO-Revision-Date: 2014-07-10 13:50+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
 #. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:81
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:85
-#, python-format
-msgid "Taxes %s have different rates"
-msgstr "Taxes %s have different rates"
+#: field:account.journal.fiscalyear.related,fiscalyear_id:0
+#: field:wizard.reset.protocol.numbers,fiscalyear_id:0
+msgid "Anno fiscale di riferimento"
+msgstr "Anno fiscale di riferimento"
 
 #. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/invoice.py:41
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:81
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:85
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:90
+#: view:wizard.reset.protocol.numbers:0
+#: view:wizard.vat.registry:0
+msgid "Annulla"
+msgstr "Annulla"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.reset.protocol.numbers:0
+msgid "Calcola"
+msgstr "Calcola"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.post.reset:0
+msgid "Continue"
+msgstr "Continue"
+
+#. module: account_vat_registries_report_webkit
+#: field:account.journal.fiscalyear.related,last_print_date:0
+msgid "Date last print"
+msgstr "Data dell'ultima stampa"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:78
 #, python-format
 msgid "Error"
 msgstr "Errore"
 
 #. module: account_vat_registries_report_webkit
-#: model:ir.actions.report.xml,name:account_vat_registries_report_webkit.registro_iva_vendite_report_id
-msgid "Customer Invoices VAT Registry"
-msgstr "Registro IVA Fatture Emesse"
-
-#. module: account_vat_registries_report_webkit
-#: model:ir.model,name:account_vat_registries_report_webkit.model_wizard_registro_iva
-msgid "wizard.registro.iva"
-msgstr "wizard.registro.iva"
-
-#. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:90
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:44
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:47
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:54
 #, python-format
-msgid "Wrong tax configuration for tax code %s"
-msgstr "Configurazione sbagliata dell'imposta per il conto imposta %s"
+msgid "Error!"
+msgstr "Errore!"
 
 #. module: account_vat_registries_report_webkit
-#: view:wizard.registro.iva:0
-msgid "Print"
-msgstr "Stampa"
+#: field:account.journal.fiscalyear.related,last_printed_protocol:0
+msgid "Last printed protocol number"
+msgstr "Ultimo numero di protocollo stampato"
 
 #. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/invoice.py:119
-#: code:addons/account_vat_registries_report_webkit/invoice.py:191
-#: code:addons/account_vat_registries_report_webkit/invoice.py:221
+#: field:wizard.vat.registry,message:0
+msgid "Messaggio"
+msgstr "Messaggio"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/report/vat_registry.py:63
 #, python-format
-msgid "The tax %s is excluded from registries"
-msgstr "L'imposta %s è esclusa dai registri"
+msgid "Move %s contains different invoices"
+msgstr "Move %s contains different invoices"
 
 #. module: account_vat_registries_report_webkit
-#: field:wizard.registro.iva,type:0
-msgid "Type"
-msgstr "Tipo"
-
-#. module: account_vat_registries_report_webkit
-#: selection:wizard.registro.iva,type:0
-msgid "Supplier Invoices"
-msgstr "Fatture ricevute"
-
-#. module: account_vat_registries_report_webkit
-#: model:ir.actions.report.xml,name:account_vat_registries_report_webkit.registro_iva_acquisti_report_id
-msgid "Supplier Invoices VAT Registry"
-msgstr "Registro IVA Fatture Ricevute"
-
-#. module: account_vat_registries_report_webkit
-#: model:ir.actions.act_window,name:account_vat_registries_report_webkit.action_registro_iva
-msgid "VAT Registry"
-msgstr "Registro IVA"
-
-#. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/invoice.py:263
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:78
 #, python-format
-msgid "The tax %s has no tax codes"
-msgstr "L'imposta %s non ha codici IVA"
+msgid "Nessun Layout Stampa definito per questo Registro."
+msgstr "Nessun Layout Stampa definito per questo Registro."
 
 #. module: account_vat_registries_report_webkit
-#: field:account.tax,base_tax_ids:0
-msgid "Base Taxes"
-msgstr "Imposte dell'imponibile"
-
-#. module: account_vat_registries_report_webkit
-#: model:ir.module.module,description:account_vat_registries_report_webkit.module_meta_information
-msgid ""
-"Accounting reports for Italian localization - VAT Registries\n"
-"http://wiki.openerp-italia.org/doku.php/moduli/l10n_it_tax_journal"
-msgstr ""
-"Accounting reports for Italian localization - VAT Registries\n"
-"http://wiki.openerp-italia.org/doku.php/moduli/l10n_it_tax_journal"
-
-#. module: account_vat_registries_report_webkit
-#: view:wizard.registro.iva:0
-msgid "Tax Journal"
-msgstr "Registro IVA"
-
-#. module: account_vat_registries_report_webkit
-#: field:wizard.registro.iva,date_to:0
-msgid "To date"
-msgstr "Alla data"
-
-#. module: account_vat_registries_report_webkit
-#: view:wizard.registro.iva:0
-#: field:wizard.registro.iva,journal_ids:0
-msgid "Journals"
-msgstr "Sezionali"
-
-#. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/invoice.py:42
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:92
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:149
 #, python-format
-msgid "The move %s has different partner account type"
-msgstr "La registrazione %s ha dei tipi di conto legati a partner incongruenti"
+msgid "No documents"
+msgstr "Nessun documento"
 
 #. module: account_vat_registries_report_webkit
-#: sql_constraint:account.tax:0
-msgid "The tax name must be unique!"
-msgstr "Il nome dell'imposta deve essere unico"
-
-#. module: account_vat_registries_report_webkit
-#: help:wizard.registro.iva,journal_ids:0
-msgid "Select journals you want retrieve documents from"
-msgstr "Selezionare i sezionali da cui si vuole ottenere i documenti"
-
-#. module: account_vat_registries_report_webkit
-#: selection:wizard.registro.iva,type:0
-msgid "Corrispettivi"
-msgstr "Corrispettivi"
-
-#. module: account_vat_registries_report_webkit
-#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:96
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:88
 #, python-format
 msgid "No documents found in the current selection"
 msgstr "Nessun documento trovato per la selezione corrente"
 
 #. module: account_vat_registries_report_webkit
-#: model:ir.module.module,shortdesc:account_vat_registries_report_webkit.module_meta_information
-msgid "Italian Localisation - VAT Registries"
-msgstr "Localizzazione Italiana - Registri IVA"
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:44
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:47
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:54
+#, python-format
+msgid "Operation Failed !"
+msgstr "Operazione fallita !"
 
 #. module: account_vat_registries_report_webkit
-#: model:ir.ui.menu,name:account_vat_registries_report_webkit.menu_registro_iva
-msgid "VAT Registries"
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:169
+#, python-format
+msgid "Operation completed"
+msgstr "Operazione completata"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.post.reset:0
+msgid "Operation completed successfully."
+msgstr "Operazione completata con successo."
+
+#. module: account_vat_registries_report_webkit
+#: field:wizard.vat.registry,padding:0
+msgid "Padding"
+msgstr "Cifre di riempimento"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/report/vat_registry.py:268
+#, python-format
+msgid "Pagina"
+msgstr "Pagina"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.vat.registry:0
+#: field:wizard.vat.registry,period_ids:0
+msgid "Periodi"
+msgstr "Periodi"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/wizard/reset_protocol_numbers.py:178
+#: view:wizard.post.reset:0
+#, python-format
+msgid "Post Reset"
+msgstr "Post Reset"
+
+#. module: account_vat_registries_report_webkit
+#: model:ir.actions.act_window,name:account_vat_registries_report_webkit.action_reset_registry
+#: model:ir.actions.act_window,name:account_vat_registries_report_webkit.action_vat_registry
+#: model:ir.ui.menu,name:account_vat_registries_report_webkit.menu_vat_registry
+msgid "Registri IVA"
 msgstr "Registri IVA"
 
 #. module: account_vat_registries_report_webkit
-#: field:account.tax,exclude_from_registries:0
-msgid "Exclude from VAT registries"
-msgstr "Escludi dai registri IVA"
+#: field:wizard.vat.registry,iva_registry_id:0
+msgid "Registro"
+msgstr "Registro"
 
 #. module: account_vat_registries_report_webkit
-#: selection:wizard.registro.iva,type:0
-msgid "Customer Invoices"
-msgstr "Fatture emesse"
+#: code:addons/account_vat_registries_report_webkit/report/vat_registry.py:249
+#, python-format
+msgid "Registro I.V.A."
+msgstr "Registro I.V.A."
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/report/vat_registry.py:241
+#: view:wizard.reset.protocol.numbers:0
+#: view:wizard.vat.registry:0
+#, python-format
+msgid "Registro IVA"
+msgstr "Registro IVA"
 
 #. module: account_vat_registries_report_webkit
 #: model:ir.actions.report.xml,name:account_vat_registries_report_webkit.registro_iva_corrispettivi_report_id
-msgid "Corrispettivi VAT Registry"
+msgid "Registro IVA Corrispettivi"
 msgstr "Registro IVA Corrispettivi"
 
 #. module: account_vat_registries_report_webkit
-#: field:wizard.registro.iva,date_from:0
-msgid "From date"
-msgstr "Dalla data"
+#: model:ir.actions.report.xml,name:account_vat_registries_report_webkit.registro_iva_vendite_report_id
+msgid "Registro IVA Fatture Clienti"
+msgstr "Registro IVA Fatture Clienti"
 
 #. module: account_vat_registries_report_webkit
-#: view:wizard.registro.iva:0
-msgid "Cancel"
-msgstr "Annulla"
+#: model:ir.actions.report.xml,name:account_vat_registries_report_webkit.registro_iva_acquisti_report_id
+msgid "Registro IVA Fatture Fornitori"
+msgstr "Registro IVA Fatture Fornitori"
 
 #. module: account_vat_registries_report_webkit
-#: field:wizard.registro.iva,message:0
-msgid "Message"
-msgstr "Messaggio"
+#: model:ir.ui.menu,name:account_vat_registries_report_webkit.menu_reset_protocol_numbers
+#: model:res.groups,name:account_vat_registries_report_webkit.account_reset_protocol_numbers_group_isa
+msgid "Reset Protocol Numbers"
+msgstr "Resetta numeri di protocollo"
 
 #. module: account_vat_registries_report_webkit
-#: model:ir.model,name:account_vat_registries_report_webkit.model_account_tax
-msgid "account.tax"
-msgstr "account.tax"
+#: field:wizard.vat.registry,tax_sign:0
+msgid "Segno Importi Tasse"
+msgstr "Segno Importi Tasse"
+
+#. module: account_vat_registries_report_webkit
+#: help:wizard.vat.registry,period_ids:0
+msgid "Select periods you want retrieve documents from"
+msgstr "Seleziona i periodi da cui vuoi recuperare i documenti"
+
+#. module: account_vat_registries_report_webkit
+#: field:account.journal.fiscalyear.related,iva_registry_id:0
+#: field:wizard.reset.protocol.numbers,journal_id:0
+msgid "Sezionale di riferimento"
+msgstr "Sezionale di riferimento"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.vat.registry:0
+msgid "Stampa"
+msgstr "Stampa"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.vat.registry:0
+msgid "Stampa Definitiva"
+msgstr "Stampa Definitiva"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:231
+#, python-format
+msgid "This sequence is not allowed because it contains a prefix"
+msgstr "Questa sequence non è consentita poiché contiene un prefisso"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:239
+#, python-format
+msgid "This sequence is not allowed because it contains a suffix"
+msgstr "Questa sequence non è consentita poiché contiene un suffisso"
+
+#. module: account_vat_registries_report_webkit
+#: field:wizard.vat.registry,fiscal_page_base:0
+msgid "Ultima Pagina Stampata"
+msgstr "Ultima Pagina Stampata"
+
+#. module: account_vat_registries_report_webkit
+#: help:wizard.vat.registry,tax_sign:0
+msgid "Use -1 you have negative tax amounts and you want to print them as positive"
+msgstr "Use -1 you have negative tax amounts and you want to print them as positive"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:230
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:238
+#, python-format
+msgid "Warning!"
+msgstr "Attenzione!"
+
+#. module: account_vat_registries_report_webkit
+#: model:ir.model,name:account_vat_registries_report_webkit.model_wizard_post_reset
+msgid "Wizard Confirm Reset Protocol Numbers"
+msgstr "Wizard Conferma Reset dei numeri di protocollo"
+
+#. module: account_vat_registries_report_webkit
+#: code:addons/account_vat_registries_report_webkit/wizard/print_registro_iva.py:145
+#, python-format
+msgid "You can not print a VAT register of the current period!"
+msgstr "Non puoi stampare un registro IVA riferito al periodo in corso!"
+
+#. module: account_vat_registries_report_webkit
+#: model:ir.model,name:account_vat_registries_report_webkit.model_account_journal_fiscalyear_related
+msgid "account.journal.fiscalyear.related"
+msgstr "account.journal.fiscalyear.related"
+
+#. module: account_vat_registries_report_webkit
+#: view:wizard.reset.protocol.numbers:0
+#: view:wizard.vat.registry:0
+msgid "or"
+msgstr "o"
+
+#. module: account_vat_registries_report_webkit
+#: model:ir.model,name:account_vat_registries_report_webkit.model_wizard_reset_protocol_numbers
+msgid "wizard.reset.protocol.numbers"
+msgstr "wizard.reset.protocol.numbers"
+
+#. module: account_vat_registries_report_webkit
+#: model:ir.model,name:account_vat_registries_report_webkit.model_wizard_vat_registry
+msgid "wizard.vat.registry"
+msgstr "wizard.vat.registry"
 

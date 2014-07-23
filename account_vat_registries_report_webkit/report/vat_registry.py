@@ -132,6 +132,12 @@ class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
     def _get_padding(self):
         padding = self.localcontext['data']['padding']
         return self.localcontext['data']['padding']
+    
+    def _get_company_id(self):
+        tmp = self.localcontext
+        temp = self.localcontext['data']
+        company = self.localcontext['data']['company_id']
+        return self.localcontext['data']['company_id']
                 
     def _get_tax_codes_totals(self):
         parent_codes = {}
@@ -225,7 +231,7 @@ class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
 
     def __init__(self, cr, uid, name, context):
         super(Parser, self).__init__(cr, uid, name, context)
-        self.company = self.pool.get('res.users').browse(self.cr, uid, uid, context=context).company_id
+        self.company = self.pool.get('wizard.vat.registry').browse(self.cr, self.uid, self.parents['active_id']).company_id
         self.localcontext.update({
             'tax_lines': self._get_tax_lines,
             'tax_codes': self._get_tax_codes,
@@ -242,10 +248,11 @@ class Parser(report_sxw.rml_parse, CommonPartnersReportHeaderWebkit):
             'get_moves': self._get_moves,
             'compute_protocol_number':self._compute_protocol_number,
             'get_padding':self._get_padding,
+            'get_company_id':self._get_company_id,
         })
 
     def set_context(self, objects, data, ids, report_type=None):
-
+        
         header_report_name = ' - '.join((_('Registro I.V.A.'), self.company.name, self.company.currency_id.name))
 
         footer_date_time = self.formatLang(str(datetime.today()), date_time=True)

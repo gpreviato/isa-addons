@@ -48,6 +48,9 @@ numero di protocollo, il registro iva è ordinato in base a questa numerazione.
               'vat_protocol/vat_registries_view.xml',
               'vat_protocol/account_journal_view.xml',
              ],
+    'conflicts': [
+        'l10n_it_vat_registries',
+    ],
     "demo" : [],
     "active": False,
     "installable": True
