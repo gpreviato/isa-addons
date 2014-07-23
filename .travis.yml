@@ -13,6 +13,7 @@ before_install:
   - git clone https://github.com/isasrl/isa-addons $HOME/isa-addons -b master
   - git clone https://github.com/OCA/account-financial-reporting ${HOME}/account-financial-reporting
   - git clone https://github.com/OCA/l10n-italy ${HOME}/l10n-italy -b 7.0
+  - git clone https://github.com/OCA/account-payment ${HOME}/account-payment -b 7.0
 
 install:
   - git clone https://github.com/OCA/maintainer-quality-tools.git $HOME/maintainer-quality-tools
@@ -22,7 +23,7 @@ install:
 
 script:
   - travis_run_flake8
-  - travis_run_tests ${VERSION} ${HOME}/account-financial-reporting ${HOME}/l10n-italy
+  - travis_run_tests ${VERSION} ${HOME}/account-financial-reporting ${HOME}/l10n-italy ${HOME}/account-payment
 
 after_success:
   coveralls
