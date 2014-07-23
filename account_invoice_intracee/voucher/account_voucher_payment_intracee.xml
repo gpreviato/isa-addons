@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Voucher -->
+        <record id="view_payments_intracee_isa" model="ir.ui.view">
+            <field name="name">view.payments.intracee.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/footer/button[@name='button_proforma_voucher']" position="replace">           
+		            <button name="button_proforma_voucher" string="Pay" class="oe_highlight" type="object" 
+			                groups="account_invoice_intracee.account_invoice_intracee_group_isa"/>
+                </xpath>
+            </field>
+        </record>
+
+     </data>
+</openerp>
